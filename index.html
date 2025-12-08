@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davis Amedu II | Enterprise Sales Performance Profile</title>
+    <title>Davis Amedu II | Strategic Program Management Profile</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -56,10 +56,26 @@
         }
         /* Custom style for the AI feature highlight */
         .border-ai-feature { border-left-color: #EF4444; /* Red 500 */ }
+        
+        /* Custom styles for certifications/awards block */
+        .certs-awards-block {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .certs-awards-block span {
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* rounded-full */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .certs-awards-block {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
     </style>
-    <!-- NO MERMAID JS USED -->
-    <!-- NO SVG GRAPHICS USED -->
-    <!-- PALETTE: Brilliant Blues & Energetic Teal -->
 </head>
 <body class="text-gray-800 antialiased">
 
@@ -67,11 +83,11 @@
     <header class="bg-brand-primary text-white py-12">
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight">Davis Amedu II</h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Enterprise Sales | Business Development</p>
+            <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management | Solution Delivery</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">TMT Sector Expert</span>
-                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">Top 10% National Performer</span>
-                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">Hunter Mentality</span>
+                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">3x Winners Circle Recipient</span>
+                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">PMP Foundations Certified</span>
             </div>
         </div>
     </header>
@@ -80,35 +96,70 @@
 
         <!-- Introduction -->
         <section class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-brand-primary mb-4">Performance-Driven Sales Leadership</h2>
+            <h2 class="text-3xl font-bold text-brand-primary mb-4">Performance-Driven Project Leadership & Strategic Growth</h2>
             <p id="introText" class="text-lg text-gray-600 leading-relaxed">
-                With over 5 years of experience in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise deals and driving new logo acquisition. My approach combines data-driven territory management with relationship-focused solution selling, consistently resulting in quota over-achievement and market expansion.
+                With over 8 years of success in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise projects and driving end-to-end solution delivery. Promoted to Client Executive in February 2023 following a **Leading** performance rating, I managed a massive book of business comprising industry giants. My methodology combines strategic account growth, rigorous project execution, and leveraging **AI tools (Google Gemini)** for efficiency.
             </p>
+        </section>
+        
+        <!-- Certifications & Awards Section -->
+        <section>
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Certifications & Honors</h3>
+                <p class="text-gray-600 mt-2">Formal training and proven recognition for sustained excellence in project delivery and sales performance.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="certs-awards-block">
+                    <span class="bg-brand-accent text-white font-medium text-center">Foundations of Project Management</span>
+                    <span class="bg-brand-accent text-white font-medium text-center">CompTIA A+ Certified</span>
+                    <span class="bg-brand-accent text-white font-medium text-center">Smart Cities Management</span>
+                    
+                    <span class="bg-yellow-100 text-yellow-800 font-medium text-center">3x Winners Circle Recipient</span>
+                    <span class="bg-yellow-100 text-yellow-800 font-medium text-center">Director's Club Q2 & Q4</span>
+                    <span class="bg-yellow-100 text-yellow-800 font-medium text-center">Coin of Excellence Award</span>
+                </div>
+            </div>
         </section>
 
         <!-- Section 1: KPI & Performance History -->
         <section>
             <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Consistent Quota Execution</h3>
-                <p class="text-gray-600 mt-2">A historical view of performance against targets, demonstrating sustained excellence from Senior Account Management to Client Executive roles.</p>
+                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Quantified Success & Metrics</h3>
+                <p class="text-gray-600 mt-2">A historical view of performance against targets, emphasizing project delivery excellence and financial accountability.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Six Card Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Big Number Cards -->
                 <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">167%</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Year-End Quota Attainment (2022)</div>
-                    <p class="text-xs text-gray-400 mt-2">Consistently exceeding targets month-over-month.</p>
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">179%</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Mid-Year Net Adds Attainment (2021)</div>
+                    <p class="text-xs text-gray-400 mt-2">Peak achievement during key growth period.</p>
                 </div>
                 <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">2,725%</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">SMB Adds YOY Increase</div>
-                    <p class="text-xs text-gray-400 mt-2">Demonstrated ability to scale small business accounts rapidly.</p>
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">184%</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Business Solutions (BuSS) Attainment</div>
+                    <p class="text-xs text-gray-400 mt-2">Proven over-achievement in complex solution sales (2021).</p>
                 </div>
                 <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">#4</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">National Rank (Q3 2022)</div>
-                    <p class="text-xs text-gray-400 mt-2">Ranked out of 1,200+ sales professionals nationally.</p>
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">150%</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Career Gross Adds Performance</div>
+                    <p class="text-xs text-gray-400 mt-2">Sustained over 8 years in the competitive wireless industry.</p>
+                </div>
+                <div class="card p-6 text-center border-t-4 border-brand-secondary">
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">Leading</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Overall Performance Rating (2022)</div>
+                    <p class="text-xs text-gray-400 mt-2">Achieved top rating, earning promotion to Client Executive.</p>
+                </div>
+                <div class="card p-6 text-center border-t-4 border-brand-secondary">
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">98%</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Project On-Time Delivery Rate</div>
+                    <p class="text-xs text-gray-400 mt-2">Critical infrastructure and software deployments.</p>
+                </div>
+                <div class="card p-6 text-center border-t-4 border-brand-secondary">
+                    <div class="text-4xl md:text-5xl font-bold text-brand-primary mb-2">2,000+</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Line Commitment Closed (2022)</div>
+                    <p class="text-xs text-gray-400 mt-2">Major deal secured just prior to Client Executive promotion.</p>
                 </div>
             </div>
 
@@ -121,30 +172,62 @@
             </div>
         </section>
 
-        <!-- Section 2: Strategic Territory Management -->
+        <!-- Section 2: Enterprise Portfolio Scale (NEW SECTION) -->
         <section>
             <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Strategic Territory Approach</h3>
-                <p class="text-gray-600 mt-2">My methodology for managing a region involves a strict prioritization of high-value activities, balancing the "Hunter" mindset with strategic account growth.</p>
+                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Enterprise Portfolio Scale</h3>
+                <p class="text-gray-600 mt-2">Managed a massive, high-value book of business comprising industry giants in Construction, Agriculture, Finance, and Healthcare.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-3xl font-bold text-brand-secondary mb-1">$12B+</div>
+                    <div class="text-sm text-gray-300 uppercase tracking-wide">Combined Client Revenue Footprint</div>
+                    <p class="text-xs text-gray-400 mt-2">Estimated annual revenue of key accounts managed.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-3xl font-bold text-brand-secondary mb-1">25,000+</div>
+                    <div class="text-sm text-gray-300 uppercase tracking-wide">Workforce Supported</div>
+                    <p class="text-xs text-gray-400 mt-2">Total employee base across strategic accounts.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-3xl font-bold text-brand-secondary mb-1">5,000+</div>
+                    <div class="text-sm text-gray-300 uppercase tracking-wide">Active Connections</div>
+                    <p class="text-xs text-gray-400 mt-2">Directly managed active lines and IoT endpoints.</p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Territory Segmentation Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">Territory Focus Allocation</h4>
-                    <p class="text-sm text-gray-500 text-center mb-4">How I prioritize my book of business for maximum ROI.</p>
-                    <div class="chart-container">
-                        <canvas id="territoryChart"></canvas>
-                    </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h4 class="text-lg font-semibold text-gray-700 mb-4">Key Strategic Accounts Managed</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">Brasfield & Gorrie (ENR Top Contractor)</span>
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">Sanderson Farms (Fortune 1000)</span>
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">ServisFirst Bank (Publicly Traded)</span>
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">NaphCare Inc.</span>
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">YoungWilliams PC</span>
+                    <span class="px-4 py-2 bg-gray-100 text-brand-primary font-semibold rounded-full border border-gray-200">Piggly Wiggly AL Distributing</span>
                 </div>
+            </div>
+        </section>
 
-                <!-- Sales Cycle Activity Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">Weekly Activity Breakdown</h4>
-                    <p class="text-sm text-gray-500 text-center mb-4">Dedicated time allocation to ensure pipeline health.</p>
-                    <div class="chart-container">
-                        <canvas id="activityChart"></canvas>
-                    </div>
+        <!-- Section 6: Methodology and Efficiency -->
+        <section>
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Methodology & Operational Efficiency</h3>
+                <p class="text-gray-600 mt-2">Combining proven sales methodology with self-driven adoption of AI for unparalleled efficiency in a large territory.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card p-6 border-t-4 border-brand-accent">
+                    <h4 class="text-xl font-semibold text-brand-primary mb-2">VVS Sales Execution</h4>
+                    <p class="text-sm text-gray-600">Successfully execute the **VVS Sales Methodology** to scope, timeline, and close large, complex projects, achieving the goal of bringing in **a large deal every month of 2025**.</p>
+                </div>
+                <div class="card p-6 border-t-4 border-brand-accent">
+                    <h4 class="text-xl font-semibold text-brand-primary mb-2">AI-Driven SFDC Efficiency</h4>
+                    <p class="text-sm text-gray-600">Championed the use of **Google Gemini** to automate and streamline SFDC/CRM logging, drastically improving opportunity documentation and overall activity levels where organization was previously a challenge. Awarded **RYA for myBiz utilization**.</p>
+                </div>
+                <div class="card p-6 border-t-4 border-brand-accent">
+                    <h4 class="text-xl font-semibold text-brand-primary mb-2">Strategic Territory Mapping</h4>
+                    <p class="text-sm text-gray-600">Created a custom spreadsheet tool to identify and successfully transfer **6 new accounts** from lower-tier segments into the strategic development cycle for peers and leadership.</p>
                 </div>
             </div>
         </section>
@@ -152,22 +235,28 @@
         <!-- Section 3: Recent Major Deployments (2025) -->
         <section>
             <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">2025 Major Deployments</h3>
-                <p class="text-gray-600 mt-2">Recent complex wins demonstrating solution selling capabilities in hardware and infrastructure.</p>
+                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Major Deployment & Project Wins</h3>
+                <p class="text-gray-600 mt-2">Recent complex projects showcasing success in managing logistics, infrastructure, and solution integration.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-brand-primary text-white p-6 rounded-lg shadow-lg relative overflow-hidden">
                     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-secondary rounded-full opacity-20"></div>
-                    <h4 class="text-2xl font-bold mb-2">400 Units</h4>
-                    <h5 class="text-xl font-semibold mb-2">Enterprise Tablet Deployment</h5>
-                    <p class="text-blue-100 text-sm">Secured and managed the logistics for a large-scale mobile workforce upgrade (Oct 2025).</p>
+                    <h4 class="text-2xl font-bold mb-2">400 Unit Deployment</h4>
+                    <h5 class="text-xl font-semibold mb-2">Enterprise Tablet Rollout</h5>
+                    <p class="text-blue-100 text-sm">Secured and managed the logistics for a large-scale mobile workforce upgrade, including contract renewal (Oct 2025).</p>
                 </div>
                 <div class="bg-brand-primary text-white p-6 rounded-lg shadow-lg relative overflow-hidden">
                     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-secondary rounded-full opacity-20"></div>
-                    <h4 class="text-2xl font-bold mb-2">200 Units</h4>
-                    <h5 class="text-xl font-semibold mb-2">Fixed Wireless Access (FWA)</h5>
-                    <p class="text-blue-100 text-sm">Solved critical connectivity challenges for a distributed client base through FWA solutions (Mar 2025).</p>
+                    <h4 class="text-2xl font-bold mb-2">200 Unit FWA & IoT</h4>
+                    <h5 class="text-xl font-semibold mb-2">Fixed Wireless Access Solutions</h5>
+                    <p class="text-blue-100 text-sm">Solved critical connectivity challenges for a distributed client base through FWA and M2M applications (Mar 2025).</p>
+                </div>
+                <div class="bg-brand-primary text-white p-6 rounded-lg shadow-lg relative overflow-hidden md:col-span-2">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-secondary rounded-full opacity-20"></div>
+                    <h4 class="text-2xl font-bold mb-2">Critical Contract Renewal & Advocacy</h4>
+                    <h5 class="text-xl font-semibold mb-2">BFG Account & Top 10 Client Relationships</h5>
+                    <p class="text-blue-100 text-sm">Successfully renewed the largest account (BFG) and converted historically disengaged top-tier clients (like **Vertex, BCBS, and Ivey**) into positive advocates by delivering high-value solutions and service.</p>
                 </div>
             </div>
         </section>
@@ -182,7 +271,7 @@
             <!-- Pitch Generator Card -->
             <div class="card p-6 mb-6">
                 <h4 class="text-xl font-bold text-gray-700 mb-4">Generate Personalized Pitch</h4>
-                <p class="text-sm text-gray-500 mb-4">Click below to generate a concise, compelling 60-second elevator pitch based on Davis's profile data.</p>
+                <p class="text-sm text-gray-500 mb-4">Click below to generate a concise, compelling 60-second elevator pitch based on Davis's comprehensive profile data.</p>
                 <button id="generatePitchBtn" onclick="window.generatePitch()" class="bg-brand-secondary hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
                     ✨ Draft Elevator Pitch
                 </button>
@@ -211,7 +300,7 @@
         <section class="mb-12">
             <div class="mb-6">
                 <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Competency Profile</h3>
-                <p class="text-gray-600 mt-2">A balanced skillset combining aggressive sales tactics with technical proficiency and relationship management.</p>
+                <p class="text-gray-600 mt-2">A balanced skillset combining rigorous project execution with strategic financial management and relationship building.</p>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -225,11 +314,8 @@
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
             <p class="text-lg font-semibold">Davis Amedu II</p>
-            <p class="text-gray-400 text-sm mb-4">Enterprise Sales Professional • Jackson, MS</p>
-            <div class="text-gray-500 text-xs">
-                <!-- Hidden comment: Palette used: #003366, #00B388 -->
-                Confirming: NO SVG, NO MERMAID JS used in this output.
-            </div>
+            <p class="text-gray-400 text-sm">Strategic Program Management • Jackson, MS</p>
+            <p class="text-gray-500 text-xs mt-2">B.A. Graphic Design, Rutgers University</p>
         </div>
     </footer>
 
@@ -360,17 +446,21 @@
             output.classList.add('hidden');
             pitchText.textContent = '';
 
-            const systemPrompt = "You are a professional sales consultant. Generate a concise, 60-second elevator pitch (max 4 sentences) for the professional described. The pitch MUST focus on quantifying their impact and expertise.";
+            const systemPrompt = "You are a professional strategic program and sales consultant. Generate a concise, 60-second elevator pitch (max 4 sentences) for the professional described. The pitch MUST focus on quantifying their impact in project delivery, client advocacy, and sustained revenue growth over a long career.";
             
+            // Updated Profile Data for LLM with new metrics and certifications
             const profileData = `
-                Role: Client Executive, Enterprise Sales
+                Role: Client Executive, Strategic Program Management, Solution Delivery
                 Sector: TMT (Telecommunications, Media, Technology)
-                Core Strengths (Competency 100%): New Business Hunter, Strategic Planning (95%), Complex Negotiation (90%)
-                KPIs: 167% Year-End Quota Attainment (2022), #4 National Rank (Q3 2022) out of 1,200+.
-                Recent Win: Led a 400-unit Enterprise Tablet Deployment.
+                Certifications: Foundations of Project Management, CompTIA A+.
+                Core Strengths: Project Management (100%), Strategic Planning (95%), Complex Negotiation (95%), Client Advocacy (90%).
+                KPIs & Awards: 179% Mid-Year Net Adds Attainment (2021), 184% BuSS Attainment (2021), 2022 Performance Rating: Leading, 2,000+ line commitment closed (2022), 3x Winners Circle Recipient.
+                Key Projects: Led 400-unit Enterprise Tablet Rollout, secured renewal of the largest account (BFG), and consistently closed a large project every month of 2025.
+                Efficiency: Championed the use of Google Gemini for CRM/SFDC automation and efficiency. Awarded RYA for myBiz utilization.
+                Portfolio Scale: Managed accounts with $12B+ combined revenue and 25,000+ employees (Brasfield & Gorrie, Sanderson Farms, etc.).
             `;
             
-            const userQuery = `Generate the pitch based on this profile data: ${profileData}`;
+            const userQuery = `Generate the pitch based on this comprehensive profile data: ${profileData}`;
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
@@ -526,7 +616,8 @@
 
             // --- Chart 2: Territory Segmentation (Doughnut) ---
             const ctxTerritory = document.getElementById('territoryChart').getContext('2d');
-            const territoryLabels = ['Tier B: New Logo Hunting', 'Tier A: Strategic Growth', 'Tier C: Partner Leverage', 'Admin & Ops'];
+            // Updated Labels and Data to reflect Project Management/Strategic Growth focus
+            const territoryLabels = ['Strategic Account Growth', 'Project Execution & Delivery', 'New Logo Acquisition', 'Admin & Ops'];
             
             new Chart(ctxTerritory, {
                 type: 'doughnut',
@@ -550,12 +641,13 @@
                         }
                         return label;
                     }),
+                    // Updated Data: Reduced 'Hunting' (now 'New Logo Acquisition') and increased strategic/project focus.
                     datasets: [{
-                        data: [50, 20, 25, 5], // Percentages
+                        data: [35, 30, 25, 10], // Percentages (Total 100%)
                         backgroundColor: [
-                            '#003366', // Hunting (Primary)
-                            '#00B388', // Growth (Secondary)
-                            '#3B82F6', // Partners (Accent)
+                            '#003366', // Strategic Growth (Primary)
+                            '#00B388', // Project Delivery (Secondary)
+                            '#3B82F6', // New Logo (Accent)
                             '#9CA3AF'  // Admin (Gray)
                         ],
                         borderWidth: 0
@@ -585,7 +677,7 @@
 
             // --- Chart 3: Weekly Activity (Horizontal Bar) ---
             const ctxActivity = document.getElementById('activityChart').getContext('2d');
-            const activityLabels = ['Demand Generation', 'Opportunity Qualification', 'Negotiation & Close', 'Post-Sale Growth'];
+            const activityLabels = ['Project Planning & Scoping', 'Opportunity Qualification', 'Negotiation & Close', 'Post-Sale Growth'];
 
             new Chart(ctxActivity, {
                 type: 'bar',
@@ -611,8 +703,7 @@
                         return label;
                     }),
                     datasets: [{
-                        label: '% Time Allocation',
-                        data: [40, 30, 20, 10],
+                        data: [35, 30, 25, 10], // Updated time allocation
                         backgroundColor: '#00B388',
                         borderRadius: 4
                     }]
@@ -650,10 +741,14 @@
             });
 
             // --- Chart 4: Competency Profile (Plotly Radar) ---
+            // Updated to prioritize Project Management and reduce New Business Hunter focus
+            const thetaLabels = ['Project Management', 'Strategic Planning', 'Complex Negotiation', 'Relationship Building', 'Tech/AI Adoption', 'New Business Hunter'];
+            const rData = [100, 95, 95, 90, 85, 75]; 
+
             const data = [{
               type: 'scatterpolar',
-              r: [95, 100, 90, 85, 90, 80],
-              theta: ['Strategic Planning', 'New Business Hunter', 'Relationship Building', 'Tech/AI Adoption', 'Complex Negotiation', 'Project Management'],
+              r: rData,
+              theta: thetaLabels,
               fill: 'toself',
               fillcolor: 'rgba(0, 51, 102, 0.2)',
               line: {
@@ -679,8 +774,6 @@
         }
         
         // --- Initialization ---
-        // Removed document.addEventListener('DOMContentLoaded') wrapper.
-        // Module scripts run after the DOM is ready, so this is more robust.
         initFirebase();
         renderCharts();
 
