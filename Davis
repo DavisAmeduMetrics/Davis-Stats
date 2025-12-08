@@ -446,7 +446,11 @@
 
             } catch (error) {
                 console.error("TTS Error:", error);
-                alert("Failed to generate audio. Please check the console for details.");
+                // Updated: Display error message on the UI instead of using alert()
+                const errorMessage = "Failed to generate audio. Check the console for API details.";
+                audioContainer.classList.remove('hidden');
+                audioContainer.innerHTML = `<p class="text-red-600">${errorMessage}</p>`;
+                console.error("TTS Audio Generation Failed:", error);
             } finally {
                 loading.classList.add('hidden');
                 btn.disabled = false;
@@ -675,10 +679,10 @@
         }
         
         // --- Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initFirebase();
-            renderCharts();
-        });
+        // Removed document.addEventListener('DOMContentLoaded') wrapper.
+        // Module scripts run after the DOM is ready, so this is more robust.
+        initFirebase();
+        renderCharts();
 
     </script>
 </body>
