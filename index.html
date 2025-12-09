@@ -70,17 +70,22 @@
         .banner-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
         .graphics-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { .graphics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* Custom Graphic Styles */
+        .heatmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+        .heatmap-cell { padding: 1rem; border-radius: 0.25rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .flow-step { position: relative; padding-left: 1.5rem; border-left: 2px solid #30363d; padding-bottom: 1.5rem; }
+        .flow-step:last-child { border-left: none; padding-bottom: 0; }
+        .flow-dot { position: absolute; left: -5px; top: 0; width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-fg); }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- === CUSTOM BANNER SECTION === -->
-    <!-- Replaced with a high-quality abstract tech banner fitting the Midnight theme -->
     <div class="banner-container">
         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" 
              alt="Technology Banner" 
              class="banner-image">
-        <!-- Gradient overlay for better text readability -->
         <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent"></div>
     </div>
 
@@ -143,7 +148,7 @@
                 </div>
                 <div class="card p-6 text-center border-t-accent">
                     <div class="text-4xl md:text-5xl font-bold text-white mb-2">184%</div>
-                    <div class="text-xs font-bold text-muted-theme uppercase">SaaS Attainment (2021)</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">BuSS Attainment (2021)</div>
                 </div>
                 <div class="card p-6 text-center border-t-accent">
                     <div class="text-4xl md:text-5xl font-bold text-white mb-2">150%</div>
@@ -268,7 +273,7 @@
             </div>
         </section>
 
-        <!-- === VISUAL PORTFOLIO (GRAPHICS) === -->
+        <!-- === CODED VISUAL PORTFOLIO (NEW) === -->
         <section>
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
@@ -277,28 +282,58 @@
             <p class="text-gray-400 mb-6">A collection of strategic frameworks, territory maps, and project visuals developed to drive growth.</p>
             
             <div class="graphics-grid">
-                <!-- Graphic Card 1 -->
+                <!-- Graphic 1: Territory Heatmap (CODED) -->
                 <div class="card p-4">
-                    <div class="h-48 bg-gray-800 rounded mb-4 flex items-center justify-center overflow-hidden border border-gray-700 relative group cursor-pointer">
-                        <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-blue-900/10 transition"></div>
-                        <span class="text-gray-500 text-sm font-semibold z-10 border border-gray-600 px-3 py-1 rounded bg-[#0d1117]">Territory Map</span>
-                        <!-- Replace src below with your uploaded image -->
-                        <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=1931&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                    <div class="bg-[#0d1117] rounded mb-4 p-4 border border-gray-700">
+                        <div class="heatmap-grid">
+                            <div class="heatmap-cell bg-green-900/40 text-green-300">
+                                <div class="text-xs text-gray-400">Jackson, MS</div>
+                                <div class="font-bold text-sm">High Penetration</div>
+                            </div>
+                            <div class="heatmap-cell bg-blue-900/40 text-blue-300">
+                                <div class="text-xs text-gray-400">Birmingham, AL</div>
+                                <div class="font-bold text-sm">Growth Zone</div>
+                            </div>
+                            <div class="heatmap-cell bg-yellow-900/40 text-yellow-300">
+                                <div class="text-xs text-gray-400">Rural MS</div>
+                                <div class="font-bold text-sm">New Opportunity</div>
+                            </div>
+                            <div class="heatmap-cell bg-gray-800 text-gray-400">
+                                <div class="text-xs">Expansion Area</div>
+                                <div class="font-bold text-sm">Targeting</div>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-1">Territory Expansion Map</h4>
-                    <p class="text-xs text-gray-400">Visual breakdown of the Mississippi expansion strategy.</p>
+                    <h4 class="text-lg font-bold text-white mb-1">Territory Expansion Heatmap</h4>
+                    <p class="text-xs text-gray-400">Strategic breakdown of key growth zones across Mississippi and Alabama.</p>
                 </div>
 
-                <!-- Graphic Card 2 -->
+                <!-- Graphic 2: Deployment Workflow (CODED) -->
                 <div class="card p-4">
-                    <div class="h-48 bg-gray-800 rounded mb-4 flex items-center justify-center overflow-hidden border border-gray-700 relative group cursor-pointer">
-                        <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-blue-900/10 transition"></div>
-                        <span class="text-gray-500 text-sm font-semibold z-10 border border-gray-600 px-3 py-1 rounded bg-[#0d1117]">Workflow Diagram</span>
-                        <!-- Replace src below with your uploaded image -->
-                        <img src="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?q=80&w=2069&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                    <div class="bg-[#0d1117] rounded mb-4 p-6 border border-gray-700 flex flex-col justify-center h-48">
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">1. Audit & Analysis</h5>
+                            <p class="text-xs text-gray-500">Site surveys & connectivity assessment.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">2. Staging & Config</h5>
+                            <p class="text-xs text-gray-500">Device prep & MDM enrollment.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">3. Rapid Deployment</h5>
+                            <p class="text-xs text-gray-500">Logistics coordination & rollout.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">4. Support & Renew</h5>
+                            <p class="text-xs text-gray-500">Post-install training & contract renewal.</p>
+                        </div>
                     </div>
                     <h4 class="text-lg font-bold text-white mb-1">Deployment Workflow</h4>
-                    <p class="text-xs text-gray-400">The 4-stage process used for large-scale rollouts.</p>
+                    <p class="text-xs text-gray-400">The 4-stage process used for the 400-unit tablet rollout.</p>
                 </div>
             </div>
         </section>
@@ -579,4 +614,3 @@
     </script>
 </body>
 </html>
-
