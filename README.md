@@ -3,324 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davis Amedu II | Enterprise Sales Performance Profile</title>
+    <title>Davis Amedu II | Strategic Program Management Profile</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F3F4F6; /* Light gray background */
-        }
-        
-        /* Vibrant Palette: Brilliant Blues & Electric Green */
-        .text-brand-primary { color: #003366; } /* Deep Navy */
-        .bg-brand-primary { background-color: #003366; }
-        .text-brand-secondary { color: #00B388; } /* Vibrant Teal */
-        .bg-brand-secondary { background-color: #00B388; }
-        .text-brand-accent { color: #3B82F6; } /* Bright Blue */
-        .bg-brand-accent { background-color: #3B82F6; }
-        
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+        :root {
+            /* Authentic GitHub Midnight (Dark Dimmed) Theme Palette */
+            --bg-canvas: #0d1117;          /* Deepest background */
+            --bg-canvas-subtle: #161b22;   /* Card/Panel background */
+            --bg-canvas-inset: #010409;    /* Header/Footer background */
+            --border-default: #30363d;     /* Subtle borders */
+            --fg-default: #c9d1d9;         /* Primary text (Off-white) */
+            --fg-muted: #8b949e;           /* Secondary text (Gray) */
+            --accent-fg: #58a6ff;          /* GitHub Blue */
+            --success-fg: #238636;         /* GitHub Green */
+            --success-border: #2ea043;     
+            --attention-fg: #d29922;       /* GitHub Gold */
+            --danger-fg: #da3633;          /* GitHub Red */
+            --done-fg: #a371f7;            /* GitHub Purple */
         }
 
-        /* Responsive height adjustments */
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-canvas); color: var(--fg-default); }
+        .text-accent { color: var(--accent-fg); }
+        .text-muted-theme { color: var(--fg-muted); }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto; height: 300px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+        /* Unified Card Style */
+        .card {
+            background-color: var(--bg-canvas-subtle);
+            border: 1px solid var(--border-default);
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); border-color: var(--accent-fg); }
+
+        /* Tags & Badges */
+        .tag { display: inline-block; padding: 0.125rem 0.5rem; font-size: 0.75rem; font-weight: 500; border-radius: 9999px; border: 1px solid; }
+        .tag-blue { background-color: rgba(56, 139, 253, 0.1); color: #58a6ff; border-color: rgba(56, 139, 253, 0.4); }
+        .tag-gold { background-color: rgba(210, 153, 34, 0.1); color: #e3b341; border-color: rgba(210, 153, 34, 0.4); }
+        .tag-gray { background-color: rgba(177, 186, 196, 0.1); color: #8b949e; border-color: #30363d; }
+
+        .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1rem; }
+        @media (min-width: 640px) { .certs-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* Buttons */
+        .btn-primary { background-color: var(--success-fg); border: 1px solid var(--success-border); color: #ffffff; transition: background-color 0.2s; cursor: pointer; }
+        .btn-primary:hover { background-color: #2ea043; }
+        .btn-danger { background-color: #21262d; border: 1px solid #30363d; color: var(--danger-fg); transition: all 0.2s; cursor: pointer; }
+        .btn-danger:hover { background-color: rgba(218, 54, 51, 0.1); border-color: var(--danger-fg); }
+        
+        /* Top Borders */
+        .border-t-accent { border-top: 4px solid var(--accent-fg); }
+        .border-t-success { border-top: 4px solid var(--success-fg); }
+        .border-t-purple { border-top: 4px solid var(--done-fg); }
+        
+        /* Banner & Graphics */
+        .banner-container { width: 100%; height: 280px; overflow: hidden; position: relative; background-color: var(--bg-canvas-inset); border-bottom: 1px solid var(--border-default); }
+        .banner-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .graphics-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 768px) { .graphics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* Custom Graphic Styles */
+        .heatmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+        .heatmap-cell { padding: 1rem; border-radius: 0.25rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .flow-step { position: relative; padding-left: 1.5rem; border-left: 2px solid #30363d; padding-bottom: 1.5rem; }
+        .flow-step:last-child { border-left: none; padding-bottom: 0; }
+        .flow-dot { position: absolute; left: -5px; top: 0; width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-fg); }
+
+        /* === ANIMATION STYLES === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-
-        .card {
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s;
+        /* Apply animation properties to all major content sections */
+        .animate-on-load {
+            opacity: 0; /* Start invisible */
+            animation: fadeInUp 0.7s ease-out forwards;
         }
-        .card:hover {
-            transform: translateY(-2px);
-        }
-        /* Custom style for the AI feature highlight */
-        .border-ai-feature { border-left-color: #EF4444; /* Red 500 */ }
     </style>
-    <!-- NO MERMAID JS USED -->
-    <!-- NO SVG GRAPHICS USED -->
-    <!-- PALETTE: Brilliant Blues & Energetic Teal -->
 </head>
-<body class="text-gray-800 antialiased">
+<body class="antialiased">
 
-    <!-- Header / Hero Section -->
-    <header class="bg-brand-primary text-white py-12">
+    <!-- === CUSTOM BANNER SECTION === -->
+    <div class="banner-container">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" 
+             onerror="this.onerror=null; this.src='https://placehold.co/2070x280/161b22/8b949e?text=Technology+Banner';"
+             alt="Technology Banner" 
+             class="banner-image">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Header -->
+    <header style="background-color: transparent;" class="border-b border-gray-800 pb-12 pt-0 relative -mt-20 z-10">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight">Davis Amedu II</h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Enterprise Sales | Business Development</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">TMT Sector Expert</span>
-                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">Top 10% National Performer</span>
-                <span class="bg-brand-secondary text-white px-4 py-1 rounded-full text-sm font-semibold">Hunter Mentality</span>
+            <!-- Profile Initials Circle -->
+            <div class="w-28 h-28 mx-auto bg-gray-800 rounded-full border-4 border-[#0d1117] shadow-2xl mb-6 flex items-center justify-center overflow-hidden relative z-20">
+                <span class="text-3xl text-gray-400 font-bold">DA</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">Davis Amedu II</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="tag tag-gray bg-[#0d1117]">TMT Sector Expert</span>
+                <span class="tag tag-gold bg-[#0d1117]">3x Winners Circle</span>
+                <span class="tag tag-gray bg-[#0d1117]">PMP Foundations</span>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 space-y-12">
 
-        <!-- Introduction -->
-        <section class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-brand-primary mb-4">Performance-Driven Sales Leadership</h2>
-            <p id="introText" class="text-lg text-gray-600 leading-relaxed">
-                With over 5 years of experience in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise deals and driving new logo acquisition. My approach combines data-driven territory management with relationship-focused solution selling, consistently resulting in quota over-achievement and market expansion.
+        <!-- Intro (Animation Delay 0.2s) -->
+        <section class="max-w-4xl mx-auto text-center animate-on-load" style="animation-delay: 0.2s;">
+            <h2 class="text-3xl font-bold text-accent mb-4">Performance-Driven Project Leadership</h2>
+            <p id="introText" class="text-lg text-muted-theme leading-relaxed">
+                With over 8 years of success in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise projects and driving end-to-end solution delivery. Promoted to Client Executive in February 2023 following a consistent <strong class="text-white">Leading</strong> performance rating (2018-2023), I managed a massive book of business comprising industry giants. My methodology combines strategic account growth, rigorous project execution, and leveraging <strong class="text-white">AI tools (Google Gemini)</strong> for efficiency.
             </p>
         </section>
-
-        <!-- Section 1: KPI & Performance History -->
-        <section>
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Consistent Quota Execution</h3>
-                <p class="text-gray-600 mt-2">A historical view of performance against targets, demonstrating sustained excellence from Senior Account Management to Client Executive roles.</p>
+        
+        <!-- Certs (Animation Delay 0.4s) -->
+        <section class="animate-on-load" style="animation-delay: 0.4s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Certifications & Honors</h3>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Big Number Cards -->
-                <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">167%</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Year-End Quota Attainment (2022)</div>
-                    <p class="text-xs text-gray-400 mt-2">Consistently exceeding targets month-over-month.</p>
-                </div>
-                <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">2,725%</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">SMB Adds YOY Increase</div>
-                    <p class="text-xs text-gray-400 mt-2">Demonstrated ability to scale small business accounts rapidly.</p>
-                </div>
-                <div class="card p-6 text-center border-t-4 border-brand-secondary">
-                    <div class="text-5xl font-bold text-brand-primary mb-2">#4</div>
-                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">National Rank (Q3 2022)</div>
-                    <p class="text-xs text-gray-400 mt-2">Ranked out of 1,200+ sales professionals nationally.</p>
+            <div class="card p-6">
+                <div class="certs-grid">
+                    <span class="tag tag-blue text-center py-2">Project Initiation (Google)</span>
+                    <span class="tag tag-blue text-center py-2">Foundations of PM (Google)</span>
+                    <span class="tag tag-blue text-center py-2">CompTIA A+</span>
+                    <span class="tag tag-blue text-center py-2">Smart Cities Mgmt (EPFL)</span>
+                    <span class="tag tag-blue text-center py-2">Sales Foundations (LinkedIn)</span>
+                    <span class="tag tag-blue text-center py-2">Customer Service (LinkedIn)</span>
+                    
+                    <span class="tag tag-gold text-center py-2">3x Winners Circle Recipient</span>
+                    <span class="tag tag-gold text-center py-2">Director's Club Q2 & Q4</span>
+                    <span class="tag tag-gold text-center py-2">Coin of Excellence</span>
                 </div>
             </div>
+        </section>
 
-            <!-- Performance Chart -->
-            <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
-                <h4 class="text-lg font-semibold text-gray-700 mb-4 text-center">Annual Performance Trends (% to Goal)</h4>
+        <!-- Metrics (Animation Delay 0.6s) -->
+        <section class="animate-on-load" style="animation-delay: 0.6s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Quantified Success</h3>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card p-6 text-center border-t-accent">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">179%</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">Mid-Year Net Adds (2021)</div>
+                </div>
+                <div class="card p-6 text-center border-t-accent">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">184%</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">SaaS Quota Attainment (2021)</div>
+                </div>
+                <div class="card p-6 text-center border-t-accent">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">150%</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">Career Gross Adds</div>
+                </div>
+                <!-- UPDATED METRIC CARD -->
+                <div class="card p-6 text-center border-t-success">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">Leading</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">Performance Rating (2018-23)</div>
+                </div>
+                <div class="card p-6 text-center border-t-accent">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">98%</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">On-Time Delivery Rate</div>
+                </div>
+                <div class="card p-6 text-center border-t-accent">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-2">2,000+</div>
+                    <div class="text-xs font-bold text-muted-theme uppercase">Line Commitment (2022)</div>
+                </div>
+            </div>
+            <div class="mt-8 card p-6">
+                <h4 class="text-lg font-semibold text-white mb-4 text-center">Annual Performance Trends (% to Goal)</h4>
                 <div class="chart-container">
                     <canvas id="performanceChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Strategic Territory Management -->
-        <section>
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Strategic Territory Approach</h3>
-                <p class="text-gray-600 mt-2">My methodology for managing a region involves a strict prioritization of high-value activities, balancing the "Hunter" mindset with strategic account growth.</p>
+        <!-- Enterprise Scale (Animation Delay 0.8s) -->
+        <section class="animate-on-load" style="animation-delay: 0.8s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Enterprise Portfolio Scale</h3>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Territory Segmentation Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">Territory Focus Allocation</h4>
-                    <p class="text-sm text-gray-500 text-center mb-4">How I prioritize my book of business for maximum ROI.</p>
-                    <div class="chart-container">
-                        <canvas id="territoryChart"></canvas>
-                    </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-accent mb-1">$12B+</div>
+                    <div class="text-xs text-muted-theme uppercase tracking-wide">Combined Client Revenue</div>
+                    <p class="text-xs text-gray-500 mt-2">Annual revenue of managed accounts.</p>
                 </div>
-
-                <!-- Sales Cycle Activity Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2 text-center">Weekly Activity Breakdown</h4>
-                    <p class="text-sm text-gray-500 text-center mb-4">Dedicated time allocation to ensure pipeline health.</p>
-                    <div class="chart-container">
-                        <canvas id="activityChart"></canvas>
-                    </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-accent mb-1">25,000+</div>
+                    <div class="text-xs text-muted-theme uppercase tracking-wide">Workforce Supported</div>
+                    <p class="text-xs text-gray-500 mt-2">Total employee base across accounts.</p>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-accent mb-1">5,000+</div>
+                    <div class="text-xs text-muted-theme uppercase tracking-wide">Active Connections</div>
+                    <p class="text-xs text-gray-500 mt-2">Directly managed lines & IoT endpoints.</p>
+                </div>
+            </div>
+            <div class="card p-6">
+                <h4 class="text-lg font-semibold text-white mb-4">Key Strategic Accounts (Anonymized)</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tag tag-blue">Top-Tier Construction Firm (ENR Rated)</span>
+                    <span class="tag tag-blue">Fortune 1000 Agriculture Company</span>
+                    <span class="tag tag-blue">Publicly Traded Commercial Bank</span>
+                    <span class="tag tag-blue">Natl. Correctional Healthcare Provider</span>
+                    <span class="tag tag-blue">Government Services Partner</span>
+                    <span class="tag tag-blue">Major Regional Logistics Distributor</span>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Recent Major Deployments (2025) -->
-        <section>
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">2025 Major Deployments</h3>
-                <p class="text-gray-600 mt-2">Recent complex wins demonstrating solution selling capabilities in hardware and infrastructure.</p>
+        <!-- Methodology (Animation Delay 1.0s) -->
+        <section class="animate-on-load" style="animation-delay: 1.0s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Methodology & Efficiency</h3>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card p-6 border-t-purple">
+                    <h4 class="text-xl font-semibold text-white mb-2">VVS Sales Execution</h4>
+                    <p class="text-sm text-gray-400">Successfully execute the VVS Methodology to scope and close large projects, bringing in a large deal every month of 2025.</p>
+                </div>
+                <div class="card p-6 border-t-purple">
+                    <h4 class="text-xl font-semibold text-white mb-2">AI-Driven SFDC Efficiency</h4>
+                    <p class="text-sm text-gray-400">Championed Google Gemini for CRM automation. Awarded RYA for myBiz utilization.</p>
+                </div>
+                <div class="card p-6 border-t-purple">
+                    <h4 class="text-xl font-semibold text-white mb-2">Strategic Territory Mapping</h4>
+                    <p class="text-sm text-gray-400">Created custom tools to identify and transfer 6 new accounts to strategic development.</p>
+                </div>
+            </div>
+        </section>
 
+        <!-- Major Wins (Animation Delay 1.2s) -->
+        <section class="animate-on-load" style="animation-delay: 1.2s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-brand-primary text-white p-6 rounded-lg shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-secondary rounded-full opacity-20"></div>
-                    <h4 class="text-2xl font-bold mb-2">400 Units</h4>
-                    <h5 class="text-xl font-semibold mb-2">Enterprise Tablet Deployment</h5>
-                    <p class="text-blue-100 text-sm">Secured and managed the logistics for a large-scale mobile workforce upgrade (Oct 2025).</p>
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
+                    <h4 class="text-2xl font-bold text-white mb-2">400 Unit Deployment</h4>
+                    <h5 class="text-xl font-semibold text-accent mb-2">Enterprise Tablet Rollout</h5>
+                    <p class="text-gray-400 text-sm">Secured logistics for large-scale workforce upgrade (Oct 2025).</p>
                 </div>
-                <div class="bg-brand-primary text-white p-6 rounded-lg shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-brand-secondary rounded-full opacity-20"></div>
-                    <h4 class="text-2xl font-bold mb-2">200 Units</h4>
-                    <h5 class="text-xl font-semibold mb-2">Fixed Wireless Access (FWA)</h5>
-                    <p class="text-blue-100 text-sm">Solved critical connectivity challenges for a distributed client base through FWA solutions (Mar 2025).</p>
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
+                    <h4 class="text-2xl font-bold text-white mb-2">200 Unit FWA & IoT</h4>
+                    <h5 class="text-xl font-semibold text-accent mb-2">Fixed Wireless Solutions</h5>
+                    <p class="text-gray-400 text-sm">Solved critical connectivity challenges for distributed clients (Mar 2025).</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Gemini API Powered Tools (NEW) -->
-        <section>
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-ai-feature pl-3">AI-Powered Profile Tools ✨</h3>
-                <p class="text-gray-600 mt-2">Leveraging the Gemini API for quick communication drafts and audio generation.</p>
+        <!-- Territory Charts (Animation Delay 1.4s) -->
+        <section class="animate-on-load" style="animation-delay: 1.4s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Territory & Activity</h3>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h4 class="text-lg font-semibold text-white mb-2 text-center">Territory Focus</h4>
+                    <div class="chart-container"><canvas id="territoryChart"></canvas></div>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-semibold text-white mb-2 text-center">Activity Breakdown</h4>
+                    <div class="chart-container"><canvas id="activityChart"></canvas></div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Pitch Generator Card -->
+        <!-- CODED VISUAL PORTFOLIO (Animation Delay 1.6s) -->
+        <section class="animate-on-load" style="animation-delay: 1.6s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Strategic Visuals & Portfolio</h3>
+            </div>
+            <p class="text-gray-400 mb-6">A collection of strategic frameworks, territory maps, and project visuals developed to drive growth.</p>
+            
+            <div class="graphics-grid">
+                <!-- Graphic 1: Territory Heatmap -->
+                <div class="card p-4">
+                    <div class="bg-[#0d1117] rounded mb-4 p-4 border border-gray-700">
+                        <div class="heatmap-grid">
+                            <div class="heatmap-cell bg-green-900/40 text-green-300">
+                                <div class="text-xs text-gray-400">Jackson, MS</div>
+                                <div class="font-bold text-sm">High Penetration</div>
+                            </div>
+                            <div class="heatmap-cell bg-blue-900/40 text-blue-300">
+                                <div class="text-xs text-gray-400">Birmingham, AL</div>
+                                <div class="font-bold text-sm">Growth Zone</div>
+                            </div>
+                            <div class="heatmap-cell bg-yellow-900/40 text-yellow-300">
+                                <div class="text-xs text-gray-400">Rural MS</div>
+                                <div class="font-bold text-sm">New Opportunity</div>
+                            </div>
+                            <div class="heatmap-cell bg-gray-800 text-gray-400">
+                                <div class="text-xs">Expansion Area</div>
+                                <div class="font-bold text-sm">Targeting</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-1">Territory Expansion Heatmap</h4>
+                    <p class="text-xs text-gray-400">Strategic breakdown of key growth zones across Mississippi and Alabama.</p>
+                </div>
+
+                <!-- Graphic 2: Deployment Workflow -->
+                <div class="card p-4">
+                    <div class="bg-[#0d1117] rounded mb-4 p-6 border border-gray-700 flex flex-col justify-center h-48">
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">1. Audit & Analysis</h5>
+                            <p class="text-xs text-gray-500">Site surveys & connectivity assessment.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">2. Staging & Config</h5>
+                            <p class="text-xs text-gray-500">Device prep & MDM enrollment.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">3. Rapid Deployment</h5>
+                            <p class="text-xs text-gray-500">Logistics coordination & rollout.</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-dot"></div>
+                            <h5 class="text-sm font-bold text-white">4. Support & Renew</h5>
+                            <p class="text-xs text-gray-500">Post-install training & contract renewal.</p>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-1">Deployment Workflow</h4>
+                    <p class="text-xs text-gray-400">The 4-stage process used for the 400-unit tablet rollout.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Tools (Animation Delay 1.8s) -->
+        <section class="animate-on-load" style="animation-delay: 1.8s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-red-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">AI-Powered Tools ✨</h3>
+            </div>
             <div class="card p-6 mb-6">
-                <h4 class="text-xl font-bold text-gray-700 mb-4">Generate Personalized Pitch</h4>
-                <p class="text-sm text-gray-500 mb-4">Click below to generate a concise, compelling 60-second elevator pitch based on Davis's profile data.</p>
-                <button id="generatePitchBtn" onclick="window.generatePitch()" class="bg-brand-secondary hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
+                <h4 class="text-xl font-bold text-white mb-4">Generate Personalized Pitch</h4>
+                <button id="generatePitchBtn" onclick="window.generatePitch()" class="btn-primary font-bold py-2 px-4 rounded-lg shadow-md w-full sm:w-auto">
                     ✨ Draft Elevator Pitch
                 </button>
-                <div id="pitchOutput" class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg hidden">
-                    <p class="font-semibold mb-2 text-brand-primary">Draft Pitch:</p>
-                    <p id="pitchText" class="text-gray-800 italic whitespace-pre-wrap"></p>
+                <div id="pitchOutput" class="mt-4 p-4 bg-[#0d1117] border border-gray-700 rounded-lg hidden">
+                    <p class="font-semibold mb-2 text-blue-400">Draft Pitch:</p>
+                    <p id="pitchText" class="text-gray-300 italic whitespace-pre-wrap"></p>
                 </div>
-                <div id="pitchLoading" class="mt-4 text-brand-accent hidden">Generating pitch...</div>
+                <div id="pitchLoading" class="mt-4 text-accent hidden">Generating pitch...</div>
             </div>
-            
-            <!-- TTS Reader Card -->
             <div class="card p-6">
-                <h4 class="text-xl font-bold text-gray-700 mb-4">Read Introduction Aloud</h4>
-                <p class="text-sm text-gray-500 mb-4">Generate an audio reading of the Introduction section using Text-to-Speech (TTS).</p>
-                <button id="readIntroBtn" onclick="window.readIntroduction()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
+                <h4 class="text-xl font-bold text-white mb-4">Read Introduction Aloud</h4>
+                <button id="readIntroBtn" onclick="window.readIntroduction()" class="btn-danger font-bold py-2 px-4 rounded-lg shadow-md w-full sm:w-auto">
                     🔊 Read Intro with TTS
                 </button>
-                <div id="audioPlayerContainer" class="mt-4 hidden">
-                    <audio id="audioPlayer" controls class="w-full"></audio>
-                </div>
+                <div id="audioPlayerContainer" class="mt-4 hidden"><audio id="audioPlayer" controls class="w-full"></audio></div>
                 <div id="audioLoading" class="mt-4 text-red-500 hidden">Generating audio...</div>
+                <div id="audioError" class="mt-4 text-danger-fg hidden"></div> <!-- New error display -->
             </div>
         </section>
 
-        <!-- Section 5: Skills & Competencies (Old Section 4) -->
-        <section class="mb-12">
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-brand-primary border-l-4 border-brand-secondary pl-3">Competency Profile</h3>
-                <p class="text-gray-600 mt-2">A balanced skillset combining aggressive sales tactics with technical proficiency and relationship management.</p>
+        <!-- Competency Radar (Animation Delay 2.0s) -->
+        <section class="mb-12 animate-on-load" style="animation-delay: 2.0s;">
+            <div class="mb-4 flex items-center">
+                <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+                <h3 class="text-2xl font-bold text-white">Competency Profile</h3>
             </div>
-
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="card p-6">
                 <div id="skillsPlot" style="width:100%; height:400px;"></div>
-                <!-- Plotly.js will render here. Note: Plotly uses Canvas/WebGL in the background -->
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 text-white py-8 mt-12">
+    <footer style="background-color: var(--bg-canvas-inset);" class="border-t border-gray-800 text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
             <p class="text-lg font-semibold">Davis Amedu II</p>
-            <p class="text-gray-400 text-sm mb-4">Enterprise Sales Professional • Jackson, MS</p>
-            <div class="text-gray-500 text-xs">
-                <!-- Hidden comment: Palette used: #003366, #00B388 -->
-                Confirming: NO SVG, NO MERMAID JS used in this output.
+            <p class="text-gray-500 text-sm">Strategic Program Management • Jackson, MS</p>
+            <!-- UPDATED EDUCATION SECTION -->
+            <div class="text-gray-600 text-xs mt-2">
+                <p>Rutgers University (Attended) - Graphic Design</p>
+                <p>Brookdale Community College (Attended)</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts for Chart Rendering and Gemini API -->
+    <!-- Scripts -->
     <script type="module">
+        // Import Firebase (Required for Environment, though logic is minimal for this static view)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Firebase Setup (Mandatory Boilerplate) ---
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        let app, auth, db, userId;
+        let app, auth, db;
 
         async function initFirebase() {
-            setLogLevel('Debug');
             if (Object.keys(firebaseConfig).length > 0) {
                 app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
                 auth = getAuth(app);
-                
                 try {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    userId = auth.currentUser?.uid || crypto.randomUUID();
-                    console.log("Firebase initialized. User ID:", userId);
-                } catch (error) {
-                    console.error("Firebase Auth Error:", error);
-                }
+                    if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
+                    else await signInAnonymously(auth);
+                } catch (error) { console.error("Firebase Auth Error:", error); }
             }
         }
-        
-        // --- Gemini API Utilities ---
-        const apiKey = ""; 
+
+        // --- API Keys & Utilities ---
+        const apiKey = ""; // API Key injected by environment
         const LLM_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
         const TTS_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-        
-        /** Converts a base64 string to an ArrayBuffer. */
-        function base64ToArrayBuffer(base64) {
-            const binaryString = atob(base64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            return bytes.buffer;
-        }
 
-        /** Converts signed 16-bit PCM audio data to a WAV Blob. */
-        function pcmToWav(pcm16, sampleRate) {
-            const numChannels = 1;
-            const bytesPerSample = 2;
-            const byteRate = sampleRate * numChannels * bytesPerSample;
-            const blockAlign = numChannels * bytesPerSample;
-            const dataSize = pcm16.length * bytesPerSample;
-            const buffer = new ArrayBuffer(44 + dataSize);
-            const view = new DataView(buffer);
-            let offset = 0;
-
-            // RIFF chunk
-            view.setUint32(offset, 0x52494646, false); offset += 4; // "RIFF"
-            view.setUint32(offset, 36 + dataSize, true); offset += 4; // file size
-            view.setUint32(offset, 0x57415645, false); offset += 4; // "WAVE"
-
-            // FMT chunk
-            view.setUint32(offset, 0x666d7420, false); offset += 4; // "fmt "
-            view.setUint32(offset, 16, true); offset += 4; // chunk size (16 for PCM)
-            view.setUint16(offset, 1, true); offset += 2; // audio format (1 for PCM)
-            view.setUint16(offset, numChannels, true); offset += 2; // number of channels
-            view.setUint32(offset, sampleRate, true); offset += 4; // sample rate
-            view.setUint32(offset, byteRate, true); offset += 4; // byte rate
-            view.setUint16(offset, blockAlign, true); offset += 2; // block align
-            view.setUint16(offset, 16, true); offset += 2; // bits per sample (16)
-
-            // DATA chunk
-            view.setUint32(offset, 0x64617461, false); offset += 4; // "data"
-            view.setUint32(offset, dataSize, true); offset += 4; // data size
-
-            // Write PCM data
-            for (let i = 0; i < pcm16.length; i++) {
-                view.setInt16(offset, pcm16[i], true);
-                offset += 2;
-            }
-
-            return new Blob([buffer], { type: 'audio/wav' });
-        }
-        
-        /** General fetch wrapper with exponential backoff. */
+        // Added exponential backoff wrapper
         async function callApiWithBackoff(url, payload, maxRetries = 5) {
             let delay = 1000;
             for (let i = 0; i < maxRetries; i++) {
@@ -334,11 +455,10 @@
                     if (response.ok) {
                         return await response.json();
                     } else if (response.status === 429 && i < maxRetries - 1) {
-                        // Too many requests, retry
                         await new Promise(resolve => setTimeout(resolve, delay));
                         delay *= 2;
                     } else {
-                        throw new Error(`API call failed with status: ${response.status}`);
+                        throw new Error(`API Status: ${response.status}`);
                     }
                 } catch (error) {
                     if (i === maxRetries - 1) throw error;
@@ -348,342 +468,205 @@
             }
         }
 
-        // --- Gemini LLM Feature 1: Pitch Generator ---
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) bytes[i] = binaryString.charCodeAt(i);
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const byteRate = sampleRate * numChannels * bytesPerSample;
+            const blockAlign = numChannels * bytesPerSample;
+            const dataSize = pcm16.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+            let offset = 0;
+            // RIFF
+            view.setUint32(offset, 0x52494646, false); offset += 4;
+            view.setUint32(offset, 36 + dataSize, true); offset += 4;
+            view.setUint32(offset, 0x57415645, false); offset += 4;
+            // FMT
+            view.setUint32(offset, 0x666d7420, false); offset += 4;
+            view.setUint32(offset, 16, true); offset += 4;
+            view.setUint16(offset, 1, true); offset += 2;
+            view.setUint16(offset, 1, true); offset += 2;
+            view.setUint32(offset, sampleRate, true); offset += 4;
+            view.setUint32(offset, byteRate, true); offset += 4;
+            view.setUint16(offset, blockAlign, true); offset += 2;
+            view.setUint16(offset, 16, true); offset += 2;
+            // DATA
+            view.setUint32(offset, 0x64617461, false); offset += 4;
+            view.setUint32(offset, dataSize, true); offset += 4;
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(offset, pcm16[i], true); offset += 2;
+            }
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        // --- EXPORT FUNCTIONS TO WINDOW (Fixes button clicks) ---
         window.generatePitch = async function() {
             const btn = document.getElementById('generatePitchBtn');
             const loading = document.getElementById('pitchLoading');
             const output = document.getElementById('pitchOutput');
             const pitchText = document.getElementById('pitchText');
             
-            btn.disabled = true;
-            loading.classList.remove('hidden');
-            output.classList.add('hidden');
-            pitchText.textContent = '';
+            btn.disabled = true; loading.classList.remove('hidden'); output.classList.add('hidden'); pitchText.textContent = '';
 
-            const systemPrompt = "You are a professional sales consultant. Generate a concise, 60-second elevator pitch (max 4 sentences) for the professional described. The pitch MUST focus on quantifying their impact and expertise.";
-            
-            const profileData = `
-                Role: Client Executive, Enterprise Sales
-                Sector: TMT (Telecommunications, Media, Technology)
-                Core Strengths (Competency 100%): New Business Hunter, Strategic Planning (95%), Complex Negotiation (90%)
-                KPIs: 167% Year-End Quota Attainment (2022), #4 National Rank (Q3 2022) out of 1,200+.
-                Recent Win: Led a 400-unit Enterprise Tablet Deployment.
-            `;
-            
-            const userQuery = `Generate the pitch based on this profile data: ${profileData}`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
+            const prompt = "Generate a 60-second elevator pitch for Davis Amedu II, emphasizing 179% Net Adds, $12B+ client portfolio management (with generic client names like 'Top Tier Construction' and 'Fortune 1000 Ag'), and Client Executive promotion.";
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
             try {
                 const result = await callApiWithBackoff(LLM_URL, payload);
-                const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Could not generate pitch.";
-                
-                pitchText.textContent = generatedText;
+                pitchText.textContent = result.candidates?.[0]?.content?.parts?.[0]?.text || "No text generated.";
                 output.classList.remove('hidden');
-
-            } catch (error) {
-                pitchText.textContent = `Error generating pitch: ${error.message}`;
+            } catch (e) {
+                pitchText.textContent = "Error generating pitch. See console.";
                 output.classList.remove('hidden');
-                console.error("LLM Error:", error);
+                console.error("Pitch Generation Error:", e);
             } finally {
-                loading.classList.add('hidden');
-                btn.disabled = false;
+                loading.classList.add('hidden'); btn.disabled = false;
             }
         };
 
-        // --- Gemini TTS Feature 2: Audio Reader ---
         window.readIntroduction = async function() {
             const btn = document.getElementById('readIntroBtn');
             const loading = document.getElementById('audioLoading');
             const audioContainer = document.getElementById('audioPlayerContainer');
             const audioPlayer = document.getElementById('audioPlayer');
-            const textToRead = document.getElementById('introText').textContent.trim();
-            
-            btn.disabled = true;
-            loading.classList.remove('hidden');
-            audioContainer.classList.add('hidden');
+            const errorDisplay = document.getElementById('audioError'); // Get new error display element
+            const text = document.getElementById('introText').textContent.trim();
+
+            btn.disabled = true; loading.classList.remove('hidden'); audioContainer.classList.add('hidden'); errorDisplay.classList.add('hidden');
 
             const payload = {
-                contents: [{
-                    parts: [{ text: `Say in a confident, professional voice: ${textToRead}` }]
-                }],
-                generationConfig: {
-                    responseModalities: ["AUDIO"],
-                    speechConfig: {
-                        voiceConfig: {
-                            prebuiltVoiceConfig: { voiceName: "Kore" }
-                        }
-                    }
-                },
+                contents: [{ parts: [{ text: `Read professionally: ${text}` }] }],
+                generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } } },
                 model: "gemini-2.5-flash-preview-tts"
             };
 
             try {
                 const result = await callApiWithBackoff(TTS_URL, payload);
-                
-                const part = result?.candidates?.[0]?.content?.parts?.[0];
-                const audioData = part?.inlineData?.data;
-                const mimeType = part?.inlineData?.mimeType;
+                const audioData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                const mimeType = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
 
-                if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
-                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
-                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 16000;
-                    
-                    const pcmData = base64ToArrayBuffer(audioData);
-                    const pcm16 = new Int16Array(pcmData);
-                    const wavBlob = pcmToWav(pcm16, sampleRate);
-                    
+                if (audioData && mimeType) {
+                    // Extract sample rate from mimeType if available, default to 24000
+                    const rateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+
+                    const pcm = new Int16Array(base64ToArrayBuffer(audioData));
+                    const wav = pcmToWav(pcm, sampleRate);
                     if (audioPlayer.src) URL.revokeObjectURL(audioPlayer.src);
-                    audioPlayer.src = URL.createObjectURL(wavBlob);
+                    audioPlayer.src = URL.createObjectURL(wav);
                     audioContainer.classList.remove('hidden');
                     audioPlayer.play();
                 } else {
-                    throw new Error("Invalid or missing audio data from API.");
+                    throw new Error("Invalid or missing audio data from API response.");
                 }
-
-            } catch (error) {
-                console.error("TTS Error:", error);
-                // Updated: Display error message on the UI instead of using alert()
-                const errorMessage = "Failed to generate audio. Check the console for API details.";
-                audioContainer.classList.remove('hidden');
-                audioContainer.innerHTML = `<p class="text-red-600">${errorMessage}</p>`;
-                console.error("TTS Audio Generation Failed:", error);
+            } catch (e) {
+                console.error("Audio Generation Failed:", e);
+                errorDisplay.textContent = "Audio generation failed. Check console for details.";
+                errorDisplay.classList.remove('hidden');
             } finally {
-                loading.classList.add('hidden');
-                btn.disabled = false;
+                loading.classList.add('hidden'); btn.disabled = false;
             }
-        }
+        };
 
-        // --- Chart Rendering Logic (Existing) ---
+        // --- Charts ---
         function renderCharts() {
-            // --- Chart 1: Performance History (Bar) ---
-            const ctxPerformance = document.getElementById('performanceChart').getContext('2d');
-            const performanceLabels = ['2021 Net Adds', '2021 EOY', '2022 EOY', '2024 Sales Revenue'];
+            // Check if Chart is loaded
+            if (typeof Chart === 'undefined') { console.error("Chart.js not loaded"); return; }
             
-            new Chart(ctxPerformance, {
+            Chart.defaults.color = '#8b949e';
+            Chart.defaults.borderColor = '#30363d';
+
+            // 1. Performance Chart
+            new Chart(document.getElementById('performanceChart'), {
                 type: 'bar',
                 data: {
-                    labels: performanceLabels.map(label => {
-                        if (label.length > 16) {
-                            const words = label.split(' ');
-                            const lines = [];
-                            let currentLine = words[0];
-
-                            for (let i = 1; i < words.length; i++) {
-                                if ((currentLine + " " + words[i]).length < 16) {
-                                    currentLine += " " + words[i];
-                                } else {
-                                    lines.push(currentLine);
-                                    currentLine = words[i];
-                                }
-                            }
-                            lines.push(currentLine);
-                            return lines;
-                        }
-                        return label;
-                    }),
+                    labels: ['2021 Net Adds', '2021 EOY', '2022 EOY', '2024 Sales Revenue'],
                     datasets: [{
-                        label: '% Achievement to Quota',
+                        label: '% Achievement',
                         data: [179, 160, 148, 115],
-                        backgroundColor: '#003366',
+                        backgroundColor: '#1f6feb',
                         borderRadius: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                title: function(tooltipItems) {
-                                    const item = tooltipItems[0];
-                                    let label = item.chart.data.labels[item.dataIndex];
-                                    if (Array.isArray(label)) {
-                                        return label.join(' ');
-                                    } else {
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Percentage (%)' },
-                            grid: { color: '#e5e7eb' }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
-                    }
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { color: '#30363d' } }, x: { grid: { display: false } } }
                 }
             });
 
-            // --- Chart 2: Territory Segmentation (Doughnut) ---
-            const ctxTerritory = document.getElementById('territoryChart').getContext('2d');
-            const territoryLabels = ['Tier B: New Logo Hunting', 'Tier A: Strategic Growth', 'Tier C: Partner Leverage', 'Admin & Ops'];
-            
-            new Chart(ctxTerritory, {
+            // 2. Territory Chart
+            new Chart(document.getElementById('territoryChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: territoryLabels.map(label => {
-                        if (label.length > 16) {
-                            const words = label.split(' ');
-                            const lines = [];
-                            let currentLine = words[0];
-
-                            for (let i = 1; i < words.length; i++) {
-                                if ((currentLine + " " + words[i]).length < 16) {
-                                    currentLine += " " + words[i];
-                                } else {
-                                    lines.push(currentLine);
-                                    currentLine = words[i];
-                                }
-                            }
-                            lines.push(currentLine);
-                            return lines;
-                        }
-                        return label;
-                    }),
+                    labels: ['Strategic Growth', 'Project Execution', 'New Logo', 'Admin'],
                     datasets: [{
-                        data: [50, 20, 25, 5], // Percentages
-                        backgroundColor: [
-                            '#003366', // Hunting (Primary)
-                            '#00B388', // Growth (Secondary)
-                            '#3B82F6', // Partners (Accent)
-                            '#9CA3AF'  // Admin (Gray)
-                        ],
+                        data: [35, 30, 25, 10],
+                        backgroundColor: ['#1f6feb', '#238636', '#a371f7', '#8b949e'],
                         borderWidth: 0
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                title: function(tooltipItems) {
-                                    const item = tooltipItems[0];
-                                    let label = item.chart.data.labels[item.dataIndex];
-                                    if (Array.isArray(label)) {
-                                        return label.join(' ');
-                                    } else {
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        legend: { position: 'bottom' }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#c9d1d9' } } } }
             });
 
-            // --- Chart 3: Weekly Activity (Horizontal Bar) ---
-            const ctxActivity = document.getElementById('activityChart').getContext('2d');
-            const activityLabels = ['Demand Generation', 'Opportunity Qualification', 'Negotiation & Close', 'Post-Sale Growth'];
-
-            new Chart(ctxActivity, {
+            // 3. Activity Chart
+            new Chart(document.getElementById('activityChart'), {
                 type: 'bar',
-                indexAxis: 'y', // Horizontal
+                indexAxis: 'y',
                 data: {
-                    labels: activityLabels.map(label => {
-                        if (label.length > 16) {
-                            const words = label.split(' ');
-                            const lines = [];
-                            let currentLine = words[0];
-
-                            for (let i = 1; i < words.length; i++) {
-                                if ((currentLine + " " + words[i]).length < 16) {
-                                    currentLine += " " + words[i];
-                                } else {
-                                    lines.push(currentLine);
-                                    currentLine = words[i];
-                                }
-                            }
-                            lines.push(currentLine);
-                            return lines;
-                        }
-                        return label;
-                    }),
+                    labels: ['Planning', 'Qualifying', 'Closing', 'Post-Sale'],
                     datasets: [{
-                        label: '% Time Allocation',
-                        data: [40, 30, 20, 10],
-                        backgroundColor: '#00B388',
+                        data: [35, 30, 25, 10],
+                        backgroundColor: '#238636',
                         borderRadius: 4
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                title: function(tooltipItems) {
-                                    const item = tooltipItems[0];
-                                    let label = item.chart.data.labels[item.dataIndex];
-                                    if (Array.isArray(label)) {
-                                        return label.join(' ');
-                                    } else {
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        legend: { display: false }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: { color: '#e5e7eb' }
-                        },
-                        y: {
-                            grid: { display: false }
-                        }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#30363d' } }, y: { grid: { display: false } } } }
             });
 
-            // --- Chart 4: Competency Profile (Plotly Radar) ---
-            const data = [{
-              type: 'scatterpolar',
-              r: [95, 100, 90, 85, 90, 80],
-              theta: ['Strategic Planning', 'New Business Hunter', 'Relationship Building', 'Tech/AI Adoption', 'Complex Negotiation', 'Project Management'],
-              fill: 'toself',
-              fillcolor: 'rgba(0, 51, 102, 0.2)',
-              line: {
-                color: '#003366'
-              }
-            }];
-
-            const layout = {
-              polar: {
-                radialaxis: {
-                  visible: true,
-                  range: [0, 100]
-                }
-              },
-              showlegend: false,
-              margin: { t: 30, b: 30, l: 30, r: 30 },
-              font: { family: 'Inter, sans-serif' },
-              paper_bgcolor: "rgba(0,0,0,0)",
-              height: 350
-            };
-
-            Plotly.newPlot('skillsPlot', data, layout, {displayModeBar: false, staticPlot: true});
+            // 4. Plotly Radar
+            if (typeof Plotly !== 'undefined') {
+                const data = [{
+                    type: 'scatterpolar',
+                    r: [100, 95, 95, 90, 85, 75],
+                    theta: ['Project Mgmt', 'Strategy', 'Negotiation', 'Relationships', 'Tech/AI', 'Hunting'],
+                    fill: 'toself',
+                    fillcolor: 'rgba(31, 111, 235, 0.3)',
+                    line: { color: '#1f6feb' }
+                }];
+                const layout = {
+                    polar: {
+                        radialaxis: { visible: true, range: [0, 100], color: '#8b949e' },
+                        bgcolor: 'rgba(0,0,0,0)'
+                    },
+                    paper_bgcolor: "rgba(0,0,0,0)",
+                    font: { color: '#c9d1d9', family: 'Inter, sans-serif' },
+                    margin: { t: 30, b: 30, l: 40, r: 40 },
+                    showlegend: false,
+                    height: 350
+                };
+                Plotly.newPlot('skillsPlot', data, layout, {displayModeBar: false, staticPlot: true});
+            }
         }
-        
-        // --- Initialization ---
-        // Removed document.addEventListener('DOMContentLoaded') wrapper.
-        // Module scripts run after the DOM is ready, so this is more robust.
-        initFirebase();
-        renderCharts();
 
+        // Init
+        initFirebase();
+        // Wait for DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', renderCharts);
+        } else {
+            renderCharts();
+        }
     </script>
 </body>
 </html>
