@@ -77,6 +77,22 @@
         .flow-step { position: relative; padding-left: 1.5rem; border-left: 2px solid #30363d; padding-bottom: 1.5rem; }
         .flow-step:last-child { border-left: none; padding-bottom: 0; }
         .flow-dot { position: absolute; left: -5px; top: 0; width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-fg); }
+
+        /* === ANIMATION STYLES === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-on-load {
+            opacity: 0; /* Start invisible */
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -84,6 +100,7 @@
     <!-- === CUSTOM BANNER SECTION === -->
     <div class="banner-container">
         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" 
+             onerror="this.onerror=null; this.src='https://placehold.co/2070x280/161b22/8b949e?text=Technology+Banner';"
              alt="Technology Banner" 
              class="banner-image">
         <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent"></div>
@@ -109,16 +126,16 @@
 
     <main class="container mx-auto px-4 py-8 space-y-12">
 
-        <!-- Intro -->
-        <section class="max-w-4xl mx-auto text-center">
+        <!-- Intro (Animation Delay 0.2s) -->
+        <section class="max-w-4xl mx-auto text-center animate-on-load" style="animation-delay: 0.2s;">
             <h2 class="text-3xl font-bold text-accent mb-4">Performance-Driven Project Leadership</h2>
             <p id="introText" class="text-lg text-muted-theme leading-relaxed">
                 With over 8 years of success in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise projects and driving end-to-end solution delivery. Promoted to Client Executive in February 2023 following a consistent <strong class="text-white">Leading</strong> performance rating (2018-2023), I managed a massive book of business comprising industry giants. My methodology combines strategic account growth, rigorous project execution, and leveraging <strong class="text-white">AI tools (Google Gemini)</strong> for efficiency.
             </p>
         </section>
         
-        <!-- Certs -->
-        <section>
+        <!-- Certs (Animation Delay 0.4s) -->
+        <section class="animate-on-load" style="animation-delay: 0.4s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Certifications & Honors</h3>
@@ -139,8 +156,8 @@
             </div>
         </section>
 
-        <!-- Metrics -->
-        <section>
+        <!-- Metrics (Animation Delay 0.6s) -->
+        <section class="animate-on-load" style="animation-delay: 0.6s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Quantified Success</h3>
@@ -180,8 +197,8 @@
             </div>
         </section>
 
-        <!-- Enterprise Scale (UPDATED TO ANONYMOUS) -->
-        <section>
+        <!-- Enterprise Scale (Animation Delay 0.8s) -->
+        <section class="animate-on-load" style="animation-delay: 0.8s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Enterprise Portfolio Scale</h3>
@@ -216,8 +233,8 @@
             </div>
         </section>
 
-        <!-- Methodology -->
-        <section>
+        <!-- Methodology (Animation Delay 1.0s) -->
+        <section class="animate-on-load" style="animation-delay: 1.0s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Methodology & Efficiency</h3>
@@ -238,8 +255,8 @@
             </div>
         </section>
 
-        <!-- Major Wins -->
-        <section>
+        <!-- Major Wins (Animation Delay 1.2s) -->
+        <section class="animate-on-load" style="animation-delay: 1.2s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
@@ -260,8 +277,8 @@
             </div>
         </section>
 
-        <!-- Territory Charts -->
-        <section>
+        <!-- Territory Charts (Animation Delay 1.4s) -->
+        <section class="animate-on-load" style="animation-delay: 1.4s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Territory & Activity</h3>
@@ -278,8 +295,8 @@
             </div>
         </section>
 
-        <!-- === CODED VISUAL PORTFOLIO === -->
-        <section>
+        <!-- CODED VISUAL PORTFOLIO (Animation Delay 1.6s) -->
+        <section class="animate-on-load" style="animation-delay: 1.6s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Strategic Visuals & Portfolio</h3>
@@ -343,8 +360,8 @@
             </div>
         </section>
 
-        <!-- AI Tools -->
-        <section>
+        <!-- AI Tools (Animation Delay 1.8s) -->
+        <section class="animate-on-load" style="animation-delay: 1.8s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-red-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">AI-Powered Tools ✨</h3>
@@ -367,11 +384,12 @@
                 </button>
                 <div id="audioPlayerContainer" class="mt-4 hidden"><audio id="audioPlayer" controls class="w-full"></audio></div>
                 <div id="audioLoading" class="mt-4 text-red-500 hidden">Generating audio...</div>
+                <div id="audioError" class="mt-4 text-danger-fg hidden"></div> <!-- New error display -->
             </div>
         </section>
 
-        <!-- Competency Radar -->
-        <section class="mb-12">
+        <!-- Competency Radar (Animation Delay 2.0s) -->
+        <section class="mb-12 animate-on-load" style="animation-delay: 2.0s;">
             <div class="mb-4 flex items-center">
                 <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
                 <h3 class="text-2xl font-bold text-white">Competency Profile</h3>
@@ -422,17 +440,33 @@
         const LLM_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
         const TTS_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
 
-        async function callApi(url, payload) {
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) throw new Error(`API Status: ${response.status}`);
-                return await response.json();
-            } catch (e) { throw e; }
+        // Added exponential backoff wrapper
+        async function callApiWithBackoff(url, payload, maxRetries = 5) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.ok) {
+                        return await response.json();
+                    } else if (response.status === 429 && i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        throw new Error(`API Status: ${response.status}`);
+                    }
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
         }
+
 
         function base64ToArrayBuffer(base64) {
             const binaryString = atob(base64);
@@ -486,12 +520,13 @@
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
             try {
-                const result = await callApi(LLM_URL, payload);
+                const result = await callApiWithBackoff(LLM_URL, payload);
                 pitchText.textContent = result.candidates?.[0]?.content?.parts?.[0]?.text || "No text generated.";
                 output.classList.remove('hidden');
             } catch (e) {
-                pitchText.textContent = "Error: " + e.message;
+                pitchText.textContent = "Error generating pitch. See console.";
                 output.classList.remove('hidden');
+                console.error("Pitch Generation Error:", e);
             } finally {
                 loading.classList.add('hidden'); btn.disabled = false;
             }
@@ -502,9 +537,10 @@
             const loading = document.getElementById('audioLoading');
             const audioContainer = document.getElementById('audioPlayerContainer');
             const audioPlayer = document.getElementById('audioPlayer');
+            const errorDisplay = document.getElementById('audioError'); // Get new error display element
             const text = document.getElementById('introText').textContent.trim();
 
-            btn.disabled = true; loading.classList.remove('hidden'); audioContainer.classList.add('hidden');
+            btn.disabled = true; loading.classList.remove('hidden'); audioContainer.classList.add('hidden'); errorDisplay.classList.add('hidden');
 
             const payload = {
                 contents: [{ parts: [{ text: `Read professionally: ${text}` }] }],
@@ -513,19 +549,28 @@
             };
 
             try {
-                const result = await callApi(TTS_URL, payload);
+                const result = await callApiWithBackoff(TTS_URL, payload);
                 const audioData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-                if (audioData) {
+                const mimeType = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
+
+                if (audioData && mimeType) {
+                    // Extract sample rate from mimeType if available, default to 24000
+                    const rateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+
                     const pcm = new Int16Array(base64ToArrayBuffer(audioData));
-                    const wav = pcmToWav(pcm, 24000); // 24kHz standard for this model usually, or extract from mimeType
+                    const wav = pcmToWav(pcm, sampleRate);
                     if (audioPlayer.src) URL.revokeObjectURL(audioPlayer.src);
                     audioPlayer.src = URL.createObjectURL(wav);
                     audioContainer.classList.remove('hidden');
                     audioPlayer.play();
+                } else {
+                    throw new Error("Invalid or missing audio data from API response.");
                 }
             } catch (e) {
-                console.error(e);
-                alert("Audio generation failed. See console.");
+                console.error("Audio Generation Failed:", e);
+                errorDisplay.textContent = "Audio generation failed. Check console for details.";
+                errorDisplay.classList.remove('hidden');
             } finally {
                 loading.classList.add('hidden'); btn.disabled = false;
             }
