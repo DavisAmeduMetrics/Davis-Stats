@@ -98,6 +98,7 @@
     .border-t-accent { border-top: 4px solid var(--accent-fg); }
     .border-t-success { border-top: 4px solid var(--success-fg); }
     .border-t-purple { border-top: 4px solid var(--done-fg); }
+    .border-t-gold { border-top: 4px solid #e3b341; }
 
     .banner-container {
       width: 100%;
@@ -108,16 +109,6 @@
       border-bottom: 1px solid var(--border-default);
     }
     .banner-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
-
-    .graphics-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-    @media (min-width: 768px) { .graphics-grid { grid-template-columns: repeat(2, 1fr); } }
-
-    .heatmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-    .heatmap-cell { padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
-
-    .flow-step { position: relative; padding-left: 1.5rem; border-left: 2px solid #30363d; padding-bottom: 1.1rem; }
-    .flow-step:last-child { border-left: none; padding-bottom: 0; }
-    .flow-dot { position: absolute; left: -6px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-fg); }
 
     /* Scroll reveal */
     .reveal {
@@ -181,6 +172,35 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: #30363d;
+    }
+    .timeline-item {
+      position: relative;
+      padding: 10px 0 10px 0;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 2px;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--accent-fg);
+      box-shadow: 0 0 0 4px rgba(88,166,255,0.15);
+    }
+
     /* Credly cert grid */
     .credly-grid{
       display:grid;
@@ -214,13 +234,7 @@
     .badge-title{ font-weight: 900; color: var(--fg-default); display:block; font-size: 0.98rem; line-height: 1.15rem; }
     .badge-issuer{ display:block; font-size: .78rem; color: var(--fg-muted); margin-top: 4px; }
 
-    .badge-hint{ animation: hintPulse 2.2s ease-in-out infinite; }
-    .credly-badge:hover.badge-hint{ animation:none; }
-
-    .cert-reveal{ opacity:0; transform: translateY(14px); transition: opacity 650ms ease, transform 650ms ease; }
-    .cert-reveal.is-visible{ opacity:1; transform:none; }
-
-    /* Cert preview modal */
+    /* Cert modal */
     .cert-modal{ position:fixed; inset:0; z-index:999; }
     .cert-modal.hidden{ display:none; }
     .cert-backdrop{ position:absolute; inset:0; background: rgba(0,0,0,0.68); backdrop-filter: blur(4px); }
@@ -258,8 +272,8 @@
     .cert-image{ width:100%; height:auto; display:block; border-radius:12px; border:1px solid rgba(255,255,255,0.06); }
 
     @media (prefers-reduced-motion: reduce){
-      .reveal, .cert-reveal { opacity:1 !important; transform:none !important; transition:none !important; }
-      .badge-hint, .award-hint { animation:none !important; }
+      .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
+      .award-hint { animation:none !important; }
       .cert-panel{ animation:none !important; transform:none !important; }
     }
   </style>
@@ -295,28 +309,22 @@
       <h1 class="text-4xl md:text-6xl font-black mb-3 tracking-tight text-white drop-shadow-md">Davis Amedu II</h1>
       <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management</p>
 
-      <!-- Awards & Recognition -->
+      <!-- Awards & Recognition chips -->
       <div class="flex flex-wrap justify-center gap-3 mb-3">
         <span class="tag tag-gray bg-[#0d1117]">TMT Sector Expert</span>
 
-        <button
-          class="tag tag-gold bg-[#0d1117] award-chip award-hint"
-          type="button"
-          data-tooltip="Winner’s Circle — top performance recognition. Achieved in 2018, 2021, and 2022 based on elite results vs goals, disciplined execution, and consistent pipeline + delivery outcomes.">
+        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
+          data-tooltip="Winner’s Circle — top performance recognition. Achieved in 2018, 2021, and 2022.">
           Winner’s Circle (3x)
         </button>
 
-        <button
-          class="tag tag-gold bg-[#0d1117] award-chip award-hint"
-          type="button"
-          data-tooltip="Director’s Club — leadership recognition for exceptional performance. Awarded Q4 2017 and Q2 2018 for standout results and impact.">
+        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
+          data-tooltip="Director’s Club — leadership recognition for exceptional performance. Awarded Q4 2017 and Q2 2018.">
           Director’s Club (2x)
         </button>
 
-        <button
-          class="tag tag-gold bg-[#0d1117] award-chip award-hint"
-          type="button"
-          data-tooltip="Coin of Excellence — recognition for exceptional execution and impact (2019). Typically tied to ownership, results, and customer outcomes beyond baseline role expectations.">
+        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
+          data-tooltip="Coin of Excellence — recognition for exceptional execution and impact (2019).">
           Coin of Excellence
         </button>
       </div>
@@ -335,98 +343,72 @@
       </p>
     </section>
 
-    <!-- Certifications -->
+    <!-- Awards Timeline (BACK) -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
-        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Certifications</h3>
+        <div class="w-1 h-8 bg-yellow-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Awards & Accolades Timeline</h3>
       </div>
 
       <div class="card p-6">
-        <div class="credly-grid" id="certGrid">
-
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="Sales Foundations"
-            data-issuer="LinkedIn Learning"
-            data-img="./assets/certs/1661878686885.png"
-            data-desc="Sales fundamentals covering prospecting, discovery, value messaging, objection handling, and building a repeatable sales process. Emphasis on consultative selling and clean next steps."
-            type="button">
-            <div class="badge-icon" style="background:#1f6feb;">LI</div>
-            <div class="badge-text">
-              <span class="badge-title">Sales Foundations</span>
-              <span class="badge-issuer">LinkedIn Learning</span>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#e3b341;"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">Q4 2017</div>
+              <div class="text-lg font-black text-white">Director’s Club</div>
+              <div class="text-sm text-gray-400">Leadership recognition for standout performance and impact.</div>
             </div>
-          </button>
+          </div>
 
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="Customer Service: Problem Solving & Troubleshooting"
-            data-issuer="LinkedIn Learning"
-            data-img="./assets/certs/1674582720897.png"
-            data-desc="Troubleshooting frameworks: clarifying the issue, isolating root cause, communicating updates, de-escalation techniques, and resolution closure."
-            type="button">
-            <div class="badge-icon" style="background:#238636;">CS</div>
-            <div class="badge-text">
-              <span class="badge-title">Customer Service</span>
-              <span class="badge-issuer">LinkedIn Learning</span>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#e3b341;"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">Q2 2018</div>
+              <div class="text-lg font-black text-white">Director’s Club</div>
+              <div class="text-sm text-gray-400">Repeat recognition for exceptional results and execution.</div>
             </div>
-          </button>
+          </div>
 
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="Foundations of Project Management"
-            data-issuer="Google / Coursera"
-            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~MHEQJMU78OC9.jpeg"
-            data-desc="Project management fundamentals: lifecycle basics, stakeholder communication, scope framing, risk awareness, and delivery cadence."
-            type="button">
-            <div class="badge-icon" style="background:#a371f7;">PM</div>
-            <div class="badge-text">
-              <span class="badge-title">PM Foundations</span>
-              <span class="badge-issuer">Google / Coursera</span>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">2018</div>
+              <div class="text-lg font-black text-white">Winner’s Circle</div>
+              <div class="text-sm text-gray-400">Top performance recognition tied to elite outcomes vs goals.</div>
             </div>
-          </button>
+          </div>
 
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="Project Initiation: Starting a Successful Project"
-            data-issuer="Google / Coursera"
-            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~NUCRM7OTWKM2.jpeg"
-            data-desc="Project initiation essentials: defining objectives, drafting charters, identifying stakeholders, capturing requirements, and kickoff readiness."
-            type="button">
-            <div class="badge-icon" style="background:#d29922;">PI</div>
-            <div class="badge-text">
-              <span class="badge-title">Project Initiation</span>
-              <span class="badge-issuer">Google / Coursera</span>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#da3633;"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">2019</div>
+              <div class="text-lg font-black text-white">Coin of Excellence</div>
+              <div class="text-sm text-gray-400">Recognition for exceptional execution, ownership, and customer impact.</div>
             </div>
-          </button>
+          </div>
 
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="Smart Cities — Management of Smart Urban Infrastructures"
-            data-issuer="EPFL / Coursera"
-            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~PC0WXE3NM0NK.jpeg"
-            data-desc="Smart-city infrastructure concepts: connected systems, mobility, governance, and scalable planning across complex environments."
-            type="button">
-            <div class="badge-icon" style="background:#8b949e;">SC</div>
-            <div class="badge-text">
-              <span class="badge-title">Smart Cities (EPFL)</span>
-              <span class="badge-issuer">EPFL / Coursera</span>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">2021</div>
+              <div class="text-lg font-black text-white">Winner’s Circle</div>
+              <div class="text-sm text-gray-400">Repeat recognition for top-tier performance and results.</div>
             </div>
-          </button>
+          </div>
 
-          <button class="credly-badge badge-hint cert-reveal"
-            data-title="CompTIA A+ (Historical Coursework / Training)"
-            data-issuer="Document unavailable"
-            data-img="./assets/certs/comptia-placeholder.png"
-            data-desc="Foundational IT coursework/training completed earlier in career. The original certificate is not currently recoverable due to age of record."
-            type="button">
-            <div class="badge-icon" style="background:#30363d;">A+</div>
-            <div class="badge-text">
-              <span class="badge-title">CompTIA A+ (Coursework)</span>
-              <span class="badge-issuer">Document unavailable</span>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="ml-6">
+              <div class="text-sm text-gray-400">2022</div>
+              <div class="text-lg font-black text-white">Winner’s Circle</div>
+              <div class="text-sm text-gray-400">Third recognition for consistent elite execution and goal attainment.</div>
             </div>
-          </button>
-
+          </div>
         </div>
 
-        <p class="mt-4 text-center text-xs text-gray-500 tracking-wide">
-          Hover (desktop) or tap (mobile) a badge to preview the certificate + details
+        <p class="text-xs text-gray-500 mt-4">
+          Dates reflect the records you provided: Director’s Club (Q4 2017, Q2 2018), Winner’s Circle (2018, 2021, 2022), Coin of Excellence (2019).
         </p>
       </div>
     </section>
@@ -474,6 +456,44 @@
       </div>
     </section>
 
+    <!-- Enterprise Portfolio Scale (BACK) -->
+    <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Enterprise Portfolio Scale</h3>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="card p-6 text-center">
+          <div class="text-3xl font-black text-accent mb-1">$12B+</div>
+          <div class="text-xs text-muted-theme uppercase tracking-wide">Combined Client Revenue</div>
+          <p class="text-xs text-gray-500 mt-2">Annual revenue of managed accounts.</p>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-3xl font-black text-accent mb-1">25,000+</div>
+          <div class="text-xs text-muted-theme uppercase tracking-wide">Workforce Supported</div>
+          <p class="text-xs text-gray-500 mt-2">Total employee base across accounts.</p>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-3xl font-black text-accent mb-1">5,000+</div>
+          <div class="text-xs text-muted-theme uppercase tracking-wide">Active Connections</div>
+          <p class="text-xs text-gray-500 mt-2">Directly managed lines & IoT endpoints.</p>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h4 class="text-lg font-semibold text-white mb-4">Key Strategic Accounts (Anonymized)</h4>
+        <div class="flex flex-wrap gap-3">
+          <span class="tag tag-blue">Top-Tier Construction Firm (ENR Rated)</span>
+          <span class="tag tag-blue">Fortune 1000 Agriculture Company</span>
+          <span class="tag tag-blue">Publicly Traded Commercial Bank</span>
+          <span class="tag tag-blue">Natl. Correctional Healthcare Provider</span>
+          <span class="tag tag-blue">Government Services Partner</span>
+          <span class="tag tag-blue">Major Regional Logistics Distributor</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Territory & Activity -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
@@ -495,18 +515,26 @@
       </div>
     </section>
 
-    <!-- Competency Radar -->
+    <!-- Competency Snapshot (replaces broken radar) -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
-        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Competency Profile</h3>
+        <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Competency Snapshot</h3>
       </div>
 
-      <div class="card p-6">
-        <div class="chart-container" style="max-width:760px;height:420px;">
-          <canvas id="skillsRadar" data-chart="radar"></canvas>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-lg font-black text-white mb-2">Program Execution</h4>
+          <p class="text-sm text-gray-400">Scope, cadence, stakeholder alignment, and delivery control across complex workstreams.</p>
         </div>
-        <p class="text-xs text-gray-500 mt-3 text-center">Radar animates on scroll.</p>
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-lg font-black text-white mb-2">Enterprise Strategy</h4>
+          <p class="text-sm text-gray-400">Territory planning, account expansion, and measurable outcomes tied to customer value.</p>
+        </div>
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-lg font-black text-white mb-2">Negotiation & Relationships</h4>
+          <p class="text-sm text-gray-400">Executive presence, escalation ownership, and trust-based partnerships.</p>
+        </div>
       </div>
     </section>
 
@@ -514,7 +542,7 @@
     <section class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-red-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">AI-Powered Tools ✨</h3>
+        <h3 class="text-2xl font-bold text-white">Tools ✨</h3>
       </div>
 
       <div class="card p-6 mb-6">
@@ -535,6 +563,102 @@
         </button>
         <p class="text-xs text-gray-500 mt-3">
           Uses your browser’s built-in text-to-speech (no external API needed).
+        </p>
+      </div>
+    </section>
+
+    <!-- Certifications moved near bottom (CLICK to view) -->
+    <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Certifications</h3>
+      </div>
+
+      <div class="card p-6">
+        <div class="credly-grid" id="certGrid">
+
+          <button class="credly-badge"
+            data-title="Sales Foundations"
+            data-issuer="LinkedIn Learning"
+            data-img="./assets/certs/1661878686885.png"
+            data-desc="Sales fundamentals covering prospecting, discovery, value messaging, objection handling, and building a repeatable sales process."
+            type="button">
+            <div class="badge-icon" style="background:#1f6feb;">LI</div>
+            <div>
+              <span class="badge-title">Sales Foundations</span>
+              <span class="badge-issuer">LinkedIn Learning</span>
+            </div>
+          </button>
+
+          <button class="credly-badge"
+            data-title="Customer Service: Problem Solving & Troubleshooting"
+            data-issuer="LinkedIn Learning"
+            data-img="./assets/certs/1674582720897.png"
+            data-desc="Troubleshooting frameworks: clarify the issue, isolate root cause, communicate updates, de-escalate, and close with prevention steps."
+            type="button">
+            <div class="badge-icon" style="background:#238636;">CS</div>
+            <div>
+              <span class="badge-title">Customer Service</span>
+              <span class="badge-issuer">LinkedIn Learning</span>
+            </div>
+          </button>
+
+          <button class="credly-badge"
+            data-title="Foundations of Project Management"
+            data-issuer="Google / Coursera"
+            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~MHEQJMU78OC9.jpeg"
+            data-desc="Lifecycle basics, stakeholder communication, scope framing, risk awareness, and delivery cadence."
+            type="button">
+            <div class="badge-icon" style="background:#a371f7;">PM</div>
+            <div>
+              <span class="badge-title">PM Foundations</span>
+              <span class="badge-issuer">Google / Coursera</span>
+            </div>
+          </button>
+
+          <button class="credly-badge"
+            data-title="Project Initiation: Starting a Successful Project"
+            data-issuer="Google / Coursera"
+            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~NUCRM7OTWKM2.jpeg"
+            data-desc="Define objectives, draft charters, identify stakeholders, capture requirements, and kickoff readiness."
+            type="button">
+            <div class="badge-icon" style="background:#d29922;">PI</div>
+            <div>
+              <span class="badge-title">Project Initiation</span>
+              <span class="badge-issuer">Google / Coursera</span>
+            </div>
+          </button>
+
+          <button class="credly-badge"
+            data-title="Smart Cities — Management of Smart Urban Infrastructures"
+            data-issuer="EPFL / Coursera"
+            data-img="./assets/certs/CERTIFICATE_LANDING_PAGE~PC0WXE3NM0NK.jpeg"
+            data-desc="Connected systems, mobility, governance, and planning across complex environments."
+            type="button">
+            <div class="badge-icon" style="background:#8b949e;">SC</div>
+            <div>
+              <span class="badge-title">Smart Cities (EPFL)</span>
+              <span class="badge-issuer">EPFL / Coursera</span>
+            </div>
+          </button>
+
+          <button class="credly-badge"
+            data-title="CompTIA A+ (Historical Coursework / Training)"
+            data-issuer="Document unavailable"
+            data-img="./assets/certs/comptia-placeholder.png"
+            data-desc="Foundational IT coursework/training completed earlier in career. Original certificate not currently recoverable."
+            type="button">
+            <div class="badge-icon" style="background:#30363d;">A+</div>
+            <div>
+              <span class="badge-title">CompTIA A+ (Coursework)</span>
+              <span class="badge-issuer">Document unavailable</span>
+            </div>
+          </button>
+
+        </div>
+
+        <p class="mt-4 text-center text-xs text-gray-500 tracking-wide">
+          Click a badge to open the certificate preview + description
         </p>
       </div>
     </section>
@@ -573,7 +697,7 @@
   </div>
 
   <script>
-    // Scroll reveal
+    // Reveal on scroll
     function initRevealOnScroll() {
       const els = document.querySelectorAll('.reveal');
       const obs = new IntersectionObserver((entries) => {
@@ -584,7 +708,7 @@
       els.forEach(el => obs.observe(el));
     }
 
-    // Award tooltip tap support (mobile)
+    // Awards tooltip tap support (mobile)
     function initTooltipTapSupport() {
       const chips = document.querySelectorAll('.award-chip');
       chips.forEach(chip => {
@@ -598,8 +722,8 @@
       document.addEventListener('click', () => chips.forEach(c => c.classList.remove('tooltip-open')));
     }
 
-    // Cert modal
-    function initCredlyCertGrid() {
+    // Cert modal (CLICK ONLY)
+    function initCertModalClickOnly() {
       const badges = document.querySelectorAll('.credly-badge');
       const modal = document.getElementById('certModal');
       const backdrop = document.getElementById('certBackdrop');
@@ -625,16 +749,11 @@
         imgEl.src = '';
       };
 
-      // hover delay (desktop)
-      let hoverTimer = null;
-      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
       badges.forEach(badge => {
-        if (finePointer) {
-          badge.addEventListener('mouseenter', () => hoverTimer = setTimeout(() => open(badge), 140));
-          badge.addEventListener('mouseleave', () => { if (hoverTimer) clearTimeout(hoverTimer); });
-        }
-        badge.addEventListener('click', (e) => { e.preventDefault(); open(badge); });
+        badge.addEventListener('click', (e) => {
+          e.preventDefault();
+          open(badge);
+        });
       });
 
       backdrop.addEventListener('click', close);
@@ -644,30 +763,15 @@
       });
     }
 
-    // Cert stagger reveal
-    function initCertStaggerReveal() {
-      const badges = document.querySelectorAll('.cert-reveal');
-      const obs = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const grid = entry.target.closest('#certGrid');
-          if (!grid) return;
-
-          const nodes = Array.from(grid.querySelectorAll('.cert-reveal'));
-          nodes.forEach((node, i) => setTimeout(() => node.classList.add('is-visible'), i * 90));
-          nodes.forEach(n => observer.unobserve(n));
-        });
-      }, { threshold: 0.2 });
-
-      badges.forEach(b => obs.observe(b));
-    }
-
-    // Charts animate on scroll
+    // Charts animate on scroll (bar/doughnut/bar)
     function initChartsOnScroll() {
       const seen = new Set();
 
       const createChart = (canvas) => {
         const type = canvas.dataset.chart;
+
+        Chart.defaults.color = '#8b949e';
+        Chart.defaults.borderColor = '#30363d';
 
         if (type === 'performance') {
           new Chart(canvas, {
@@ -693,7 +797,7 @@
           new Chart(canvas, {
             type: 'doughnut',
             data: {
-              labels: ['Strategic Growth', 'Execution', 'New Logo', 'Admin'],
+              labels: ['Strategic Growth', 'Project Execution', 'New Logo', 'Admin'],
               datasets: [{ data: [35, 30, 25, 10], backgroundColor: ['#1f6feb','#238636','#a371f7','#8b949e'], borderWidth: 0 }]
             },
             options: {
@@ -716,40 +820,11 @@
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              animation: { duration: 1400 },
+              animation: { duration: 1400, easing: 'easeOutQuart' },
               plugins: { legend: { display: false } },
               scales: {
                 x: { grid: { color: '#30363d' } },
                 y: { grid: { display: false } }
-              }
-            }
-          });
-        }
-
-        if (type === 'radar') {
-          new Chart(canvas, {
-            type: 'radar',
-            data: {
-              labels: ['Project Mgmt','Strategy','Negotiation','Relationships','Tech','Hunting'],
-              datasets: [{
-                data: [95,92,90,93,85,88],
-                backgroundColor: 'rgba(31,111,235,0.25)',
-                borderColor: '#1f6feb',
-                borderWidth: 2,
-                pointBackgroundColor: '#1f6feb'
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              animation: { duration: 1500 },
-              plugins: { legend: { display: false } },
-              scales: {
-                r: {
-                  angleLines: { color: '#30363d' },
-                  grid: { color: '#30363d' },
-                  ticks: { display: false }
-                }
               }
             }
           });
@@ -769,7 +844,7 @@
       document.querySelectorAll('canvas[data-chart]').forEach(c => obs.observe(c));
     }
 
-    // Offline pitch generator
+    // Offline pitch generator (safe for GitHub Pages)
     function initPitchGenerator() {
       const btn = document.getElementById('generatePitchBtn');
       const out = document.getElementById('pitchOutput');
@@ -777,7 +852,7 @@
 
       btn.addEventListener('click', () => {
         text.textContent =
-          "I’m a Client Executive with 8+ years of experience leading enterprise programs in the TMT space. I specialize in converting complex environments into structured, deliverable outcomes through disciplined execution, stakeholder alignment, and measurable growth. I’ve performed at a leading level, earned top performer recognitions across multiple years, and supported large-scale deployments and connectivity initiatives that drive real customer outcomes.";
+          "I’m a Client Executive with 8+ years of experience leading enterprise programs in the TMT space. I specialize in converting complex environments into structured, deliverable outcomes through disciplined execution, stakeholder alignment, and measurable growth. I’ve performed at a leading level, earned top performer recognition across multiple years, and supported large-scale deployments and connectivity initiatives that drive real customer outcomes.";
         out.classList.remove('hidden');
       });
     }
@@ -800,8 +875,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       initRevealOnScroll();
       initTooltipTapSupport();
-      initCredlyCertGrid();
-      initCertStaggerReveal();
+      initCertModalClickOnly();
       initChartsOnScroll();
       initPitchGenerator();
       initReadIntro();
