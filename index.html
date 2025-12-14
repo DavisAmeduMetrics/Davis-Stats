@@ -119,6 +119,37 @@
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     /* Awards tooltip chips */
+    /* === AWARD EMPHASIS (HERO SIGNAL) === */
+.award-hero {
+  position: relative;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.award-hero::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at center,
+    rgba(227,179,65,0.18),
+    rgba(227,179,65,0.05),
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+@keyframes awardPulse {
+  0% { box-shadow: 0 0 0 rgba(227,179,65,0); }
+  50% { box-shadow: 0 0 22px rgba(227,179,65,0.35); }
+  100% { box-shadow: 0 0 0 rgba(227,179,65,0); }
+}
+
+.award-pulse {
+  animation: awardPulse 2.6s ease-in-out infinite;
+}
+
     .award-chip { position: relative; cursor: help; outline: none; }
 
     @keyframes hintPulse {
@@ -309,29 +340,47 @@
       <h1 class="text-4xl md:text-6xl font-black mb-3 tracking-tight text-white drop-shadow-md">Davis Amedu II</h1>
       <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management</p>
 
-      <!-- Awards & Recognition chips -->
-      <div class="flex flex-wrap justify-center gap-3 mb-3">
-        <span class="tag tag-gray bg-[#0d1117]">TMT Sector Expert</span>
+      <!-- Awards & Recognition (EMPHASIZED) -->
+<div class="flex flex-col items-center gap-4 mb-4">
 
-        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
-          data-tooltip="Winner’s Circle — top performance recognition. Achieved in 2018, 2021, and 2022.">
-          Winner’s Circle (3x)
-        </button>
+  <!-- Primary Awards (Hero Row) -->
+  <div class="flex flex-wrap justify-center gap-4">
 
-        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
-          data-tooltip="Director’s Club — leadership recognition for exceptional performance. Awarded Q4 2017 and Q2 2018.">
-          Director’s Club (2x)
-        </button>
+    <button
+      class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse"
+      type="button"
+      data-tooltip="Winner’s Circle — Verizon’s top performance recognition program. Earned by finishing among the highest performers vs quota and strategic KPIs. Achieved in 2018, 2021, and 2022.">
+      🏆 Winner’s Circle (3×)
+    </button>
 
-        <button class="tag tag-gold bg-[#0d1117] award-chip award-hint" type="button"
-          data-tooltip="Coin of Excellence — recognition for exceptional execution and impact (2019).">
-          Coin of Excellence
-        </button>
-      </div>
+    <button
+      class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse"
+      type="button"
+      data-tooltip="Director’s Club — leadership recognition awarded for exceptional results, consistency, and customer impact. Earned in Q4 2017 and Q2 2018.">
+      ⭐ Director’s Club (2×)
+    </button>
 
-      <p class="text-xs text-gray-500">Tip: hover or tap the award chips for details</p>
-    </div>
-  </header>
+  </div>
+
+  <!-- Secondary Recognition -->
+  <div class="flex flex-wrap justify-center gap-3">
+    <button
+      class="tag tag-gold bg-[#0d1117] award-chip award-hint"
+      type="button"
+      data-tooltip="Coin of Excellence — awarded for exceptional execution, ownership, and results that materially impact customers and the business (2019).">
+      🎖 Coin of Excellence
+    </button>
+
+    <span class="tag tag-gray bg-[#0d1117]">
+      TMT Sector Expert
+    </span>
+  </div>
+
+</div>
+
+<p class="text-xs text-gray-500">
+  Hover or tap awards to see criteria and significance
+</p>
 
   <main class="container mx-auto px-4 py-8 space-y-12">
 
@@ -889,6 +938,7 @@
   </script>
 </body>
 </html>
+
 
 
 
