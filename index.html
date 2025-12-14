@@ -1,282 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Davis Amedu II | Strategic Program Management</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Davis Amedu II | Strategic Program Management Profile</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
-<style>
-:root {
-  --bg:#0d1117; --card:#161b22; --border:#30363d;
-  --text:#c9d1d9; --muted:#8b949e;
-  --blue:#58a6ff; --gold:#e3b341; --green:#238636;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
-body { font-family: Inter, sans-serif; background:var(--bg); color:var(--text); }
+  <style>
+    :root {
+      --bg-canvas: #0d1117;
+      --bg-canvas-subtle: #161b22;
+      --bg-canvas-inset: #010409;
+      --border-default: #30363d;
+      --fg-default: #c9d1d9;
+      --fg-muted: #8b949e;
+      --accent-fg: #58a6ff;
+      --success-fg: #238636;
+      --success-border: #2ea043;
+      --attention-fg: #d29922;
+      --danger-fg: #da3633;
+      --done-fg: #a371f7;
+    }
 
-.card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:.5rem;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);
-}
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-canvas); color: var(--fg-default); }
+    .text-accent { color: var(--accent-fg); }
+    .text-muted-theme { color: var(--fg-muted); }
 
-.tag {
-  font-size:.75rem; font-weight:700;
-  padding:.3rem .75rem;
-  border-radius:999px;
-  border:1px solid rgba(227,179,65,.4);
-  background:rgba(227,179,65,.12);
-  color:var(--gold);
-}
+    /* Card */
+    .card {
+      background-color: var(--bg-canvas-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: 0.5rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent-fg); }
 
-.reveal {
-  opacity:0; transform:translateY(20px);
-  transition:all .7s ease;
-}
-.reveal.is-visible { opacity:1; transform:none; }
+    /* Tags */
+    .tag { display:inline-block; padding: 0.25rem 0.7rem; font-size: 0.78rem; font-weight: 700; border-radius: 9999px; border: 1px solid; }
+    .tag-blue { background-color: rgba(56, 139, 253, 0.1); color: #58a6ff; border-color: rgba(56, 139, 253, 0.4); }
+    .tag-gold { background-color: rgba(210, 153, 34, 0.1); color: #e3b341; border-color: rgba(210, 153, 34, 0.4); }
+    .tag-gray { background-color: rgba(177, 186, 196, 0.1); color: #8b949e; border-color: #30363d; }
 
-/* === TOOLTIP === */
-.tooltip-wrap { position:relative; display:inline-flex; }
-.tooltip {
-  position:absolute; top:calc(100% + 10px); left:50%;
-  transform:translateX(-50%);
-  width:min(380px,90vw);
-  background:#0d1117; border:1px solid var(--border);
-  padding:.8rem; border-radius:.6rem;
-  box-shadow:0 15px 30px rgba(0,0,0,.6);
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:.2s;
-  z-index:50;
-}
-.tooltip-title { color:var(--gold); font-weight:800; margin-bottom:.25rem; }
-.tooltip-text { font-size:.8rem; color:var(--muted); line-height:1.4; }
-.tooltip-note { font-size:.7rem; color:#777; margin-top:.4rem; }
+    /* Buttons */
+    .btn-primary { background-color: var(--success-fg); border: 1px solid var(--success-border); color:#fff; cursor:pointer; transition: all 0.2s; }
+    .btn-primary:hover { background-color:#2ea043; }
+    .btn-danger { background-color:#21262d; border:1px solid #30363d; color: var(--danger-fg); cursor:pointer; transition: all 0.2s; }
+    .btn-danger:hover { background-color: rgba(218,54,51,0.1); border-color: var(--danger-fg); }
+    .btn-disabled { opacity:0.55; cursor:not-allowed; }
 
-.tooltip-wrap:hover .tooltip,
-.tooltip-open .tooltip {
-  opacity:1; visibility:visible; pointer-events:auto;
-}
+    /* Borders */
+    .border-t-accent { border-top: 4px solid var(--accent-fg); }
+    .border-t-success { border-top: 4px solid var(--success-fg); }
+    .border-t-purple { border-top: 4px solid var(--done-fg); }
 
-/* Glow hint */
-@keyframes pulse {
-  0%,100% { box-shadow:0 0 0 rgba(227,179,65,0); }
-  50% { box-shadow:0 0 18px rgba(227,179,65,.35); }
-}
-.hint { animation:pulse 2.4s infinite; cursor:help; }
-.hint:hover { animation:none; box-shadow:0 0 22px rgba(88,166,255,.45); }
+    /* Banner */
+    .banner-container { width:100%; height:280px; overflow:hidden; position:relative; background-color: var(--bg-canvas-inset); border-bottom:1px solid var(--border-default); }
+    .banner-image { width:100%; height:100%; object-fit:cover; opacity:0.7; }
 
-.chart-box { height:320px; }
-</style>
+    /* Chart container */
+    .chart-container { position: relative; width: 100%; max-width: 680px; margin: 0 auto; height: 320px; }
+    @media (min-width:768px){ .chart-container{ height:360px; } }
+
+    /* === REVEAL ON SCROLL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms ease, transform 700ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
+    }
+
+    /* === TOOLTIP === */
+    .tooltip-wrap { position: relative; display: inline-flex; }
+    .tooltip {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 10px);
+      transform: translateX(-50%);
+      width: min(380px, 92vw);
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 0.85rem 0.95rem;
+      border-radius: 0.7rem;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.55);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+      z-index: 60;
+    }
+    .tooltip::before {
+      content:"";
+      position:absolute;
+      top:-6px;
+      left:50%;
+      width:10px; height:10px;
+      background:#0d1117;
+      border-left:1px solid #30363d;
+      border-top:1px solid #30363d;
+      transform: translateX(-50%) rotate(45deg);
+    }
+    .tooltip-title { font-weight: 900; color: #e3b341; margin-bottom: 0.35rem; }
+    .tooltip-text { font-size: 0.82rem; color: #8b949e; line-height: 1.45rem; }
+    .tooltip-note { margin-top: 0.55rem; font-size: 0.75rem; color: #8b949e; opacity: 0.9; }
+
+    .tooltip-wrap:hover .tooltip,
+    .tooltip-wrap:focus-within .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* tap-open state */
+    .tooltip-open .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* === “Hover me” glow hint === */
+    @keyframes hintPulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(227,179,65,0); transform: translateY(0); }
+      50% { box-shadow: 0 0 18px rgba(227,179,65,0.22); transform: translateY(-1px); }
+    }
+    .hint-hover {
+      animation: hintPulse 2.3s ease-in-out infinite;
+      cursor: help;
+    }
+    .hint-hover:hover {
+      animation: none;
+      box-shadow: 0 0 22px rgba(88,166,255,0.18);
+      border-color: rgba(88,166,255,0.55);
+    }
+  </style>
 </head>
 
-<body>
+<body class="antialiased">
 
-<!-- HEADER -->
-<header class="text-center py-16 border-b border-gray-800">
-  <div class="w-28 h-28 mx-auto rounded-full overflow-hidden border-4 border-[#0d1117] shadow-xl mb-6">
-    <img src="./assets/Screenshot_20251122_003717_Photos.jpg" class="w-full h-full object-cover">
+  <!-- Banner -->
+  <div class="banner-container">
+    <img
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop"
+      onerror="this.onerror=null; this.src='https://placehold.co/2070x280/161b22/8b949e?text=Technology+Banner';"
+      alt="Technology Banner"
+      class="banner-image"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent"></div>
   </div>
-  <h1 class="text-5xl font-extrabold text-white">Davis Amedu II</h1>
-  <p class="text-xl text-gray-400 mt-2">Client Executive | Strategic Program Management</p>
-</header>
 
-<!-- ACCOLADES -->
-<section class="container mx-auto px-4 -mt-8 relative z-10">
-  <div class="card p-6 border-t-4 border-blue-500">
-    <h3 class="text-center text-sm uppercase tracking-widest text-blue-400 mb-4">
-      Accolades & Recognition
-    </h3>
+  <!-- Header -->
+  <header class="border-b border-gray-800 pb-12 pt-0 relative -mt-20 z-10">
+    <div class="container mx-auto px-4 text-center">
 
-    <div class="flex flex-wrap justify-center gap-4">
-
-      <!-- Director’s Club -->
-      <div class="tooltip-wrap">
-        <span class="tag hint">⭐ Director’s Club — Q4 2017</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Director’s Club</div>
-          <div class="tooltip-text">
-            Recognizes top quarterly performers based on quota attainment, pipeline health,
-            and execution quality versus peers.
-          </div>
-          <div class="tooltip-note">Criteria varies by role & year.</div>
-        </div>
+      <!-- Avatar -->
+      <div class="w-28 h-28 mx-auto rounded-full border-4 border-[#0d1117] shadow-2xl mb-6 overflow-hidden relative z-20 bg-gray-800">
+        <img
+          src="./assets/Screenshot_20251122_003717_Photos.jpg"
+          alt="Davis Amedu II avatar"
+          class="w-full h-full object-cover"
+        />
       </div>
 
-      <div class="tooltip-wrap">
-        <span class="tag hint">⭐ Director’s Club — Q2 2018</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Director’s Club</div>
-          <div class="tooltip-text">
-            Awarded for elite execution, consistent delivery, and measurable contribution to plan.
-          </div>
-        </div>
-      </div>
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">Davis Amedu II</h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management</p>
 
-      <!-- Winners Circle -->
-      <div class="tooltip-wrap">
-        <span class="tag hint">🏆 Winners Circle — 2018</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Winners Circle</div>
-          <div class="tooltip-text">
-            Competitive annual recognition for sustained over-attainment, customer outcomes,
-            and consistency across performance metrics.
-          </div>
-        </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <span class="tag tag-gray bg-[#0d1117]">TMT Sector Expert</span>
+        <span class="tag tag-gold bg-[#0d1117]">3× Winners Circle (2018, 2021, 2022)</span>
+        <span class="tag tag-gray bg-[#0d1117]">PMP Foundations</span>
       </div>
-
-      <div class="tooltip-wrap">
-        <span class="tag hint">🏆 Winners Circle — 2021</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Winners Circle</div>
-          <div class="tooltip-text">
-            Recognizes top-tier performance and enterprise-level impact across the measurement period.
-          </div>
-        </div>
-      </div>
-
-      <div class="tooltip-wrap">
-        <span class="tag hint">🏆 Winners Circle — 2022</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Winners Circle</div>
-          <div class="tooltip-text">
-            Awarded for consistent elite performance and execution excellence.
-          </div>
-        </div>
-      </div>
-
-      <!-- Coin -->
-      <div class="tooltip-wrap">
-        <span class="tag hint">🪙 Coin of Excellence — 2019</span>
-        <div class="tooltip">
-          <div class="tooltip-title">Coin of Excellence</div>
-          <div class="tooltip-text">
-            Leadership recognition for exceptional impact beyond standard expectations —
-            ownership, problem-solving, and visible results.
-          </div>
-        </div>
-      </div>
-
     </div>
+  </header>
 
-    <p class="text-center text-xs text-gray-500 mt-4">
-      Hover or tap an award to learn how it’s earned
-    </p>
-  </div>
-</section>
-
-<!-- CONTENT -->
-<main class="container mx-auto px-4 py-12 space-y-16">
-
-  <!-- INTRO -->
-  <section class="reveal text-center max-w-4xl mx-auto">
-    <h2 class="text-3xl font-bold text-blue-400 mb-4">
-      Performance-Driven Leadership
-    </h2>
-    <p id="introText" class="text-lg text-gray-400 leading-relaxed">
-      Over 8 years of success driving enterprise outcomes across Telecommunications,
-      Media, and Technology. Promoted to Client Executive in 2023 following consistent
-      top-tier performance and execution excellence.
-    </p>
-  </section>
-
-  <!-- METRICS -->
-  <section class="reveal" data-chart="performance">
-    <h3 class="text-2xl font-bold text-white mb-6">Quantified Impact</h3>
-    <div class="card p-6">
-      <div class="chart-box">
-        <canvas id="performanceChart"></canvas>
+  <!-- Accolades -->
+  <section class="container mx-auto px-4 -mt-6 relative z-20">
+    <div class="card p-6 border-t-accent">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="text-accent font-bold text-sm uppercase tracking-widest">Accolades & Recognition</span>
       </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">⭐ Director’s Club — Q4 2017</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Director’s Club</div>
+            <div class="tooltip-text">
+              Typically recognizes top quarterly performers (quota attainment), pipeline discipline,
+              and execution quality versus peers.
+            </div>
+            <div class="tooltip-note">Criteria varies by role and year.</div>
+          </div>
+        </div>
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">⭐ Director’s Club — Q2 2018</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Director’s Club</div>
+            <div class="tooltip-text">
+              Awarded for elite quarterly execution, measurable results, and strong operating cadence.
+            </div>
+          </div>
+        </div>
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">🏆 Winners Circle — 2018</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Winners Circle</div>
+            <div class="tooltip-text">
+              Competitive annual recognition for sustained over-attainment, customer outcomes, and consistency.
+            </div>
+          </div>
+        </div>
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">🪙 Coin of Excellence — 2019</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Coin of Excellence</div>
+            <div class="tooltip-text">
+              Leadership recognition for exceptional impact beyond standard expectations—ownership, problem-solving,
+              and visible results.
+            </div>
+          </div>
+        </div>
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">🏆 Winners Circle — 2021</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Winners Circle</div>
+            <div class="tooltip-text">
+              Recognizes top-tier performance and enterprise-level impact across the measurement period.
+            </div>
+          </div>
+        </div>
+
+        <div class="tooltip-wrap">
+          <span class="tag tag-gold text-center py-2 px-4 text-sm hint-hover">🏆 Winners Circle — 2022</span>
+          <div class="tooltip" role="tooltip">
+            <div class="tooltip-title">Winners Circle</div>
+            <div class="tooltip-text">
+              Awarded for consistent elite performance and execution excellence.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="mt-3 text-center text-xs text-gray-500 tracking-wide">
+        Hover or tap an award to see how it’s earned
+      </p>
     </div>
   </section>
 
-  <!-- TERRITORY -->
-  <section class="reveal" data-chart="territory">
-    <h3 class="text-2xl font-bold text-white mb-6">Territory & Activity</h3>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="card p-6 chart-box"><canvas id="territoryChart"></canvas></div>
-      <div class="card p-6 chart-box"><canvas id="activityChart"></canvas></div>
+  <main class="container mx-auto px-4 py-10 space-y-14">
+
+    <!-- Intro -->
+    <section class="max-w-4xl mx-auto text-center reveal">
+      <h2 class="text-3xl font-bold text-accent mb-4">Performance-Driven Project Leadership</h2>
+      <p id="introText" class="text-lg text-muted-theme leading-relaxed">
+        With over 8 years of success in the competitive Telecommunications, Media, and Technology (TMT) sector, I specialize in navigating complex enterprise projects and driving end-to-end solution delivery. Promoted to Client Executive in February 2023 following a consistent <strong class="text-white">Leading</strong> performance rating (2018-2023), I managed a massive book of business comprising industry giants. My methodology combines strategic account growth, rigorous project execution, and leveraging <strong class="text-white">AI tools (Google Gemini)</strong> for efficiency.
+      </p>
+    </section>
+
+    <!-- Certifications (Awards removed to avoid duplication) -->
+    <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Certifications</h3>
+      </div>
+      <div class="card p-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <span class="tag tag-blue text-center py-2">Project Initiation (Google)</span>
+          <span class="tag tag-blue text-center py-2">Foundations of PM (Google)</span>
+          <span class="tag tag-blue text-center py-2">CompTIA A+</span>
+          <span class="tag tag-blue text-center py-2">Smart Cities Mgmt (EPFL)</span>
+          <span class="tag tag-blue text-center py-2">Sales Foundations (LinkedIn)</span>
+          <span class="tag tag-blue text-center py-2">Customer Service (LinkedIn)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quantified Success -->
+    <section class="reveal" data-chart-section="quant">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Quantified Success</h3>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card p-6 text-center border-t-accent">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">179%</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">Mid-Year Net Adds (2021)</div>
+        </div>
+        <div class="card p-6 text-center border-t-accent">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">184%</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">SaaS Quota Attainment (2021)</div>
+        </div>
+        <div class="card p-6 text-center border-t-accent">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">150%</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">Career Gross Adds</div>
+        </div>
+        <div class="card p-6 text-center border-t-success">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">Leading</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">Performance Rating (2018-23)</div>
+        </div>
+        <div class="card p-6 text-center border-t-accent">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">98%</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">On-Time Delivery Rate</div>
+        </div>
+        <div class="card p-6 text-center border-t-accent">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">2,000+</div>
+          <div class="text-xs font-bold text-muted-theme uppercase">Line Commitment (2022)</div>
+        </div>
+      </div>
+
+      <div class="mt-8 card p-6">
+        <h4 class="text-lg font-semibold text-white mb-4 text-center">Annual Performance Trends (% to Goal)</h4>
+        <div class="chart-container">
+          <canvas id="performanceChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Territory & Activity -->
+    <section class="reveal" data-chart-section="territoryActivity">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Territory & Activity</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="card p-6">
+          <h4 class="text-lg font-semibold text-white mb-2 text-center">Territory Focus</h4>
+          <div class="chart-container"><canvas id="territoryChart"></canvas></div>
+        </div>
+        <div class="card p-6">
+          <h4 class="text-lg font-semibold text-white mb-2 text-center">Activity Breakdown</h4>
+          <div class="chart-container"><canvas id="activityChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Tools -->
+    <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-red-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">AI-Powered Tools ✨</h3>
+      </div>
+
+      <div class="card p-6 mb-6">
+        <h4 class="text-xl font-bold text-white mb-4">Generate Personalized Pitch</h4>
+        <button id="generatePitchBtn" onclick="window.generatePitch()" class="btn-primary font-bold py-2 px-4 rounded-lg shadow-md w-full sm:w-auto">
+          ✨ Draft Elevator Pitch
+        </button>
+
+        <div id="pitchOutput" class="mt-4 p-4 bg-[#0d1117] border border-gray-700 rounded-lg hidden">
+          <p class="font-semibold mb-2 text-blue-400">Draft Pitch:</p>
+          <p id="pitchText" class="text-gray-300 italic whitespace-pre-wrap"></p>
+        </div>
+
+        <div id="pitchLoading" class="mt-4 text-accent hidden">Generating pitch...</div>
+        <div id="aiNotice" class="mt-4 text-xs text-gray-500 hidden">
+          AI features are disabled because no API key is configured for GitHub Pages.
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h4 class="text-xl font-bold text-white mb-4">Read Introduction Aloud</h4>
+        <button id="readIntroBtn" onclick="window.readIntroduction()" class="btn-danger font-bold py-2 px-4 rounded-lg shadow-md w-full sm:w-auto">
+          🔊 Read Intro with TTS
+        </button>
+
+        <div id="audioPlayerContainer" class="mt-4 hidden"><audio id="audioPlayer" controls class="w-full"></audio></div>
+        <div id="audioLoading" class="mt-4 text-red-500 hidden">Generating audio...</div>
+        <div id="audioError" class="mt-4 text-danger-fg hidden"></div>
+      </div>
+    </section>
+
+    <!-- Competency Radar -->
+    <section class="reveal" data-chart-section="radar">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Competency Profile</h3>
+      </div>
+
+      <div class="card p-6">
+        <div id="skillsPlot" style="width:100%; height:400px;"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background-color: var(--bg-canvas-inset);" class="border-t border-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-lg font-semibold">Davis Amedu II</p>
+      <p class="text-gray-500 text-sm">Strategic Program Management • Jackson, MS</p>
+      <div class="text-gray-600 text-xs mt-2">
+        <p>Rutgers University (Attended) - Graphic Design</p>
+        <p>Brookdale Community College (Attended)</p>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- RADAR -->
-  <section class="reveal" data-chart="radar">
-    <h3 class="text-2xl font-bold text-white mb-6">Competency Profile</h3>
-    <div class="card p-6">
-      <div id="skillsPlot" style="height:380px;"></div>
-    </div>
-  </section>
+  <script type="module">
+    // ===== Reveal on scroll =====
+    function initRevealOnScroll() {
+      const els = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.12 });
 
-</main>
-
-<footer class="text-center text-gray-500 text-sm py-10 border-t border-gray-800">
-  Davis Amedu II • Strategic Program Management • Jackson, MS
-</footer>
-
-<script type="module">
-/* Reveal on scroll */
-const reveals=document.querySelectorAll('.reveal');
-const ro=new IntersectionObserver(e=>{
-  e.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add('is-visible'); ro.unobserve(x.target);} });
-},{threshold:.15});
-reveals.forEach(r=>ro.observe(r));
-
-/* Tooltip tap support */
-document.querySelectorAll('.tooltip-wrap').forEach(w=>{
-  w.addEventListener('click',e=>{
-    e.stopPropagation();
-    document.querySelectorAll('.tooltip-wrap').forEach(o=>o!==w&&o.classList.remove('tooltip-open'));
-    w.classList.toggle('tooltip-open');
-  });
-});
-document.addEventListener('click',()=>document.querySelectorAll('.tooltip-wrap').forEach(w=>w.classList.remove('tooltip-open')));
-
-/* Charts on scroll */
-let perf=false, terr=false, radar=false;
-const chartObs=new IntersectionObserver(e=>{
-  e.forEach(x=>{
-    if(!x.isIntersecting) return;
-    const key=x.target.dataset.chart;
-    if(key==="performance"&&!perf){
-      perf=true;
-      new Chart(performanceChart,{
-        type:'bar',
-        data:{labels:['2021 Mid-Year','2021 EOY','2022 EOY','2024 Rev'],
-        datasets:[{data:[0,0,0,0],backgroundColor:'#1f6feb'}]},
-        options:{animation:{duration:1200}}
-      }).data.datasets[0].data=[179,160,148,115];
+      els.forEach(el => observer.observe(el));
     }
-    if(key==="territory"&&!terr){
-      terr=true;
-      new Chart(territoryChart,{type:'doughnut',
-        data:{labels:['Growth','Execution','New Logo','Admin'],
-        datasets:[{data:[35,30,25,10],backgroundColor:['#1f6feb','#238636','#a371f7','#8b949e']}]}
+
+    // ===== Tooltip tap support (mobile) =====
+    function initTooltipTapSupport() {
+      const wraps = document.querySelectorAll('.tooltip-wrap');
+
+      wraps.forEach(wrap => {
+        wrap.addEventListener('click', (e) => {
+          e.stopPropagation();
+          wraps.forEach(w => { if (w !== wrap) w.classList.remove('tooltip-open'); });
+          wrap.classList.toggle('tooltip-open');
+        });
       });
-      new Chart(activityChart,{type:'bar',indexAxis:'y',
-        data:{labels:['Planning','Qualifying','Closing','Post-Sale'],
-        datasets:[{data:[35,30,25,10],backgroundColor:'#238636'}]}
+
+      document.addEventListener('click', () => {
+        wraps.forEach(w => w.classList.remove('tooltip-open'));
       });
     }
-    if(key==="radar"&&!radar){
-      radar=true;
-      Plotly.newPlot('skillsPlot',[{
-        type:'scatterpolar',
-        r:[100,95,95,90,85,75],
-        theta:['PM','Strategy','Negotiation','Relationships','Tech','Hunting'],
-        fill:'toself'
-      }],{polar:{radialaxis:{range:[0,100]}},paper_bgcolor:'rgba(0,0,0,0)'});
-    }
-    chartObs.unobserve(x.target);
-  });
-},{threshold:.2});
 
-document.querySelectorAll('[data-chart]').forEach(s=>chartObs.observe(s));
-</script>
+    // ===== AI Buttons (disable on GitHub Pages if no key) =====
+    const apiKey = ""; // Keep blank for public GitHub Pages
+    const LLM_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+    const TTS_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+    function disableAiButtonsIfNoKey() {
+      const hasKey = !!apiKey;
+      const genBtn = document.getElementById('generatePitchBtn');
+      const readBtn = document.getElementById('readIntroBtn');
+      const notice = document.getElementById('aiNotice');
+
+      if (!hasKey) {
+        genBtn.classList.add('btn-disabled');
+        readBtn.classList.add('btn-disabled');
+        genBtn.disabled = true;
+        readBtn.disabled = true;
+        notice.classList.remove('hidden');
+      }
+      return hasKey;
+    }
+
+    async function callApiWithBackoff(url, payload, maxRetries = 5) {
+      let delay = 1000;
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (response.ok) return await response.json();
+          if (response.status === 429 && i < maxRetries - 1) {
+            await new Promise(r => setTimeout(r, delay));
+            delay *= 2;
+            continue;
+          }
+          throw new Error(`API Status: ${response.status}`);
+        } catch (e) {
+          if (i === maxRetries - 1) throw e;
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    window.generatePitch = async function () {
+      if (!apiKey) return;
+
+      const btn = document.getElementById('generatePitchBtn');
+      const loading = document.getElementById('pitchLoading');
+      const output = document.getElementById('pitchOutput');
+      const pitchText = document.getElementById('pitchText');
+
+      btn.disabled = true;
+      loading.classList.remove('hidden');
+      output.classList.add('hidden');
+      pitchText.textContent = '';
+
+      const prompt = "Generate a 60-second elevator pitch for Davis Amedu II, emphasizing 179% Net Adds, $12B+ client portfolio management (with generic client names like 'Top Tier Construction' and 'Fortune 1000 Ag'), and Client Executive promotion.";
+      const payload = { contents: [{ parts: [{ text: prompt }] }] };
+
+      try {
+        const result = await callApiWithBackoff(LLM_URL, payload);
+        pitchText.textContent = result.candidates?.[0]?.content?.parts?.[0]?.text || "No text generated.";
+        output.classList.remove('hidden');
+      } catch (e) {
+        pitchText.textContent = "Error generating pitch. Check console.";
+        output.classList.remove('hidden');
+        console.error("Pitch Generation Error:", e);
+      } finally {
+        loading.classList.add('hidden');
+        btn.disabled = false;
+      }
+    };
+
+    window.readIntroduction = async function () {
+      if (!apiKey) return;
+      const btn = document.getElementById('readIntroBtn');
+      const loading = document.getElementById('audioLoading');
+      const audioContainer = document.getElementById('audioPlayerContainer');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const errorDisplay = document.getElementById('audioError');
+      const text = document.getElementById('introText').textContent.trim();
+
+      btn.disabled = true;
+      loading.classList.remove('hidden');
+      audioContainer.classList.add('hidden');
+      errorDisplay.classList.add('hidden');
+
+      const payload = {
+        contents: [{ parts: [{ text: `Read professionally: ${text}` }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+        }
+      };
+
+      try {
+        const result = await callApiWithBackoff(TTS_URL, payload);
+        const audioData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+        const mimeType = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
+        if (!audioData || !mimeType) throw new Error("Missing audio data from API response.");
+
+        const rateMatch = mimeType.match(/rate=(\d+)/);
+        const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+
+        const binaryString = atob(audioData);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) bytes[i] = binaryString.charCodeAt(i);
+        const pcm = new Int16Array(bytes.buffer);
+
+        // build WAV
+        const numChannels = 1, bytesPerSample = 2;
+        const byteRate = sampleRate * numChannels * bytesPerSample;
+        const blockAlign = numChannels * bytesPerSample;
+        const dataSize = pcm.length * bytesPerSample;
+        const buffer = new ArrayBuffer(44 + dataSize);
+        const view = new DataView(buffer);
+        let offset = 0;
+
+        view.setUint32(offset, 0x52494646, false); offset += 4;
+        view.setUint32(offset, 36 + dataSize, true); offset += 4;
+        view.setUint32(offset, 0x57415645, false); offset += 4;
+        view.setUint32(offset, 0x666d7420, false); offset += 4;
+        view.setUint32(offset, 16, true); offset += 4;
+        view.setUint16(offset, 1, true); offset += 2;
+        view.setUint16(offset, 1, true); offset += 2;
+        view.setUint32(offset, sampleRate, true); offset += 4;
+        view.setUint32(offset, byteRate, true); offset += 4;
+        view.setUint16(offset, blockAlign, true); offset += 2;
+        view.setUint16(offset, 16, true); offset += 2;
+        view.setUint32(offset, 0x64617461, false); offset += 4;
+        view.setUint32(offset, dataSize, true); offset += 4;
+
+        for (let i = 0; i < pcm.length; i++) { view.setInt16(offset, pcm[i], true); offset += 2; }
+
+        const wavBlob = new Blob([buffer], { type: 'audio/wav' });
+        if (audioPlayer.src) URL.revokeObjectURL(audioPlayer.src);
+        audioPlayer.src = URL.createObjectURL(wavBlob);
+
+        audioContainer.classList.remove('hidden');
+        audioPlayer.play();
+      } catch (e) {
+        console.error("Audio Generation Failed:", e);
+        errorDisplay.textContent = "Audio generation failed. Check console for details.";
+        errorDisplay.classList.remove('hidden');
+      } finally {
+        loading.classList.add('hidden');
+        btn.disabled = false;
+      }
+    };
+
+    // ===== Charts: animate on scroll (reliable, no broken refs) =====
+    let performanceChartInstance = null;
+    let territoryChartInstance = null;
+    let activityChartInstance = null;
+    let radarRendered = false;
+
+    function renderPerformanceChartAnimated() {
+      if (performanceChartInstance || typeof Chart === 'undefined') return;
+
+      Chart.defaults.color = '#8b949e';
+      Chart.defaults.borderColor = '#30363d';
+
+      const ctx = document.getElementById('performanceChart');
+      if (!ctx) return;
+
+      const finalData = [179, 160, 148, 115];
+
+      performanceChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['2021 Net Adds', '2021 EOY', '2022 EOY', '2024 Sales Revenue'],
+          datasets: [{
+            data: [0, 0, 0, 0],
+            backgroundColor: '#1f6feb',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          animation: { duration: 1400, easing: 'easeOutQuart' },
+          scales: { y: { beginAtZero: true }, x: { grid: { display: false } } }
+        }
+      });
+
+      requestAnimationFrame(() => {
+        performanceChartInstance.data.datasets[0].data = finalData;
+        performanceChartInstance.update();
+      });
+    }
+
+    function renderTerritoryActivityChartsAnimated() {
+      if ((territoryChartInstance && activityChartInstance) || typeof Chart === 'undefined') return;
+
+      Chart.defaults.color = '#8b949e';
+      Chart.defaults.borderColor = '#30363d';
+
+      const tctx = document.getElementById('territoryChart');
+      const actx = document.getElementById('activityChart');
+      if (!tctx || !actx) return;
+
+      // Doughnut: start at zeros, then update
+      territoryChartInstance = new Chart(tctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Strategic Growth', 'Project Execution', 'New Logo', 'Admin'],
+          datasets: [{
+            data: [0, 0, 0, 0],
+            backgroundColor: ['#1f6feb', '#238636', '#a371f7', '#8b949e'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 1200, easing: 'easeOutQuart' },
+          plugins: { legend: { position: 'bottom', labels: { color: '#c9d1d9' } } }
+        }
+      });
+
+      // Horizontal bar: start at zeros, then update
+      activityChartInstance = new Chart(actx, {
+        type: 'bar',
+        indexAxis: 'y',
+        data: {
+          labels: ['Planning', 'Qualifying', 'Closing', 'Post-Sale'],
+          datasets: [{
+            data: [0, 0, 0, 0],
+            backgroundColor: '#238636',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 1200, easing: 'easeOutQuart' },
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true }, y: { grid: { display: false } } }
+        }
+      });
+
+      requestAnimationFrame(() => {
+        territoryChartInstance.data.datasets[0].data = [35, 30, 25, 10];
+        territoryChartInstance.update();
+
+        activityChartInstance.data.datasets[0].data = [35, 30, 25, 10];
+        activityChartInstance.update();
+      });
+    }
+
+    function renderRadarAnimated() {
+      if (radarRendered || typeof Plotly === 'undefined') return;
+
+      const el = document.getElementById('skillsPlot');
+      if (!el) return;
+
+      const theta = ['Project Mgmt', 'Strategy', 'Negotiation', 'Relationships', 'Tech/AI', 'Hunting'];
+      const finalR = [100, 95, 95, 90, 85, 75];
+      const startR = finalR.map(() => 5);
+
+      const data = [{
+        type: 'scatterpolar',
+        r: startR,
+        theta,
+        fill: 'toself',
+        fillcolor: 'rgba(31,111,235,0.30)',
+        line: { color: '#1f6feb' }
+      }];
+
+      const layout = {
+        polar: { radialaxis: { visible: true, range: [0, 100], color: '#8b949e' }, bgcolor: 'rgba(0,0,0,0)' },
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#c9d1d9', family: 'Inter, sans-serif' },
+        margin: { t: 25, b: 25, l: 35, r: 35 },
+        showlegend: false,
+        height: 360
+      };
+
+      Plotly.newPlot(el, data, layout, { displayModeBar: false, staticPlot: true }).then(() => {
+        Plotly.animate(el, { data: [{ r: finalR }] }, {
+          transition: { duration: 0 },
+          frame: { duration: 1200, redraw: true },
+          easing: 'cubic-in-out'
+        });
+      });
+
+      radarRendered = true;
+    }
+
+    function initChartOnScroll() {
+      const sections = document.querySelectorAll('[data-chart-section]');
+      const obs = new IntersectionObserver((entries, observer) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+
+          const key = entry.target.getAttribute('data-chart-section');
+          if (key === 'quant') renderPerformanceChartAnimated();
+          if (key === 'territoryActivity') renderTerritoryActivityChartsAnimated();
+          if (key === 'radar') renderRadarAnimated();
+
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: 0.18 });
+
+      sections.forEach(s => obs.observe(s));
+    }
+
+    // Init
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initRevealOnScroll();
+        initTooltipTapSupport();
+        initChartOnScroll();
+        disableAiButtonsIfNoKey();
+      });
+    } else {
+      initRevealOnScroll();
+      initTooltipTapSupport();
+      initChartOnScroll();
+      disableAiButtonsIfNoKey();
+    }
+  </script>
 
 </body>
 </html>
