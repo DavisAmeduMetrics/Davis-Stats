@@ -15,6 +15,7 @@
 
   <style>
     :root {
+      /* GitHub Midnight (Dark Dimmed) palette */
       --bg-canvas: #0d1117;
       --bg-canvas-subtle: #161b22;
       --bg-canvas-inset: #010409;
@@ -41,12 +42,13 @@
     .chart-container {
       position: relative;
       width: 100%;
-      max-width: 650px;
+      max-width: 760px;
       margin: 0 auto;
       height: 320px;
     }
     @media (min-width: 768px) { .chart-container { height: 380px; } }
 
+    /* Unified Card */
     .card {
       background-color: var(--bg-canvas-subtle);
       border: 1px solid var(--border-default);
@@ -60,11 +62,12 @@
       box-shadow: 0 12px 26px rgba(0,0,0,0.45);
     }
 
+    /* Tags */
     .tag {
       display: inline-block;
       padding: 0.18rem 0.65rem;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 9999px;
       border: 1px solid;
       user-select: none;
@@ -73,6 +76,7 @@
     .tag-gold { background: rgba(210, 153, 34, 0.12); color: #e3b341; border-color: rgba(210, 153, 34, 0.35); }
     .tag-gray { background: rgba(177, 186, 196, 0.10); color: #8b949e; border-color: #30363d; }
 
+    /* Buttons */
     .btn-primary {
       background-color: var(--success-fg);
       border: 1px solid var(--success-border);
@@ -81,7 +85,6 @@
       cursor: pointer;
     }
     .btn-primary:hover { background-color: #2ea043; transform: translateY(-1px); }
-
     .btn-danger {
       background-color: #21262d;
       border: 1px solid #30363d;
@@ -95,11 +98,12 @@
       transform: translateY(-1px);
     }
 
+    /* Metric top borders */
     .border-t-accent { border-top: 4px solid var(--accent-fg); }
     .border-t-success { border-top: 4px solid var(--success-fg); }
     .border-t-purple { border-top: 4px solid var(--done-fg); }
-    .border-t-gold { border-top: 4px solid #e3b341; }
 
+    /* Banner */
     .banner-container {
       width: 100%;
       height: 280px;
@@ -110,46 +114,30 @@
     }
     .banner-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.72; }
 
-    /* Scroll reveal */
+    /* Visual grid */
+    .graphics-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 768px) { .graphics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Heatmap + workflow mini graphics */
+    .heatmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .heatmap-cell { padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
+
+    .flow-step { position: relative; padding-left: 1.5rem; border-left: 2px solid #30363d; padding-bottom: 1.1rem; }
+    .flow-step:last-child { border-left: none; padding-bottom: 0; }
+    .flow-dot { position: absolute; left: -6px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background-color: var(--accent-fg); }
+
+    /* === SCROLL REVEAL === */
     .reveal {
       opacity: 0;
       transform: translateY(14px);
       transition: opacity 650ms ease, transform 650ms ease;
     }
-    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    /* Awards tooltip chips */
-    /* === AWARD EMPHASIS (HERO SIGNAL) === */
-.award-hero {
-  position: relative;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-.award-hero::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 9999px;
-  background: radial-gradient(
-    circle at center,
-    rgba(227,179,65,0.18),
-    rgba(227,179,65,0.05),
-    transparent 70%
-  );
-  z-index: -1;
-}
-
-@keyframes awardPulse {
-  0% { box-shadow: 0 0 0 rgba(227,179,65,0); }
-  50% { box-shadow: 0 0 22px rgba(227,179,65,0.35); }
-  100% { box-shadow: 0 0 0 rgba(227,179,65,0); }
-}
-
-.award-pulse {
-  animation: awardPulse 2.6s ease-in-out infinite;
-}
-
+    /* === Awards tooltip chips === */
     .award-chip { position: relative; cursor: help; outline: none; }
 
     @keyframes hintPulse {
@@ -165,7 +153,7 @@
       left: 50%;
       bottom: calc(100% + 10px);
       transform: translateX(-50%) translateY(6px);
-      width: min(360px, 86vw);
+      width: min(380px, 86vw);
       background: #010409;
       color: #c9d1d9;
       border: 1px solid #30363d;
@@ -203,36 +191,89 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Timeline */
-    .timeline {
-      position: relative;
-      padding-left: 22px;
+    /* === AWARD EMPHASIS (HERO SIGNAL) === */
+    .award-hero { position: relative; font-weight: 900; letter-spacing: 0.02em; }
+    .award-hero::after{
+      content:"";
+      position:absolute; inset:-6px;
+      border-radius:9999px;
+      background: radial-gradient(circle at center, rgba(227,179,65,0.18), rgba(227,179,65,0.05), transparent 70%);
+      z-index:-1;
     }
-    .timeline::before {
-      content: "";
+    @keyframes awardPulse{
+      0%{ box-shadow:0 0 0 rgba(227,179,65,0); }
+      50%{ box-shadow:0 0 22px rgba(227,179,65,0.35); }
+      100%{ box-shadow:0 0 0 rgba(227,179,65,0); }
+    }
+    .award-pulse{ animation: awardPulse 2.6s ease-in-out infinite; }
+
+    /* Optional: subtle “click me” flash on the hero awards */
+    @keyframes clickFlash {
+      0%,100% { filter: brightness(1); }
+      50% { filter: brightness(1.12); }
+    }
+    .award-click-flash { animation: clickFlash 2.4s ease-in-out infinite; }
+    .award-chip:hover.award-click-flash { animation: none; }
+
+    /* === AWARD RIBBONS + SCARCITY PILLS === */
+    .award-ribbon { position: relative; overflow: hidden; }
+    .award-ribbon::before {
+      content: attr(data-ribbon);
       position: absolute;
-      left: 8px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: #30363d;
-    }
-    .timeline-item {
-      position: relative;
-      padding: 10px 0 10px 0;
-    }
-    .timeline-dot {
-      position: absolute;
-      left: 2px;
-      top: 18px;
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: var(--accent-fg);
-      box-shadow: 0 0 0 4px rgba(88,166,255,0.15);
+      top: 10px;
+      right: -42px;
+      transform: rotate(35deg);
+      background: rgba(88,166,255,0.22);
+      border: 1px solid rgba(88,166,255,0.35);
+      color: #c9d1d9;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 58px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 2;
     }
 
-    /* Credly cert grid */
+    .scarcity-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      border: 1px solid rgba(227,179,65,0.35);
+      background: rgba(227,179,65,0.10);
+      color: #e3b341;
+      font-weight: 900;
+      font-size: 11px;
+      line-height: 1;
+      user-select:none;
+    }
+    .scarcity-dot{
+      width:7px;height:7px;border-radius:9999px;
+      background:#e3b341;
+      box-shadow: 0 0 18px rgba(227,179,65,0.28);
+    }
+
+    /* === STICKY AWARDS (first scroll) === */
+    .awards-sticky {
+      position: sticky;
+      top: 12px;
+      z-index: 55;
+      padding: 10px 10px;
+      border-radius: 16px;
+      background: rgba(1,4,9,0.72);
+      border: 1px solid rgba(48,54,61,0.75);
+      backdrop-filter: blur(8px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .awards-sticky.fade-out {
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+
+    /* === CREDLY-STYLE CERT GRID === */
     .credly-grid{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -242,12 +283,13 @@
       display:flex;
       align-items:center;
       gap: 14px;
-      padding: 14px;
+      padding: 14px 14px;
       border-radius: 14px;
       background: var(--bg-canvas-subtle);
       border: 1px solid var(--border-default);
       cursor: pointer;
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      position: relative;
       text-align:left;
     }
     .credly-badge:hover{
@@ -256,56 +298,105 @@
       transform: translateY(-2px);
     }
     .badge-icon{
-      width: 52px; height: 52px; border-radius: 14px;
-      display:grid; place-items:center;
-      font-weight: 900; color: #ffffff;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      color: #ffffff;
+      user-select:none;
+      flex: 0 0 auto;
       border: 1px solid rgba(255,255,255,0.08);
-      flex:0 0 auto;
     }
-    .badge-title{ font-weight: 900; color: var(--fg-default); display:block; font-size: 0.98rem; line-height: 1.15rem; }
-    .badge-issuer{ display:block; font-size: .78rem; color: var(--fg-muted); margin-top: 4px; }
+    .badge-title{
+      font-weight: 900;
+      color: var(--fg-default);
+      display:block;
+      font-size: 0.98rem;
+      line-height: 1.15rem;
+    }
+    .badge-issuer{
+      display:block;
+      font-size: .78rem;
+      color: var(--fg-muted);
+      margin-top: 4px;
+    }
 
-    /* Cert modal */
-    .cert-modal{ position:fixed; inset:0; z-index:999; }
-    .cert-modal.hidden{ display:none; }
-    .cert-backdrop{ position:absolute; inset:0; background: rgba(0,0,0,0.68); backdrop-filter: blur(4px); }
+    /* === CERT PREVIEW MODAL === */
+    .cert-modal { position: fixed; inset: 0; z-index: 999; }
+    .cert-modal.hidden { display:none; }
+    .cert-backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,0.68);
+      backdrop-filter: blur(4px);
+    }
     .cert-panel{
-      position:relative;
+      position: relative;
       max-width: 980px;
       width: min(980px, 94vw);
       margin: 5vh auto;
       background: var(--bg-canvas);
       border: 1px solid var(--border-default);
       border-radius: 16px;
-      overflow:hidden;
+      overflow: hidden;
       box-shadow: 0 30px 90px rgba(0,0,0,0.7);
       transform: translateY(10px);
       animation: certPop 220ms ease-out forwards;
     }
     @keyframes certPop { to { transform: translateY(0); } }
     .cert-header{
-      display:flex; justify-content:space-between; gap:16px;
-      padding:14px 16px;
-      border-bottom:1px solid var(--border-default);
+      display:flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-default);
       background: var(--bg-canvas-inset);
     }
-    .cert-title{ font-weight: 900; color: var(--accent-fg); margin:0; font-size: 1.05rem; }
-    .cert-sub{ margin-top:6px; font-size:.8rem; color: var(--fg-muted); }
-    .cert-desc{ margin-top:10px; font-size:.86rem; color: var(--fg-default); line-height:1.45rem; }
+    .cert-title{
+      font-weight: 900;
+      color: var(--accent-fg);
+      margin:0;
+      font-size: 1.05rem;
+    }
+    .cert-sub{
+      margin-top: 6px;
+      font-size: .8rem;
+      color: var(--fg-muted);
+    }
+    .cert-desc{
+      margin-top: 10px;
+      font-size: .86rem;
+      color: var(--fg-default);
+      line-height: 1.45rem;
+    }
     .cert-close{
-      background:transparent; color:var(--fg-default);
-      border:1px solid var(--border-default);
-      border-radius: 12px; padding:6px 10px; cursor:pointer;
+      background: transparent;
+      color: var(--fg-default);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      padding: 6px 10px;
+      cursor:pointer;
       height: fit-content;
     }
     .cert-close:hover{ border-color: rgba(88,166,255,0.7); }
-    .cert-image-wrap{ padding:12px; background: var(--bg-canvas); }
-    .cert-image{ width:100%; height:auto; display:block; border-radius:12px; border:1px solid rgba(255,255,255,0.06); }
+    .cert-image-wrap{
+      padding: 12px;
+      background: var(--bg-canvas);
+    }
+    .cert-image{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
 
     @media (prefers-reduced-motion: reduce){
       .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
-      .award-hint { animation:none !important; }
+      .award-hint, .award-pulse, .award-click-flash { animation:none !important; }
       .cert-panel{ animation:none !important; transform:none !important; }
+      .awards-sticky { position: static; }
     }
   </style>
 </head>
@@ -324,7 +415,7 @@
   </div>
 
   <!-- Header -->
-  <header class="border-b border-gray-800 pb-10 pt-0 relative -mt-20 z-10">
+  <header style="background-color: transparent;" class="border-b border-gray-800 pb-10 pt-0 relative -mt-20 z-10">
     <div class="container mx-auto px-4 text-center">
 
       <!-- Avatar -->
@@ -340,47 +431,136 @@
       <h1 class="text-4xl md:text-6xl font-black mb-3 tracking-tight text-white drop-shadow-md">Davis Amedu II</h1>
       <p class="text-xl md:text-2xl text-gray-300 mb-6 font-light">Client Executive | Strategic Program Management</p>
 
-      <!-- Awards & Recognition (EMPHASIZED) -->
-<div class="flex flex-col items-center gap-4 mb-4">
+      <!-- Quick Jump Links -->
+      <div class="flex flex-wrap justify-center gap-2 mb-5 text-xs">
+        <a href="#awards" class="tag tag-blue bg-[#0d1117] hover:opacity-90">Awards</a>
+        <a href="#metrics" class="tag tag-blue bg-[#0d1117] hover:opacity-90">Metrics</a>
+        <a href="#enterprise" class="tag tag-blue bg-[#0d1117] hover:opacity-90">Enterprise Scale</a>
+        <a href="#wins" class="tag tag-blue bg-[#0d1117] hover:opacity-90">Project Wins</a>
+        <a href="#certifications" class="tag tag-blue bg-[#0d1117] hover:opacity-90">Certifications</a>
+      </div>
 
-  <!-- Primary Awards (Hero Row) -->
-  <div class="flex flex-wrap justify-center gap-4">
+      <!-- Awards & Recognition (EMPHASIZED + Sticky + Spotlight) -->
+      <section id="awards" class="w-full max-w-5xl mx-auto award-ribbon" data-ribbon="Nationally Ranked">
+        <div class="awards-sticky" id="awardsStickyWrap">
+          <div class="flex flex-col items-center gap-4">
 
-    <button
-      class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse"
-      type="button"
-      data-tooltip="Winner’s Circle — Verizon’s top performance recognition program. Earned by finishing among the highest performers vs quota and strategic KPIs. Achieved in 2018, 2021, and 2022.">
-      🏆 Winner’s Circle (3×)
-    </button>
+            <!-- Primary Awards (Hero Row) -->
+            <div class="flex flex-wrap justify-center gap-4">
+              <button
+                class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse award-click-flash"
+                type="button"
+                data-award="winners"
+                data-tooltip="Winner’s Circle (Top 10% Nationally) — Verizon’s elite performance recognition reserved for the top ~10% of performers nationwide. Earned in 2018, 2021, and 2022 based on exceptional results vs quota/KPIs and measurable business impact.">
+                🏆 Winner’s Circle (Top 10% National)
+              </button>
 
-    <button
-      class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse"
-      type="button"
-      data-tooltip="Director’s Club — leadership recognition awarded for exceptional results, consistency, and customer impact. Earned in Q4 2017 and Q2 2018.">
-      ⭐ Director’s Club (2×)
-    </button>
+              <button
+                class="tag tag-gold bg-[#0d1117] award-chip award-hint award-hero award-pulse award-click-flash"
+                type="button"
+                data-award="directors"
+                data-tooltip="Director’s Club (Top 5% In-Market, Quarterly) — awarded quarterly to the top ~5% performers in the market based on standout results, disciplined execution, and customer impact. Earned Q4 2017 and Q2 2018.">
+                ⭐ Director’s Club (Top 5% Market)
+              </button>
 
-  </div>
+              <button
+                class="tag tag-gold bg-[#0d1117] award-chip award-hint"
+                type="button"
+                data-award="coin"
+                data-tooltip="Coin of Excellence (1 National Winner/Month) — awarded to a single individual nationwide each month for exceptional ownership, execution, and impact beyond baseline role expectations. Earned in 2019.">
+                🎖 Coin of Excellence (1/mo National)
+              </button>
+            </div>
 
-  <!-- Secondary Recognition -->
-  <div class="flex flex-wrap justify-center gap-3">
-    <button
-      class="tag tag-gold bg-[#0d1117] award-chip award-hint"
-      type="button"
-      data-tooltip="Coin of Excellence — awarded for exceptional execution, ownership, and results that materially impact customers and the business (2019).">
-      🎖 Coin of Excellence
-    </button>
+            <!-- Scarcity pills -->
+            <div class="flex flex-wrap justify-center gap-2 -mt-1">
+              <span class="scarcity-pill"><span class="scarcity-dot"></span> Winner’s Circle: Top 10% National</span>
+              <span class="scarcity-pill"><span class="scarcity-dot"></span> Director’s Club: Top 5% Market (Quarterly)</span>
+              <span class="scarcity-pill"><span class="scarcity-dot"></span> Coin: 1 National Winner / Month</span>
+            </div>
 
-    <span class="tag tag-gray bg-[#0d1117]">
-      TMT Sector Expert
-    </span>
-  </div>
+            <!-- Award Stat Cards (Quick Proof) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full mt-1">
+              <div class="card p-4 border-t-success text-center">
+                <div class="text-sm font-black text-white">Winner’s Circle</div>
+                <div class="text-xs text-gray-400 mt-1">Top 10% • National</div>
+                <div class="text-xs text-gray-500 mt-2">2018 • 2021 • 2022</div>
+                <div class="text-[11px] text-gray-400 mt-2">Maps to: quota attainment • net adds • revenue growth</div>
+              </div>
+              <div class="card p-4 border-t-accent text-center">
+                <div class="text-sm font-black text-white">Director’s Club</div>
+                <div class="text-xs text-gray-400 mt-1">Top 5% • Market • Quarterly</div>
+                <div class="text-xs text-gray-500 mt-2">Q4 2017 • Q2 2018</div>
+                <div class="text-[11px] text-gray-400 mt-2">Maps to: market rank • execution consistency • customer impact</div>
+              </div>
+              <div class="card p-4 border-t-purple text-center">
+                <div class="text-sm font-black text-white">Coin of Excellence</div>
+                <div class="text-xs text-gray-400 mt-1">1 Winner • National • Monthly</div>
+                <div class="text-xs text-gray-500 mt-2">2019</div>
+                <div class="text-[11px] text-gray-400 mt-2">Maps to: ownership • high-trust delivery • exceptional outcomes</div>
+              </div>
+            </div>
 
-</div>
+            <!-- Compact Award Timeline -->
+            <div class="w-full mt-2 card p-4">
+              <div class="text-xs uppercase tracking-wider text-gray-500 mb-3 text-center">Awards Timeline</div>
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-blue-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">Q4 2017</div>
+                  <div class="text-[11px] text-gray-500">Director’s Club</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-blue-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">Q2 2018</div>
+                  <div class="text-[11px] text-gray-500">Director’s Club</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-yellow-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">2018</div>
+                  <div class="text-[11px] text-gray-500">Winner’s Circle</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-purple-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">2019</div>
+                  <div class="text-[11px] text-gray-500">Coin of Excellence</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-yellow-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">2021</div>
+                  <div class="text-[11px] text-gray-500">Winner’s Circle</div>
+                </div>
+                <div class="flex-1 text-center">
+                  <div class="w-2 h-2 mx-auto rounded-full bg-yellow-400"></div>
+                  <div class="text-[11px] text-gray-400 mt-2">2022</div>
+                  <div class="text-[11px] text-gray-500">Winner’s Circle</div>
+                </div>
+              </div>
+            </div>
 
-<p class="text-xs text-gray-500">
-  Hover or tap awards to see criteria and significance
-</p>
+            <p class="text-xs text-gray-500 mt-1">
+              Hover/tap awards for details — click an award to pin the spotlight.
+            </p>
+
+            <!-- Spotlight Panel -->
+            <div id="awardSpotlight" class="card p-5 w-full mt-1 hidden">
+              <div class="flex items-start justify-between gap-4">
+                <div class="text-left">
+                  <div id="awardSpotlightTitle" class="text-lg font-black text-white"></div>
+                  <div id="awardSpotlightSub" class="text-sm text-gray-400 mt-1"></div>
+                  <div id="awardSpotlightDesc" class="text-sm text-gray-300 mt-3 leading-relaxed"></div>
+                  <div id="awardSpotlightImpact" class="text-xs text-gray-500 mt-3"></div>
+                </div>
+                <button id="awardSpotlightClose" class="cert-close">✕</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </header>
 
   <main class="container mx-auto px-4 py-8 space-y-12">
 
@@ -392,78 +572,8 @@
       </p>
     </section>
 
-    <!-- Awards Timeline (BACK) -->
-    <section class="reveal">
-      <div class="mb-4 flex items-center">
-        <div class="w-1 h-8 bg-yellow-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Awards & Accolades Timeline</h3>
-      </div>
-
-      <div class="card p-6">
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot" style="background:#e3b341;"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">Q4 2017</div>
-              <div class="text-lg font-black text-white">Director’s Club</div>
-              <div class="text-sm text-gray-400">Leadership recognition for standout performance and impact.</div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot" style="background:#e3b341;"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">Q2 2018</div>
-              <div class="text-lg font-black text-white">Director’s Club</div>
-              <div class="text-sm text-gray-400">Repeat recognition for exceptional results and execution.</div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">2018</div>
-              <div class="text-lg font-black text-white">Winner’s Circle</div>
-              <div class="text-sm text-gray-400">Top performance recognition tied to elite outcomes vs goals.</div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot" style="background:#da3633;"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">2019</div>
-              <div class="text-lg font-black text-white">Coin of Excellence</div>
-              <div class="text-sm text-gray-400">Recognition for exceptional execution, ownership, and customer impact.</div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">2021</div>
-              <div class="text-lg font-black text-white">Winner’s Circle</div>
-              <div class="text-sm text-gray-400">Repeat recognition for top-tier performance and results.</div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="ml-6">
-              <div class="text-sm text-gray-400">2022</div>
-              <div class="text-lg font-black text-white">Winner’s Circle</div>
-              <div class="text-sm text-gray-400">Third recognition for consistent elite execution and goal attainment.</div>
-            </div>
-          </div>
-        </div>
-
-        <p class="text-xs text-gray-500 mt-4">
-          Dates reflect the records you provided: Director’s Club (Q4 2017, Q2 2018), Winner’s Circle (2018, 2021, 2022), Coin of Excellence (2019).
-        </p>
-      </div>
-    </section>
-
     <!-- Metrics -->
-    <section class="reveal">
+    <section id="metrics" class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
         <h3 class="text-2xl font-bold text-white">Quantified Success</h3>
@@ -501,12 +611,12 @@
         <div class="chart-container">
           <canvas id="performanceChart" data-chart="performance"></canvas>
         </div>
-        <p class="text-xs text-gray-500 mt-3 text-center">Chart animates on scroll.</p>
+        <p class="text-xs text-gray-500 mt-3 text-center">Chart animates when you scroll it into view.</p>
       </div>
     </section>
 
-    <!-- Enterprise Portfolio Scale (BACK) -->
-    <section class="reveal">
+    <!-- Enterprise Scale -->
+    <section id="enterprise" class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
         <h3 class="text-2xl font-bold text-white">Enterprise Portfolio Scale</h3>
@@ -543,6 +653,52 @@
       </div>
     </section>
 
+    <!-- Methodology -->
+    <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Methodology & Efficiency</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-xl font-semibold text-white mb-2">VVS Sales Execution</h4>
+          <p class="text-sm text-gray-400">Execute large projects with disciplined discovery, clean scoping, and measurable outcomes.</p>
+        </div>
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-xl font-semibold text-white mb-2">CRM Efficiency & Automation</h4>
+          <p class="text-sm text-gray-400">Streamline workflows, documentation, and follow-ups using modern productivity systems.</p>
+        </div>
+        <div class="card p-6 border-t-purple">
+          <h4 class="text-xl font-semibold text-white mb-2">Strategic Territory Mapping</h4>
+          <p class="text-sm text-gray-400">Build repeatable territory plays that convert targeting into pipeline and closed growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Major Wins -->
+    <section id="wins" class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
+          <h4 class="text-2xl font-black text-white mb-2">400 Unit Deployment</h4>
+          <h5 class="text-xl font-semibold text-accent mb-2">Enterprise Tablet Rollout</h5>
+          <p class="text-gray-400 text-sm">Secured logistics for large-scale workforce upgrade (Oct 2025).</p>
+        </div>
+        <div class="card p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
+          <h4 class="text-2xl font-black text-white mb-2">200 Unit FWA & IoT</h4>
+          <h5 class="text-xl font-semibold text-accent mb-2">Fixed Wireless Solutions</h5>
+          <p class="text-gray-400 text-sm">Solved critical connectivity challenges for distributed clients (Mar 2025).</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Territory & Activity -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
@@ -564,34 +720,74 @@
       </div>
     </section>
 
-    <!-- Competency Snapshot (replaces broken radar) -->
+    <!-- Visual Portfolio -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-purple-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Competency Snapshot</h3>
+        <h3 class="text-2xl font-bold text-white">Strategic Visuals & Portfolio</h3>
       </div>
+      <p class="text-gray-400 mb-6">A collection of strategic frameworks, territory maps, and project visuals developed to drive growth.</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="card p-6 border-t-purple">
-          <h4 class="text-lg font-black text-white mb-2">Program Execution</h4>
-          <p class="text-sm text-gray-400">Scope, cadence, stakeholder alignment, and delivery control across complex workstreams.</p>
+      <div class="graphics-grid">
+        <div class="card p-4">
+          <div class="bg-[#0d1117] rounded mb-4 p-4 border border-gray-700">
+            <div class="heatmap-grid">
+              <div class="heatmap-cell bg-green-900/40 text-green-300">
+                <div class="text-xs text-gray-400">Jackson, MS</div>
+                <div class="font-bold text-sm">High Penetration</div>
+              </div>
+              <div class="heatmap-cell bg-blue-900/40 text-blue-300">
+                <div class="text-xs text-gray-400">Birmingham, AL</div>
+                <div class="font-bold text-sm">Growth Zone</div>
+              </div>
+              <div class="heatmap-cell bg-yellow-900/40 text-yellow-300">
+                <div class="text-xs text-gray-400">Rural MS</div>
+                <div class="font-bold text-sm">New Opportunity</div>
+              </div>
+              <div class="heatmap-cell bg-gray-800 text-gray-400">
+                <div class="text-xs">Expansion Area</div>
+                <div class="font-bold text-sm">Targeting</div>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1">Territory Expansion Heatmap</h4>
+          <p class="text-xs text-gray-400">Strategic breakdown of key growth zones across Mississippi and Alabama.</p>
         </div>
-        <div class="card p-6 border-t-purple">
-          <h4 class="text-lg font-black text-white mb-2">Enterprise Strategy</h4>
-          <p class="text-sm text-gray-400">Territory planning, account expansion, and measurable outcomes tied to customer value.</p>
-        </div>
-        <div class="card p-6 border-t-purple">
-          <h4 class="text-lg font-black text-white mb-2">Negotiation & Relationships</h4>
-          <p class="text-sm text-gray-400">Executive presence, escalation ownership, and trust-based partnerships.</p>
+
+        <div class="card p-4">
+          <div class="bg-[#0d1117] rounded mb-4 p-6 border border-gray-700 flex flex-col justify-center h-48">
+            <div class="flow-step">
+              <div class="flow-dot"></div>
+              <h5 class="text-sm font-bold text-white">1. Audit & Analysis</h5>
+              <p class="text-xs text-gray-500">Site surveys & connectivity assessment.</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-dot"></div>
+              <h5 class="text-sm font-bold text-white">2. Staging & Config</h5>
+              <p class="text-xs text-gray-500">Device prep & MDM enrollment.</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-dot"></div>
+              <h5 class="text-sm font-bold text-white">3. Rapid Deployment</h5>
+              <p class="text-xs text-gray-500">Logistics coordination & rollout.</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-dot"></div>
+              <h5 class="text-sm font-bold text-white">4. Support & Renew</h5>
+              <p class="text-xs text-gray-500">Post-install training & contract renewal.</p>
+            </div>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1">Deployment Workflow</h4>
+          <p class="text-xs text-gray-400">The 4-stage process used for the 400-unit tablet rollout.</p>
         </div>
       </div>
     </section>
 
-    <!-- AI Tools (offline safe) -->
+    <!-- AI Tools (Offline Safe) -->
     <section class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-red-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Tools ✨</h3>
+        <h3 class="text-2xl font-bold text-white">AI-Powered Tools ✨</h3>
       </div>
 
       <div class="card p-6 mb-6">
@@ -603,6 +799,9 @@
           <p class="font-semibold mb-2 text-blue-400">Draft Pitch:</p>
           <p id="pitchText" class="text-gray-300 italic whitespace-pre-wrap"></p>
         </div>
+        <p class="text-xs text-gray-500 mt-3">
+          Works offline (no external API). Generates a clean, professional pitch template.
+        </p>
       </div>
 
       <div class="card p-6">
@@ -611,13 +810,28 @@
           🔊 Read Intro (Browser TTS)
         </button>
         <p class="text-xs text-gray-500 mt-3">
-          Uses your browser’s built-in text-to-speech (no external API needed).
+          Uses your browser’s built-in text-to-speech. If it doesn’t play, check your browser audio permissions.
         </p>
       </div>
     </section>
 
-    <!-- Certifications moved near bottom (CLICK to view) -->
+    <!-- Competency (Radar) -->
     <section class="reveal">
+      <div class="mb-4 flex items-center">
+        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+        <h3 class="text-2xl font-bold text-white">Competency Profile</h3>
+      </div>
+
+      <div class="card p-6">
+        <div class="chart-container" style="max-width:760px;height:420px;">
+          <canvas id="skillsRadar" data-chart="radar"></canvas>
+        </div>
+        <p class="text-xs text-gray-500 mt-3 text-center">Radar animates on scroll.</p>
+      </div>
+    </section>
+
+    <!-- Certifications (Near Bottom) -->
+    <section id="certifications" class="reveal">
       <div class="mb-4 flex items-center">
         <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
         <h3 class="text-2xl font-bold text-white">Certifications</h3>
@@ -630,7 +844,7 @@
             data-title="Sales Foundations"
             data-issuer="LinkedIn Learning"
             data-img="./assets/1661878686885.png"
-            data-desc="Sales fundamentals covering prospecting, discovery, value messaging, objection handling, and building a repeatable sales process."
+            data-desc="Sales fundamentals covering prospecting, discovery, value messaging, objection handling, and building a repeatable sales process. Emphasis on consultative selling and clean next steps."
             type="button">
             <div class="badge-icon" style="background:#1f6feb;">LI</div>
             <div>
@@ -644,7 +858,7 @@
             data-title="Customer Service: Problem Solving & Troubleshooting"
             data-issuer="LinkedIn Learning"
             data-img="./assets/1674582720897.png"
-            data-desc="Troubleshooting frameworks: clarify the issue, isolate root cause, communicate updates, de-escalate, and close with prevention steps."
+            data-desc="Troubleshooting frameworks: clarifying the issue, isolating root cause, communicating updates, de-escalation techniques, and resolution closure with prevention steps."
             type="button">
             <div class="badge-icon" style="background:#238636;">CS</div>
             <div>
@@ -658,7 +872,7 @@
             data-title="Foundations of Project Management"
             data-issuer="Google / Coursera"
             data-img="./assets/CERTIFICATE_LANDING_PAGE~MHEQJMU78OC9.jpeg"
-            data-desc="Lifecycle basics, stakeholder communication, scope framing, risk awareness, and delivery cadence."
+            data-desc="Project management fundamentals: lifecycle basics, stakeholder communication, scope framing, risk awareness, and delivery cadence."
             type="button">
             <div class="badge-icon" style="background:#a371f7;">PM</div>
             <div>
@@ -672,7 +886,7 @@
             data-title="Project Initiation: Starting a Successful Project"
             data-issuer="Google / Coursera"
             data-img="./assets/CERTIFICATE_LANDING_PAGE~NUCRM7OTWKM2.jpeg"
-            data-desc="Define objectives, draft charters, identify stakeholders, capture requirements, and kickoff readiness."
+            data-desc="Project initiation essentials: defining objectives, drafting charters, identifying stakeholders, capturing requirements, and kickoff readiness."
             type="button">
             <div class="badge-icon" style="background:#d29922;">PI</div>
             <div>
@@ -686,7 +900,7 @@
             data-title="Smart Cities — Management of Smart Urban Infrastructures"
             data-issuer="EPFL / Coursera"
             data-img="./assets/CERTIFICATE_LANDING_PAGE~PC0WXE3NM0NK.jpeg"
-            data-desc="Connected systems, mobility, governance, and planning across complex environments."
+            data-desc="Smart-city infrastructure concepts: connected systems, mobility, governance, and planning across complex environments."
             type="button">
             <div class="badge-icon" style="background:#8b949e;">SC</div>
             <div>
@@ -699,8 +913,8 @@
           <button class="credly-badge"
             data-title="CompTIA A+ (Historical Coursework / Training)"
             data-issuer="Document unavailable"
-            data-img="./assets/ChatGPT Image Dec 14, 2025, 01_51_35 AM.png"
-            data-desc="Foundational IT coursework/training completed earlier in career. Original certificate not currently recoverable."
+            data-img="./assets/comptia-placeholder.png"
+            data-desc="Foundational IT coursework/training completed earlier in career. The original certificate document is not currently recoverable due to age of record, so this entry is listed transparently as coursework/training rather than an active credential."
             type="button">
             <div class="badge-icon" style="background:#30363d;">A+</div>
             <div>
@@ -752,7 +966,7 @@
   </div>
 
   <script>
-    // Reveal on scroll
+    // ---------- Scroll reveal (page sections) ----------
     function initRevealOnScroll() {
       const els = document.querySelectorAll('.reveal');
       const obs = new IntersectionObserver((entries) => {
@@ -763,7 +977,7 @@
       els.forEach(el => obs.observe(el));
     }
 
-    // Awards tooltip tap support (mobile)
+    // ---------- Awards tooltip tap support (mobile) ----------
     function initTooltipTapSupport() {
       const chips = document.querySelectorAll('.award-chip');
       chips.forEach(chip => {
@@ -774,11 +988,86 @@
           e.stopPropagation();
         });
       });
-      document.addEventListener('click', () => chips.forEach(c => c.classList.remove('tooltip-open')));
+      document.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('tooltip-open'));
+      });
     }
 
-    // Cert modal (CLICK ONLY)
-    function initCertModalClickOnly() {
+    // ---------- Awards Spotlight (click to pin) ----------
+    function initAwardSpotlight() {
+      const panel = document.getElementById('awardSpotlight');
+      const t = document.getElementById('awardSpotlightTitle');
+      const s = document.getElementById('awardSpotlightSub');
+      const d = document.getElementById('awardSpotlightDesc');
+      const i = document.getElementById('awardSpotlightImpact');
+      const x = document.getElementById('awardSpotlightClose');
+
+      const copy = {
+        winners: {
+          title: "🏆 Winner’s Circle — Top 10% Nationally",
+          sub: "Earned: 2018 • 2021 • 2022",
+          desc: "Elite national recognition reserved for the top ~10% of performers nationwide. Signals repeatable overachievement vs goals/KPIs, disciplined execution, and measurable customer/business outcomes.",
+          impact: "Translation: National top-decile performance, repeated — not a one-time spike."
+        },
+        directors: {
+          title: "⭐ Director’s Club — Top 5% In-Market (Quarterly)",
+          sub: "Earned: Q4 2017 • Q2 2018",
+          desc: "Quarterly recognition for the top ~5% performers in the market. Highlights standout results and execution consistency within a competitive peer set.",
+          impact: "Translation: Market-leading performance in a quarterly leaderboard environment."
+        },
+        coin: {
+          title: "🎖 Coin of Excellence — 1 National Winner/Month",
+          sub: "Earned: 2019",
+          desc: "National recognition awarded to a single individual each month for exceptional ownership, execution quality, and impact beyond baseline role expectations.",
+          impact: "Translation: Scarce recognition — enterprise-level trust and outcomes."
+        }
+      };
+
+      function openSpotlight(key) {
+        const c = copy[key];
+        if (!c) return;
+        t.textContent = c.title;
+        s.textContent = c.sub;
+        d.textContent = c.desc;
+        i.textContent = c.impact;
+        panel.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.award-chip[data-award]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          openSpotlight(btn.dataset.award);
+          e.stopPropagation();
+        });
+      });
+
+      x?.addEventListener('click', () => panel.classList.add('hidden'));
+    }
+
+    // ---------- Sticky awards fade after first scroll ----------
+    function initAwardsStickyFade() {
+      const wrap = document.getElementById('awardsStickyWrap');
+      if (!wrap) return;
+
+      const FADE_AFTER = 420; // px of scroll before fading
+      let ticking = false;
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY || 0;
+          if (y > FADE_AFTER) wrap.classList.add('fade-out');
+          else wrap.classList.remove('fade-out');
+          ticking = false;
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // ---------- Certifications: click to open modal ----------
+    function initCertModal() {
       const badges = document.querySelectorAll('.credly-badge');
       const modal = document.getElementById('certModal');
       const backdrop = document.getElementById('certBackdrop');
@@ -805,10 +1094,7 @@
       };
 
       badges.forEach(badge => {
-        badge.addEventListener('click', (e) => {
-          e.preventDefault();
-          open(badge);
-        });
+        badge.addEventListener('click', () => open(badge));
       });
 
       backdrop.addEventListener('click', close);
@@ -818,127 +1104,185 @@
       });
     }
 
-    // Charts animate on scroll (bar/doughnut/bar)
-    function initChartsOnScroll() {
-      const seen = new Set();
-
-      const createChart = (canvas) => {
-        const type = canvas.dataset.chart;
-
-        Chart.defaults.color = '#8b949e';
-        Chart.defaults.borderColor = '#30363d';
-
-        if (type === 'performance') {
-          new Chart(canvas, {
-            type: 'bar',
-            data: {
-              labels: ['2021 Mid-Year', '2021 EOY', '2022 EOY', '2024 Revenue'],
-              datasets: [{ data: [179, 160, 148, 115], backgroundColor: '#1f6feb', borderRadius: 6 }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              animation: { duration: 1400, easing: 'easeOutQuart' },
-              plugins: { legend: { display: false } },
-              scales: {
-                y: { beginAtZero: true, grid: { color: '#30363d' } },
-                x: { grid: { display: false } }
-              }
-            }
-          });
-        }
-
-        if (type === 'territory') {
-          new Chart(canvas, {
-            type: 'doughnut',
-            data: {
-              labels: ['Strategic Growth', 'Project Execution', 'New Logo', 'Admin'],
-              datasets: [{ data: [35, 30, 25, 10], backgroundColor: ['#1f6feb','#238636','#a371f7','#8b949e'], borderWidth: 0 }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              animation: { animateRotate: true, duration: 1400 },
-              plugins: { legend: { position: 'bottom', labels: { color: '#c9d1d9' } } }
-            }
-          });
-        }
-
-        if (type === 'activity') {
-          new Chart(canvas, {
-            type: 'bar',
-            indexAxis: 'y',
-            data: {
-              labels: ['Planning', 'Qualifying', 'Closing', 'Post-Sale'],
-              datasets: [{ data: [35, 30, 25, 10], backgroundColor: '#238636', borderRadius: 6 }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              animation: { duration: 1400, easing: 'easeOutQuart' },
-              plugins: { legend: { display: false } },
-              scales: {
-                x: { grid: { color: '#30363d' } },
-                y: { grid: { display: false } }
-              }
-            }
-          });
-        }
-      };
-
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const canvas = entry.target;
-          if (seen.has(canvas)) return;
-          seen.add(canvas);
-          createChart(canvas);
-        });
-      }, { threshold: 0.35 });
-
-      document.querySelectorAll('canvas[data-chart]').forEach(c => obs.observe(c));
-    }
-
-    // Offline pitch generator (safe for GitHub Pages)
+    // ---------- Offline Elevator Pitch ----------
     function initPitchGenerator() {
       const btn = document.getElementById('generatePitchBtn');
       const out = document.getElementById('pitchOutput');
       const text = document.getElementById('pitchText');
 
+      const pitchTemplate =
+`Hi, I’m Davis Amedu II — a Client Executive with 8+ years in the TMT sector focused on enterprise delivery and growth. I’ve consistently operated at elite performance levels, including Winner’s Circle recognition (Top 10% nationally) and Director’s Club (Top 5% in-market). I manage complex initiatives end-to-end — from scoping and stakeholder alignment to rollout execution — and I’m known for measurable outcomes like 179% mid-year net adds and 98% on-time delivery. I’m strongest where strategy meets execution: translating customer needs into clear plans, keeping teams aligned, and driving results that scale across large enterprise environments.`;
+
       btn.addEventListener('click', () => {
-        text.textContent =
-          "I’m a Client Executive with 8+ years of experience leading enterprise programs in the TMT space. I specialize in converting complex environments into structured, deliverable outcomes through disciplined execution, stakeholder alignment, and measurable growth. I’ve performed at a leading level, earned top performer recognition across multiple years, and supported large-scale deployments and connectivity initiatives that drive real customer outcomes.";
+        text.textContent = pitchTemplate;
         out.classList.remove('hidden');
       });
     }
 
-    // Browser TTS
-    function initReadIntro() {
+    // ---------- Browser TTS ----------
+    function initBrowserTTS() {
       const btn = document.getElementById('readIntroBtn');
-      const text = document.getElementById('introText');
-
       btn.addEventListener('click', () => {
-        if (!window.speechSynthesis) return;
-        const u = new SpeechSynthesisUtterance(text.textContent);
-        u.rate = 0.95;
-        u.pitch = 1;
+        const content = document.getElementById('introText')?.textContent?.trim() || '';
+        if (!content) return;
+
+        if (!('speechSynthesis' in window)) {
+          alert("Your browser doesn't support Text-to-Speech.");
+          return;
+        }
+
+        // Stop anything currently speaking
         window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(u);
+
+        const utter = new SpeechSynthesisUtterance(content);
+        utter.rate = 1.0;
+        utter.pitch = 1.0;
+        utter.volume = 1.0;
+        window.speechSynthesis.speak(utter);
       });
     }
 
+    // ---------- Chart-on-scroll (creates charts when visible, so animation always triggers) ----------
+    function initChartsOnScroll() {
+      if (typeof Chart === 'undefined') return;
+
+      Chart.defaults.color = '#8b949e';
+      Chart.defaults.borderColor = '#30363d';
+
+      const created = new Set();
+
+      const makePerformance = (ctx) => new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['2021 Mid-Year', '2021 EOY', '2022 EOY', '2024 Sales Rev'],
+          datasets: [{
+            label: '% to Goal',
+            data: [179, 160, 148, 115],
+            backgroundColor: '#1f6feb',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          animation: { duration: 1100, easing: 'easeOutQuart' },
+          scales: {
+            y: { beginAtZero: true, grid: { color: '#30363d' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      const makeTerritory = (ctx) => new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Strategic Growth', 'Project Execution', 'New Logo', 'Admin'],
+          datasets: [{
+            data: [35, 30, 25, 10],
+            backgroundColor: ['#1f6feb', '#238636', '#a371f7', '#8b949e'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: '#c9d1d9' } } },
+          animation: { duration: 1100, easing: 'easeOutQuart' }
+        }
+      });
+
+      const makeActivity = (ctx) => new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Planning', 'Qualifying', 'Closing', 'Post-Sale'],
+          datasets: [{
+            data: [35, 30, 25, 10],
+            backgroundColor: '#238636',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          animation: { duration: 1100, easing: 'easeOutQuart' },
+          scales: {
+            y: { beginAtZero: true, grid: { color: '#30363d' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      const makeRadar = (ctx) => new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Project Mgmt', 'Strategy', 'Negotiation', 'Relationships', 'Tech/AI', 'Hunting'],
+          datasets: [{
+            label: 'Strength',
+            data: [100, 95, 95, 90, 85, 75],
+            backgroundColor: 'rgba(31, 111, 235, 0.25)',
+            borderColor: '#1f6feb',
+            pointBackgroundColor: '#1f6feb',
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 1200, easing: 'easeOutQuart' },
+          plugins: { legend: { display: false } },
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 100,
+              grid: { color: '#30363d' },
+              angleLines: { color: '#30363d' },
+              pointLabels: { color: '#c9d1d9' },
+              ticks: { display: false }
+            }
+          }
+        }
+      });
+
+      const chartFactory = {
+        performance: makePerformance,
+        territory: makeTerritory,
+        activity: makeActivity,
+        radar: makeRadar
+      };
+
+      const canvases = document.querySelectorAll('canvas[data-chart]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const key = el.dataset.chart;
+          if (!key || created.has(el.id)) return;
+
+          const fn = chartFactory[key];
+          if (typeof fn === 'function') {
+            fn(el.getContext('2d'));
+            created.add(el.id);
+          }
+        });
+      }, { threshold: 0.28 });
+
+      canvases.forEach(c => obs.observe(c));
+    }
+
+    // ---------- Init ----------
     document.addEventListener('DOMContentLoaded', () => {
       initRevealOnScroll();
       initTooltipTapSupport();
-      initCertModalClickOnly();
-      initChartsOnScroll();
+      initAwardSpotlight();
+      initAwardsStickyFade();
+      initCertModal();
       initPitchGenerator();
-      initReadIntro();
+      initBrowserTTS();
+      initChartsOnScroll();
     });
   </script>
+
 </body>
 </html>
-
-
-
-
