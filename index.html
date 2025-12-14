@@ -902,22 +902,6 @@
       });
     </script>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card p-6 relative overflow-hidden">
-          <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
-          <h4 class="text-2xl font-black text-white mb-2">400 Unit Deployment</h4>
-          <h5 class="text-xl font-semibold text-accent mb-2">Enterprise Tablet Rollout</h5>
-          <p class="text-gray-400 text-sm">Secured logistics for large-scale workforce upgrade (Oct 2025).</p>
-        </div>
-        <div class="card p-6 relative overflow-hidden">
-          <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
-          <h4 class="text-2xl font-black text-white mb-2">200 Unit FWA & IoT</h4>
-          <h5 class="text-xl font-semibold text-accent mb-2">Fixed Wireless Solutions</h5>
-          <p class="text-gray-400 text-sm">Solved critical connectivity challenges for distributed clients (Mar 2025).</p>
-        </div>
-      </div>
-    </section>
-
     <!-- Visuals -->
     <section id="visuals" class="reveal">
       <div class="mb-4 flex items-center">
@@ -980,6 +964,7 @@
         </div>
       </div>
     </section>
+
     <!-- Certifications (near bottom, click-to-view) -->
     <section id="certs" class="reveal">
       <div class="mb-4 flex items-center">
@@ -989,8 +974,6 @@
 
       <div class="card p-6">
         <div class="credly-grid" id="certGrid">
-
-          <!-- NOTE: Put these certificate images in /assets (same folder as avatar) -->
 
           <button class="credly-badge"
             data-title="Sales Foundations"
@@ -1226,6 +1209,9 @@
       const outWrap = document.getElementById('pitchOutput');
       const outText = document.getElementById('pitchText');
 
+      // FIX: guard if Tools section isn't present (prevents JS crash -> chart never renders)
+      if (!btn || !outWrap || !outText) return;
+
       btn.addEventListener('click', () => {
         const pitch = [
           "I’m Davis Amedu II — a Client Executive and strategic program leader with 8+ years delivering enterprise outcomes in the TMT space.",
@@ -1242,6 +1228,10 @@
     // ---------- Tools: Browser TTS ----------
     function initBrowserTTS(){
       const btn = document.getElementById('readIntroBtn');
+
+      // FIX: guard if Tools section isn't present
+      if (!btn) return;
+
       btn.addEventListener('click', () => {
         const text = document.getElementById('introText')?.textContent?.trim();
         if (!text) return;
@@ -1326,4 +1316,3 @@
   </script>
 </body>
 </html>
-
