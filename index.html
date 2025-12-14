@@ -660,13 +660,249 @@
       </div>
     </section>
 
-    <!-- Major Wins -->
-    <section id="wins" class="reveal">
-      <div class="mb-4 flex items-center">
-        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
+    <!-- Major Project Wins (Scrolling + Click to Expand) -->
+<section class="reveal" id="projectWins">
+  <div class="mb-4 flex items-center">
+    <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+    <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
+  </div>
+
+  <p class="text-xs text-gray-500 mb-4">
+    Click a project to expand details.
+  </p>
+
+  <!-- Scroll container -->
+  <div class="card p-4">
+    <div class="wins-scroll space-y-3">
+
+      <!-- 11/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2025</p>
+            <h4 class="wins-title">100 Smartphone Deployment (VoIP + Cellular Integration)</h4>
+            <p class="wins-sub">Large device changes to integrate VoIP and cellular lines.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Corporate / Field</span>
+            <span class="tag tag-gold">Modernization</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Enterprise / Field Workforce</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
       </div>
 
+      <!-- 10/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">10 / 2025</p>
+            <h4 class="wins-title">200 Tablet Project Closure (ELD Vehicle Management Migration)</h4>
+            <p class="wins-sub">Platform migration for fleet and ELD operations.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Fleet / Vehicles</span>
+            <span class="tag tag-gold">Migration</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Fleet / Vehicle Operations</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">03 / 2025</p>
+            <h4 class="wins-title">400 Tablet Project Closure (Warehouse Inventory + Scanning)</h4>
+            <p class="wins-sub">Inventory management workflow + scanning enablement.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Warehouse</span>
+            <span class="tag tag-gold">Operational Enablement</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Warehouse / Distribution</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11/2024 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2024</p>
+            <h4 class="wins-title">175 Smartphone Migration (Legacy Push-to-Talk)</h4>
+            <p class="wins-sub">7-year “most wanted” opportunity: migrate off outdated PTT platform.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Field Ops</span>
+            <span class="tag tag-gold">Legacy Modernization</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Field Operations</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08/2024 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">08 / 2024</p>
+            <h4 class="wins-title">95 Fixed Wireless Access Deployments (Facility Failover)</h4>
+            <p class="wins-sub">FWA deployed as failover connectivity across facilities.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Facilities</span>
+            <span class="tag tag-gold">Resilience</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Facilities / Critical Connectivity</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11/2023 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2023</p>
+            <h4 class="wins-title">300 Smartphones for Scanners</h4>
+            <p class="wins-sub">Smartphones deployed to support scanning workflows.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Operations</span>
+            <span class="tag tag-gold">Mobility</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Operations / Facility Workflows</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10/2023 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">10 / 2023</p>
+            <h4 class="wins-title">2,000-Line VoIP Commitment (PBX Replacement → Cellular Deskphones)</h4>
+            <p class="wins-sub">Replace PBX lines with cellular deskphones at scale.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Corporate</span>
+            <span class="tag tag-gold">Voice Transformation</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Corporate / Office Communications</p>
+            <p><strong>Business Need:</strong></p>
+            <p><strong>Solution Delivered:</strong></p>
+            <p><strong>Impact:</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Styles for the Wins scrolling list -->
+<style>
+  .wins-scroll{
+    max-height: 520px;
+    overflow: auto;
+    padding-right: 6px;
+  }
+  .wins-item{
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    padding: 14px 14px;
+    background: var(--bg-canvas-subtle);
+    cursor: pointer;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .wins-item:hover{
+    border-color: rgba(88,166,255,0.65);
+    box-shadow: 0 0 0 1px rgba(88,166,255,0.4), 0 0 18px rgba(88,166,255,0.12);
+    transform: translateY(-1px);
+  }
+  .wins-top{
+    display:flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .wins-date{ font-size: 0.8rem; color: var(--fg-muted); }
+  .wins-title{ font-weight: 900; color: var(--fg-default); font-size: 1.05rem; line-height: 1.25rem; }
+  .wins-sub{ font-size: 0.85rem; color: #9aa4ae; margin-top: 6px; }
+  .wins-tags{ display:flex; gap: 8px; flex-wrap: wrap; justify-content:flex-end; }
+  .project-details{ margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(48,54,61,0.8); }
+  .wins-details-grid{ display:grid; gap: 8px; color: #c9d1d9; font-size: 0.9rem; }
+  .wins-details-grid strong{ color: #ffffff; }
+</style>
+
+<!-- Toggle logic (add once; safe to paste near your other JS) -->
+<script>
+  function toggleProject(card){
+    const details = card.querySelector('.project-details');
+    const isHidden = details.classList.contains('hidden');
+    details.classList.toggle('hidden');
+    card.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  }
+
+  // Keyboard support (Enter / Space)
+  document.addEventListener('keydown', (e) => {
+    const active = document.activeElement;
+    if (!active || !active.classList || !active.classList.contains('wins-item')) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleProject(active);
+    }
+  });
+</script>
+   
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="card p-6 relative overflow-hidden">
           <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-900 rounded-full opacity-20"></div>
