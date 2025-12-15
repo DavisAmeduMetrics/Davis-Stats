@@ -615,176 +615,191 @@
       </div>
     </section>
 
-    <!-- Major Wins (FIXED: id="wins") -->
-    <section class="reveal" id="wins">
-      <div class="mb-4 flex items-center">
-        <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
-        <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
-      </div>
+   <!-- Major Wins -->
+<section class="reveal" id="wins">
+  <div class="mb-4 flex items-center">
+    <div class="w-1 h-8 bg-blue-500 mr-3 rounded-full"></div>
+    <h3 class="text-2xl font-bold text-white">Major Project Wins</h3>
+  </div>
 
-      <p class="text-xs text-gray-500 mb-4">Click a project to expand details.</p>
+  <p class="text-xs text-gray-500 mb-4">
+    Click a project to expand details.
+  </p>
 
-      <div class="card p-4">
-        <div class="wins-scroll space-y-3">
+  <div class="card p-4">
+    <div class="wins-scroll space-y-3">
 
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">11 / 2025</p>
-                <h4 class="wins-title">100 Smartphone Deployment (VoIP + Cellular Integration)</h4>
-                <p class="wins-sub">Large device changes to integrate VoIP and cellular lines.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Corporate / Field</span>
-                <span class="tag tag-gold">Modernization</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Enterprise / Field Workforce</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
+      <!-- 11/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2025</p>
+            <h4 class="wins-title">100 Smartphone Deployment (VoIP + Cellular Integration)</h4>
+            <p class="wins-sub">Large device changes to integrate VoIP and cellular lines.</p>
           </div>
-
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">10 / 2025</p>
-                <h4 class="wins-title">200 Tablet Project Closure (ELD Vehicle Management Migration)</h4>
-                <p class="wins-sub">Platform migration for fleet and ELD operations.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Fleet / Vehicles</span>
-                <span class="tag tag-gold">Migration</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Fleet / Vehicle Operations</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Corporate / Field</span>
+            <span class="tag tag-gold">Modernization</span>
           </div>
+        </div>
 
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">03 / 2025</p>
-                <h4 class="wins-title">400 Tablet Project Closure (Warehouse Inventory + Scanning)</h4>
-                <p class="wins-sub">Inventory management workflow + scanning enablement.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Warehouse</span>
-                <span class="tag tag-gold">Operational Enablement</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Warehouse / Distribution</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Enterprise / Corporate + Field Workforce</p>
+            <p><strong>Business Need:</strong> Standardize communications across roles and locations while reducing missed calls and support friction caused by mixed voice tools and inconsistent device configurations.</p>
+            <p><strong>Solution Delivered:</strong> Coordinated 100-device deployment with VoIP + cellular integration, implementation sequencing, user readiness communications, and cutover support to ensure adoption with minimal downtime.</p>
+            <p><strong>Impact:</strong> Enabled a unified calling experience, improved reachability, reduced user confusion during transition, and protected continuity for field + office teams during operational hours.</p>
           </div>
-
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">11 / 2024</p>
-                <h4 class="wins-title">175 Smartphone Migration (Legacy Push-to-Talk)</h4>
-                <p class="wins-sub">7-year “most wanted” opportunity: migrate off outdated PTT platform.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Field Ops</span>
-                <span class="tag tag-gold">Legacy Modernization</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Field Operations</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">08 / 2024</p>
-                <h4 class="wins-title">95 Fixed Wireless Access Deployments (Facility Failover)</h4>
-                <p class="wins-sub">FWA deployed as failover connectivity across facilities.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Facilities</span>
-                <span class="tag tag-gold">Resilience</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Facilities / Critical Connectivity</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">11 / 2023</p>
-                <h4 class="wins-title">300 Smartphones for Scanners</h4>
-                <p class="wins-sub">Smartphones deployed to support scanning workflows.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Operations</span>
-                <span class="tag tag-gold">Mobility</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Operations / Facility Workflows</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
-            <div class="wins-top">
-              <div>
-                <p class="wins-date">10 / 2022</p>
-                <h4 class="wins-title">2,000-Line VoIP Commitment (PBX Replacement → Cellular Deskphones)</h4>
-                <p class="wins-sub">Replace PBX lines with cellular deskphones at scale.</p>
-              </div>
-              <div class="wins-tags">
-                <span class="tag tag-blue">Corporate</span>
-                <span class="tag tag-gold">Voice Transformation</span>
-              </div>
-            </div>
-            <div class="project-details hidden">
-              <div class="wins-details-grid">
-                <p><strong>Environment:</strong> Corporate / Office Communications</p>
-                <p><strong>Business Need:</strong></p>
-                <p><strong>Solution Delivered:</strong></p>
-                <p><strong>Impact:</strong></p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
-    </section>
 
+      <!-- 10/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">10 / 2025</p>
+            <h4 class="wins-title">200 Tablet Project Closure (ELD Vehicle Management Migration)</h4>
+            <p class="wins-sub">Platform migration for fleet and ELD operations.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Fleet / Vehicles</span>
+            <span class="tag tag-gold">Migration</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Fleet / Vehicle Operations + Compliance (ELD)</p>
+            <p><strong>Business Need:</strong> Support operational continuity and compliance by migrating tablets tied to ELD workflows—without breaking driver access, vehicle assignments, or logging reliability.</p>
+            <p><strong>Solution Delivered:</strong> Planned and executed migration closeout for 200 tablets: validation, staging/cutover sequencing, exception handling, and coordination across operations and vendor touchpoints.</p>
+            <p><strong>Impact:</strong> Reduced disruption risk in compliance workflows, preserved fleet productivity, and drove a clean closure with minimized open issues and faster stabilization post-migration.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03/2025 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">03 / 2025</p>
+            <h4 class="wins-title">400 Tablet Project Closure (Warehouse Inventory + Scanning)</h4>
+            <p class="wins-sub">Inventory management workflow + scanning enablement.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Warehouse</span>
+            <span class="tag tag-gold">Operational Enablement</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Warehouse / Distribution + Inventory Control</p>
+            <p><strong>Business Need:</strong> Improve inventory accuracy and throughput by enabling mobile scanning workflows while minimizing training time and preventing receiving/shipping downtime.</p>
+            <p><strong>Solution Delivered:</strong> Led closure of a 400-tablet enablement program: deployment coordination, readiness communications, workflow validation, and post-launch issue triage with clear ownership paths.</p>
+            <p><strong>Impact:</strong> Supported scanning adoption at scale, improved operational consistency, and reinforced on-time performance through smoother inventory movement and fewer manual workarounds.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11/2024 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2024</p>
+            <h4 class="wins-title">175 Smartphone Migration (Legacy Push-to-Talk)</h4>
+            <p class="wins-sub">7-year “most wanted” opportunity: migrate off outdated PTT platform.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Field Ops</span>
+            <span class="tag tag-gold">Legacy Modernization</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Field Operations / Dispatch-Dependent Teams</p>
+            <p><strong>Business Need:</strong> Retire an aging push-to-talk solution that created reliability issues, delayed response times, and increased support burden—while maintaining mission-critical communication.</p>
+            <p><strong>Solution Delivered:</strong> Executed a structured migration for 175 devices: stakeholder alignment, rollout plan, end-user transition comms, and stabilization support during cutover windows.</p>
+            <p><strong>Impact:</strong> Improved field communication reliability, reduced downtime and escalations tied to legacy tooling, and unlocked modernization that had been stalled for years.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08/2024 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">08 / 2024</p>
+            <h4 class="wins-title">95 Fixed Wireless Access Deployments (Facility Failover)</h4>
+            <p class="wins-sub">FWA deployed as failover connectivity across facilities.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Facilities</span>
+            <span class="tag tag-gold">Resilience</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Multi-Site Facilities / Business Continuity</p>
+            <p><strong>Business Need:</strong> Reduce outage exposure by adding resilient connectivity failover so facilities could maintain core functions during ISP interruptions or last-mile instability.</p>
+            <p><strong>Solution Delivered:</strong> Coordinated 95 FWA deployments: site readiness checks, deployment sequencing, stakeholder scheduling, and post-install validation across locations.</p>
+            <p><strong>Impact:</strong> Improved business continuity posture, reduced downtime risk, and delivered a repeatable deployment approach for future site expansions and failover scaling.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11/2023 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">11 / 2023</p>
+            <h4 class="wins-title">300 Smartphones for Scanners</h4>
+            <p class="wins-sub">Smartphones deployed to support scanning workflows.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Operations</span>
+            <span class="tag tag-gold">Mobility</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Operations / Facility Workflows + Mobile Scanning</p>
+            <p><strong>Business Need:</strong> Equip teams with mobile devices capable of supporting scanning and operational apps to reduce manual steps, improve traceability, and standardize workflows.</p>
+            <p><strong>Solution Delivered:</strong> Delivered 300 smartphones aligned to scanning needs: rollout planning, user enablement coordination, deployment tracking, and stabilization support.</p>
+            <p><strong>Impact:</strong> Increased workflow mobility and adoption, improved operational consistency, and reduced time lost to shared-device bottlenecks and manual tracking.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10/2022 -->
+      <div class="wins-item" onclick="toggleProject(this)" role="button" tabindex="0" aria-expanded="false">
+        <div class="wins-top">
+          <div>
+            <p class="wins-date">10 / 2022</p>
+            <h4 class="wins-title">2,000-Line VoIP Commitment (PBX Replacement → Cellular Deskphones)</h4>
+            <p class="wins-sub">Replace PBX lines with cellular deskphones at scale.</p>
+          </div>
+          <div class="wins-tags">
+            <span class="tag tag-blue">Corporate</span>
+            <span class="tag tag-gold">Voice Transformation</span>
+          </div>
+        </div>
+
+        <div class="project-details hidden">
+          <div class="wins-details-grid">
+            <p><strong>Environment:</strong> Corporate / Office Communications + Voice Transformation</p>
+            <p><strong>Business Need:</strong> Replace legacy PBX voice lines with a scalable, modern alternative that improved flexibility for hybrid work while reducing complexity and support overhead.</p>
+            <p><strong>Solution Delivered:</strong> Secured and supported a 2,000-line commitment transitioning PBX to cellular deskphones, including executive alignment, rollout strategy support, and adoption positioning.</p>
+            <p><strong>Impact:</strong> Established large-scale voice transformation momentum, improved flexibility for end users, and created a platform for continued modernization and expansion.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
     <!-- Visuals / Map Tool -->
     <section id="visuals" class="reveal">
       <div class="mb-4 flex items-center">
@@ -1430,4 +1445,5 @@
 
 </body>
 </html>
+
 
