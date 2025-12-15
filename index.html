@@ -1309,197 +1309,325 @@
       canvases.forEach(c => obs.observe(c));
     }
 
-    // ---------- Map Tool ----------
-    function initMapTool(){
-      // Guard: if section removed or IDs renamed, don’t crash the page
-      const mapEl = document.getElementById('leafletMap');
-      const searchEl = document.getElementById('mapSearch');
-      const categoryEl = document.getElementById('mapCategory');
-      const fitBtn = document.getElementById('fitResultsBtn');
-      const resultList = document.getElementById('resultList');
-      const resultCount = document.getElementById('resultCount');
+// ---------- Map Tool ----------
+function initMapTool(){
+  const mapEl = document.getElementById('leafletMap');
+  const searchEl = document.getElementById('mapSearch');
+  const categoryEl = document.getElementById('mapCategory');
+  const fitBtn = document.getElementById('fitResultsBtn');
+  const resultList = document.getElementById('resultList');
+  const resultCount = document.getElementById('resultCount');
 
-      if (!mapEl || !searchEl || !categoryEl || !fitBtn || !resultList || !resultCount) return;
-      if (!window.L) return;
+  if (!mapEl || !searchEl || !categoryEl || !fitBtn || !resultList || !resultCount) return;
+  if (!window.L) return;
 
-      // Sample data (swap to your real locations)
-      const MAP_DATA = [
+  const TERRITORIES = [
+    {
+      id: "t-pa-2019-2021",
+      name: "Pennsylvania Territory",
+      era: "2019–2021",
+      employeeRange: "1–9 employees",
+      category: "Territory",
+      tags: ["SMB", "York–Lancaster", "Mechanicsburg–Harrisburg"],
+      center: { lat: 40.001, lng: -76.758 },
+      popup: {
+        title: "2019–2021 • Pennsylvania (SMB)",
+        bullets: [
+          "Employee segment: 1–9 employees",
+          "Coverage: York ↔ Lancaster corridor",
+          "Coverage: Mechanicsburg ↔ Harrisburg corridor",
+          "Focus: SMB coverage + density execution"
+        ]
+      },
+      polygon: [
+        [40.420, -77.180],
+        [40.350, -76.540],
+        [40.120, -76.100],
+        [39.920, -76.520],
+        [39.860, -77.080],
+        [40.060, -77.300],
+      ]
+    },
+    {
+      id: "t-nc-2021-2023",
+      name: "North Carolina Territory",
+      era: "2021–2023",
+      employeeRange: "9–350 employees",
+      category: "Territory",
+      tags: ["SMB/MM", "Cary–Siler City", "Expansion loop"],
+      center: { lat: 35.812, lng: -79.010 },
+      popup: {
+        title: "2021–2023 • North Carolina (SMB/MM)",
+        bullets: [
+          "Employee segment: 9–350 employees",
+          "Coverage: Cary ↔ Siler City territory loop",
+          "Includes Pittsboro / Apex / Sanford corridor per map",
+          "Focus: growth coverage across expanding footprint"
+        ]
+      },
+      polygon: [
+        [35.950, -78.620],
+        [35.750, -78.780],
+        [35.490, -79.200],
+        [35.710, -79.460],
+        [35.790, -79.120],
+        [35.900, -78.920],
+      ]
+    },
+    {
+      id: "t-ms-al-2023-2025",
+      name: "Mississippi + Central Alabama Territory",
+      era: "2023–2025",
+      employeeRange: "350–5,000 employees",
+      category: "Territory",
+      tags: ["Enterprise", "MS statewide", "Tuscaloosa–Birmingham band"],
+      center: { lat: 32.600, lng: -89.900 },
+      popup: {
+        title: "2023–2025 • Mississippi + Central AL (Enterprise)",
+        bullets: [
+          "Employee segment: 350–5,000 employees",
+          "Coverage: Mississippi (statewide)",
+          "Central AL overlay: Tuscaloosa ↔ Birmingham corridor",
+          "Focus: enterprise delivery + complex account execution"
+        ]
+      },
+      polygon: [
+        [34.995, -90.310],
+        [34.995, -88.180],
+        [33.000, -88.180],
+        [30.170, -88.450],
+        [30.170, -91.650],
+        [33.200, -91.650],
+      ],
+      extras: [
         {
-          id: "loc-1",
-          name: "Jackson, MS",
-          city: "Jackson, MS",
-          category: "Territory",
-          tags: ["high penetration", "core"],
-          lat: 32.2988,
-          lng: -90.1848,
-          note: "Core market focus and established penetration."
-        },
-        {
-          id: "loc-2",
-          name: "Birmingham, AL",
-          city: "Birmingham, AL",
-          category: "Territory",
-          tags: ["growth zone", "pipeline"],
-          lat: 33.5186,
-          lng: -86.8104,
-          note: "Growth zone — expansion + pipeline development."
-        },
-        {
-          id: "loc-3",
-          name: "Rural MS",
-          city: "Mississippi",
-          category: "Opportunity",
-          tags: ["new opportunity", "targeting"],
-          lat: 32.8795,
-          lng: -89.9994,
-          note: "New opportunity pockets for expansion."
+          type: "polygon",
+          label: "Central AL Corridor (Tuscaloosa ↔ Birmingham)",
+          coords: [
+            [33.720, -87.100],
+            [33.720, -86.400],
+            [33.000, -86.400],
+            [33.000, -87.100],
+          ]
         }
-      ];
+      ]
+    }
+  ];
 
-      // Init map
-      const map = L.map('leafletMap', { zoomControl: true }).setView([32.8, -89.9], 6);
+  const map = L.map('leafletMap', { zoomControl: true }).setView([33.0, -89.7], 6);
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-      }).addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
 
-      const markerLayer = L.layerGroup().addTo(map);
+  const polygonLayer = L.layerGroup().addTo(map);
+  const markerLayer = L.layerGroup().addTo(map);
 
-      function uniqueCategories(data) {
-        return [...new Set(data.map(d => d.category).filter(Boolean))].sort();
-      }
+  function buildCategoryOptions() {
+    // prevent duplicate options if initMapTool ever runs twice
+    categoryEl.innerHTML = "";
+    const opts = ["all"];
+    TERRITORIES.forEach(t => {
+      const label = `${t.era} • ${t.employeeRange}`;
+      if (!opts.includes(label)) opts.push(label);
+    });
 
-      function initCategoryOptions() {
-        const cats = uniqueCategories(MAP_DATA);
-        cats.forEach(cat => {
-          const opt = document.createElement("option");
-          opt.value = cat;
-          opt.textContent = cat;
-          categoryEl.appendChild(opt);
-        });
-      }
+    opts.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = (v === "all") ? "All Eras / Segments" : v;
+      categoryEl.appendChild(opt);
+    });
+  }
 
-      function normalize(s) {
-        return String(s || "").toLowerCase().trim();
-      }
+  function normalize(s){ return String(s || "").toLowerCase().trim(); }
 
-      function matchesSearch(item, q) {
-        if (!q) return true;
-        const hay = [
-          item.name,
-          item.city,
-          item.category,
-          ...(item.tags || []),
-          item.note
-        ].map(normalize).join(" ");
-        return hay.includes(q);
-      }
+  function matchesSearch(t, q){
+    if (!q) return true;
+    const hay = [
+      t.name, t.era, t.employeeRange, t.category,
+      ...(t.tags || []),
+      ...(t.popup?.bullets || [])
+    ].map(normalize).join(" ");
+    return hay.includes(q);
+  }
 
-      function matchesCategory(item, cat) {
-        if (!cat || cat === "all") return true;
-        return item.category === cat;
-      }
+  function matchesCategory(t, cat){
+    if (!cat || cat === "all") return true;
+    const label = `${t.era} • ${t.employeeRange}`;
+    return label === cat;
+  }
 
-      function getFilteredData() {
-        const q = normalize(searchEl.value);
-        const cat = categoryEl.value;
-        return MAP_DATA.filter(item => matchesSearch(item, q) && matchesCategory(item, cat));
-      }
+  function popupHTML(t){
+    const tags = (t.tags || []).map(tag =>
+      `<span style="display:inline-block;margin:0 6px 6px 0;padding:2px 8px;border-radius:999px;background:rgba(13,17,23,.75);border:1px solid rgba(48,54,61,.9);font-size:11px;color:#c9d1d9">${tag}</span>`
+    ).join("");
 
-      function popupHTML(item) {
-        const tags = (item.tags || []).map(t =>
-          `<span style="display:inline-block;margin:0 6px 6px 0;padding:2px 8px;border-radius:999px;background:rgba(13,17,23,.75);border:1px solid rgba(48,54,61,.9);font-size:11px;color:#c9d1d9">${t}</span>`
-        ).join("");
+    const bullets = (t.popup?.bullets || []).map(b => `<li style="margin:4px 0">${b}</li>`).join("");
 
-        return `
-          <div style="min-width:220px">
-            <div style="font-weight:900;font-size:14px;margin-bottom:2px;color:#ffffff">${item.name}</div>
-            <div style="opacity:.85;font-size:12px;margin-bottom:6px;color:#c9d1d9">${item.city || ""}</div>
-            <div style="font-size:12px;margin-bottom:6px;color:#c9d1d9"><b>Category:</b> ${item.category || "—"}</div>
-            ${item.note ? `<div style="font-size:12px;opacity:.9;margin-bottom:8px;color:#c9d1d9">${item.note}</div>` : ""}
-            <div>${tags}</div>
-          </div>
-        `;
-      }
+    return `
+      <div style="min-width:240px">
+        <div style="font-weight:900;font-size:14px;margin-bottom:2px;color:#ffffff">${t.popup?.title || t.name}</div>
+        <div style="opacity:.85;font-size:12px;margin-bottom:8px;color:#c9d1d9">
+          <b>Era:</b> ${t.era} &nbsp; • &nbsp; <b>Segment:</b> ${t.employeeRange}
+        </div>
+        <ul style="padding-left:16px;margin:0 0 10px 0;color:#c9d1d9;font-size:12px;line-height:1.35rem">
+          ${bullets}
+        </ul>
+        <div>${tags}</div>
+      </div>
+    `;
+  }
 
-      function clearUI() {
-        markerLayer.clearLayers();
-        resultList.innerHTML = "";
-      }
+  function clearUI(){
+    polygonLayer.clearLayers();
+    markerLayer.clearLayers();
+    resultList.innerHTML = "";
+  }
 
-      function render() {
-        const data = getFilteredData();
-        clearUI();
+  function fitToTerritory(t){
+    const bounds = L.latLngBounds(t.polygon);
+    (t.extras || []).forEach(x => {
+      if (x.type === "polygon") bounds.extend(L.latLngBounds(x.coords));
+    });
+    map.fitBounds(bounds.pad(0.18));
+  }
 
-        resultCount.textContent = `${data.length} result${data.length === 1 ? "" : "s"}`;
+  function render(){
+    const q = normalize(searchEl.value);
+    const cat = categoryEl.value;
 
-        const bounds = [];
+    const filtered = TERRITORIES.filter(t => matchesSearch(t, q) && matchesCategory(t, cat));
 
-        data.forEach(item => {
-          const marker = L.marker([item.lat, item.lng]).addTo(markerLayer);
-          marker.bindPopup(popupHTML(item));
-          bounds.push([item.lat, item.lng]);
+    clearUI();
+    resultCount.textContent = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
 
-          const card = document.createElement("button");
-          card.type = "button";
-          card.className =
-            "w-full text-left rounded-xl border border-gray-700 bg-[#161b22] hover:bg-[#0d1117] px-3 py-2 transition";
-          card.innerHTML = `
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="font-extrabold text-sm text-white">${item.name}</div>
-                <div class="text-xs text-gray-400">${item.city || ""}</div>
-              </div>
-              <div class="text-[10px] px-2 py-1 rounded-full bg-[#0d1117] border border-gray-700 text-gray-300 font-bold">${item.category || "—"}</div>
-            </div>
-          `;
-
-          card.addEventListener("click", () => {
-            map.setView([item.lat, item.lng], 10, { animate: true });
-            marker.openPopup();
-          });
-
-          resultList.appendChild(card);
-        });
-
-        if (data.length === 0) {
-          const empty = document.createElement("div");
-          empty.className = "text-sm text-gray-400 rounded-xl border border-gray-700 bg-[#0d1117] p-4";
-          empty.textContent = "No matches. Try different keywords or category.";
-          resultList.appendChild(empty);
-          return;
-        }
-
-        const b = L.latLngBounds(bounds);
-        map.fitBounds(b.pad(0.15));
-      }
-
-      searchEl.addEventListener("input", render);
-      categoryEl.addEventListener("change", render);
-
-      fitBtn.addEventListener("click", () => {
-        const data = getFilteredData();
-        if (!data.length) return;
-        const b = L.latLngBounds(data.map(d => [d.lat, d.lng]));
-        map.fitBounds(b.pad(0.15));
-      });
-
-      initCategoryOptions();
-      render();
+    if (filtered.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "text-sm text-gray-400 rounded-xl border border-gray-700 bg-[#0d1117] p-4";
+      empty.textContent = "No matches. Try keywords like PA, NC, MS, Alabama, enterprise, SMB, etc.";
+      resultList.appendChild(empty);
+      return;
     }
 
-    // ---------- Init ----------
-    (function init(){
-      initSectionPicker();
-      initRevealOnScroll();
-      initTooltipTapSupport();
-      initCertModal();
-      initPitchTool();
-      initBrowserTTS();
-      initChartsOnScroll();
-      initMapTool();
-    })();
-  </script>
-</body>
-</html>
+    filtered.forEach(t => {
+      const poly = L.polygon(t.polygon, {
+        color: "#58a6ff",
+        weight: 2,
+        fillColor: "#58a6ff",
+        fillOpacity: 0.10
+      }).addTo(polygonLayer);
+
+      poly.bindPopup(popupHTML(t));
+
+      (t.extras || []).forEach(extra => {
+        if (extra.type === "polygon"){
+          const exPoly = L.polygon(extra.coords, {
+            color: "#a371f7",
+            weight: 2,
+            dashArray: "6 6",
+            fillColor: "#a371f7",
+            fillOpacity: 0.10
+          }).addTo(polygonLayer);
+
+          exPoly.bindPopup(`
+            <div style="min-width:220px">
+              <div style="font-weight:900;color:#ffffff;margin-bottom:6px">${extra.label}</div>
+              <div style="color:#c9d1d9;font-size:12px;opacity:.9">Sub-territory overlay for Central Alabama coverage.</div>
+            </div>
+          `);
+        }
+      });
+
+      const m = L.circleMarker([t.center.lat, t.center.lng], {
+        radius: 7,
+        color: "#238636",
+        weight: 2,
+        fillColor: "#238636",
+        fillOpacity: 0.8
+      }).addTo(markerLayer);
+
+      m.bindPopup(popupHTML(t));
+
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className =
+        "w-full text-left rounded-xl border border-gray-700 bg-[#161b22] hover:bg-[#0d1117] px-3 py-2 transition";
+
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="font-extrabold text-sm text-white">${t.name}</div>
+            <div class="text-xs text-gray-400">${t.era} • ${t.employeeRange}</div>
+          </div>
+          <div class="text-[10px] px-2 py-1 rounded-full bg-[#0d1117] border border-gray-700 text-gray-300 font-bold">${t.category}</div>
+        </div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          ${(t.tags || []).slice(0,3).map(tag =>
+            `<span class="text-[10px] px-2 py-1 rounded-full bg-[#0d1117] border border-gray-700 text-gray-400">${tag}</span>`
+          ).join("")}
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        fitToTerritory(t);
+        m.openPopup();
+      });
+
+      resultList.appendChild(card);
+    });
+
+    const allBounds = filtered.reduce((b, t) => {
+      b.extend(L.latLngBounds(t.polygon));
+      (t.extras || []).forEach(x => {
+        if (x.type === "polygon") b.extend(L.latLngBounds(x.coords));
+      });
+      return b;
+    }, L.latLngBounds(filtered[0].polygon));
+
+    map.fitBounds(allBounds.pad(0.20));
+  }
+
+  searchEl.addEventListener("input", render);
+  categoryEl.addEventListener("change", render);
+
+  fitBtn.addEventListener("click", () => {
+    const q = normalize(searchEl.value);
+    const cat = categoryEl.value;
+    const filtered = TERRITORIES.filter(t => matchesSearch(t, q) && matchesCategory(t, cat));
+    if (!filtered.length) return;
+
+    const allBounds = filtered.reduce((b, t) => {
+      b.extend(L.latLngBounds(t.polygon));
+      (t.extras || []).forEach(x => {
+        if (x.type === "polygon") b.extend(L.latLngBounds(x.coords));
+      });
+      return b;
+    }, L.latLngBounds(filtered[0].polygon));
+
+    map.fitBounds(allBounds.pad(0.20));
+  });
+
+  buildCategoryOptions();
+  render();
+
+  setTimeout(() => { map.invalidateSize(); }, 250);
+}
+<script>
+  // ...all your other init helpers...
+
+  // (paste initMapTool() function here)
+
+  (function init(){
+    initSectionPicker();
+    initRevealOnScroll();
+    initTooltipTapSupport();
+    initCertModal();
+    initPitchTool();
+    initBrowserTTS();
+    initChartsOnScroll();
+    initMapTool();
+  })();
+</script>
+
